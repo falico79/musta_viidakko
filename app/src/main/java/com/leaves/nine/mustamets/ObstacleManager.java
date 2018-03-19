@@ -3,6 +3,7 @@ package com.leaves.nine.mustamets;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
+import android.graphics.Rect;
 
 import java.util.ArrayList;
 
@@ -35,9 +36,9 @@ public class ObstacleManager {
         populateObstacles();
     }
 
-    public boolean playerCollide(Player player) {
+    public boolean playerCollide(Rect rect) {
         for (Obstacle ob: obstacles) {
-            if (ob.playerCollide(player)){
+            if (ob.playerCollide(rect)){
                 return true;
             }
         }
