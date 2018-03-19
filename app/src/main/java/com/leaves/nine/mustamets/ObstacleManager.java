@@ -3,7 +3,6 @@ package com.leaves.nine.mustamets;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
-import android.graphics.Rect;
 
 import java.util.ArrayList;
 

@@ -2,10 +2,8 @@ package com.leaves.nine.mustamets;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.BitmapRegionDecoder;
 import android.graphics.Canvas;
 import android.graphics.Matrix;
-import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
 
@@ -26,10 +24,10 @@ public class Player implements GameObject {
         this.rectangle = rectangle;
         this.color = color;
 
-        BitmapFactory bf = new BitmapFactory();
-        Bitmap idleImage = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue);
-        Bitmap walk1 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk1);
-        Bitmap walk2 = bf.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
+        //BitmapFactory bf = new BitmapFactory();
+        Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue);
+        Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk1);
+        Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.alienblue_walk2);
 
         idle = new Animation(new Bitmap[]{idleImage},2);
         walkRight = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);

@@ -5,8 +5,6 @@ import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Rect;
 
-import java.util.BitSet;
-
 /**
  * Created by lasse on 16/03/2018.
  */

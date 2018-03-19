@@ -12,7 +12,7 @@ import android.view.MotionEvent;
  */
 
 public class GamePlayScene implements Scene {
-    private SceneManager manager;
+    //private SceneManager manager;
     private Rect r = new Rect();
 
     private Player player;
