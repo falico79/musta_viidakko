@@ -11,5 +11,5 @@ public interface Scene {
     void update();
     void draw(Canvas canvas);
     void terminate();
-    void recieveTouch(MotionEvent event);
+    void receiveTouch(MotionEvent event);
 }

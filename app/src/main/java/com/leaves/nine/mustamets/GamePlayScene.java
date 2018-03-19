@@ -86,7 +86,7 @@ public class GamePlayScene implements Scene {
     }
 
     @Override
-    public void recieveTouch(MotionEvent event) {
+    public void receiveTouch(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_DOWN:
                 if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())) {
