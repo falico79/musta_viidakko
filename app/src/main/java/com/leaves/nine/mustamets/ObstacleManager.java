@@ -74,13 +74,7 @@ public class ObstacleManager {
     }
 
     public void draw(Canvas canvas) {
-        for(Obstacle ob : obstacles) {
-            ob.draw(canvas);
-        }
-        Paint paint = new Paint();
-        paint.setTextSize(100);
-        paint.setColor(Color.MAGENTA);
-        canvas.drawText("" + score, 50, 50 + paint.descent() - paint.ascent(), paint);
+
     }
 
 }
