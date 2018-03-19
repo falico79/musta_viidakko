@@ -48,10 +48,10 @@ public class GamePlayScene implements Scene {
             player.update(playerPosition);
             obstacleManager.update();
 
-            if(obstacleManager.playerCollide(player)) {
+//            if(obstacleManager.playerCollide(player.getRectangle())) {
 //                gameOver = true;
 //                gameOverTime = System.currentTimeMillis();
-            }
+//            }
         }
     }
 
@@ -103,8 +103,13 @@ public class GamePlayScene implements Scene {
 //                }
 //                break;
             case MotionEvent.ACTION_UP:
-                if(!obstacleManager.playerCollide(player))
-                    playerPosition.set((int) event.getX(), (int) event.getY());
+                int x = (int)event.getX();
+                int y = (int)event.getY();
+                int w = player.getRectangle().width();
+                int h = player.getRectangle().height();
+                Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
+                if(!obstacleManager.playerCollide(rect))
+                    playerPosition.set(x,y);
                 break;
         }
     }
