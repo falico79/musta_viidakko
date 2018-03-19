@@ -10,7 +10,7 @@ import android.graphics.Rect;
 
 public class Obstacle implements GameObject {
     private Rect rectangle;
-    private Rect rectangle2;
+    //private Rect rectangle2;
     private int color;
 
     public Rect getRectangle() {
@@ -20,19 +20,19 @@ public class Obstacle implements GameObject {
     public void incrementY(float y) {
         rectangle.top += y;
         rectangle.bottom += y;
-        rectangle2.top += y;
-        rectangle2.bottom += y;
+//        rectangle2.top += y;
+//        rectangle2.bottom += y;
     }
 
-    public Obstacle(int rectangleHeight, int color, int startX, int startY, int playerGap) {
+    public Obstacle(int x, int y, int w, int h, int color) {
         this.color = color;
 
-        rectangle = new Rect(0, startY, startX, startY + rectangleHeight);
-        rectangle2 = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectangleHeight);
+        rectangle = new Rect(x, y, x+w, y+h);
+//        rectangle2 = new Rect(startX + playerGap, startY, Constants.SCREEN_WIDTH, startY + rectangleHeight);
     }
 
     public boolean playerCollide(Player player) {
-        return Rect.intersects(rectangle, player.getRectangle()) || Rect.intersects(rectangle2, player.getRectangle());
+        return Rect.intersects(rectangle, player.getRectangle());// || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     @Override
@@ -40,7 +40,7 @@ public class Obstacle implements GameObject {
         Paint paint = new Paint();
         paint.setColor(color);
         canvas.drawRect(rectangle, paint);
-        canvas.drawRect(rectangle2, paint);
+//        canvas.drawRect(rectangle2, paint);
     }
 
     @Override
