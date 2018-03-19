@@ -49,8 +49,8 @@ public class GamePlayScene implements Scene {
             obstacleManager.update();
 
             if(obstacleManager.playerCollide(player)) {
-                gameOver = true;
-                gameOverTime = System.currentTimeMillis();
+//                gameOver = true;
+//                gameOverTime = System.currentTimeMillis();
             }
         }
     }
@@ -62,12 +62,12 @@ public class GamePlayScene implements Scene {
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
-        if (gameOver) {
-            Paint paint = new Paint();
-            paint.setTextSize(100);
-            paint.setColor(Color.MAGENTA);
-            drawCenterText(canvas, paint, "Game Over");
-        }
+//        if (gameOver) {
+//            Paint paint = new Paint();
+//            paint.setTextSize(100);
+//            paint.setColor(Color.MAGENTA);
+//            drawCenterText(canvas, paint, "Game Over");
+//        }
     }
     private void drawCenterText(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.LEFT);
@@ -88,22 +88,23 @@ public class GamePlayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()) {
-            case MotionEvent.ACTION_DOWN:
-                if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())) {
-                    movingPlayer = true;
-                }
-                if(gameOver && System.currentTimeMillis() - gameOverTime >= 2000) {
-                    reset();
-                    gameOver = false;
-                }
-                break;
-            case MotionEvent.ACTION_MOVE:
-                if(!gameOver && movingPlayer) {
-                    playerPosition.set((int) event.getX(), (int) event.getY());
-                }
-                break;
+//            case MotionEvent.ACTION_DOWN:
+//                if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())) {
+//                    movingPlayer = true;
+//                }
+//                if(gameOver && System.currentTimeMillis() - gameOverTime >= 2000) {
+//                    reset();
+//                    gameOver = false;
+//                }
+//                break;
+//            case MotionEvent.ACTION_MOVE:
+//                if(!gameOver && movingPlayer) {
+//                    playerPosition.set((int) event.getX(), (int) event.getY());
+//                }
+//                break;
             case MotionEvent.ACTION_UP:
-                movingPlayer = false;
+                if(!obstacleManager.playerCollide(player))
+                    playerPosition.set((int) event.getX(), (int) event.getY());
                 break;
         }
     }
