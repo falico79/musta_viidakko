@@ -25,9 +25,10 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect(100, 100, 200, 200), Color.rgb(255, 0, 0) );
+        player = new Player(new Rect(100, 100, 200, 200), 50.0f );
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
-        player.update(playerPosition);
+        player.setPos(playerPosition);
+        //player.update(playerPosition);
 
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
@@ -37,7 +38,7 @@ public class GamePlayScene implements Scene {
 
     public void reset() {
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
-        player.update(playerPosition);
+        player.setPos(playerPosition);
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
         movingPlayer = false;
     }
@@ -45,7 +46,7 @@ public class GamePlayScene implements Scene {
     @Override
     public void update() {
         if(!gameOver) {
-            player.update(playerPosition);
+            player.updatePosition();
             obstacleManager.update();
 
 //            if(obstacleManager.playerCollide(player.getRectangle())) {
@@ -110,6 +111,7 @@ public class GamePlayScene implements Scene {
                 Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
                 if(!obstacleManager.playerCollide(rect))
                     playerPosition.set(x,y);
+                    player.moveTo(playerPosition);
                 break;
         }
     }
