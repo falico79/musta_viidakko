@@ -7,6 +7,8 @@ import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 
+import java.util.Random;
+
 /**
  * Created by lasse on 16/03/2018.
  */
@@ -18,7 +20,9 @@ public class GamePlayScene implements Scene {
     private Player player;
     private Point playerPosition;
     private ObstacleManager obstacleManager;
-
+    private BackgroundItem backgroundItem;
+    private Collectible banana;
+    private Random random;
     private boolean movingPlayer = false;
 
     private boolean gameOver = false;
@@ -30,8 +34,16 @@ public class GamePlayScene implements Scene {
         player.setPos(playerPosition);
         player.updatePosition();
 
+        random = new Random();
+
+        banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
+        banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
+
+        backgroundItem = new BackgroundItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
+        backgroundItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
+
 
     }
 
@@ -58,8 +70,11 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawColor(Color.WHITE);
+        canvas.drawColor(Color.rgb(127, 63, 0));
 
+        backgroundItem.draw(canvas);
+        if (banana != null)
+            banana.draw(canvas);
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
@@ -108,10 +123,20 @@ public class GamePlayScene implements Scene {
                 int y = (int)event.getY();
                 int w = player.getRectangle().width();
                 int h = player.getRectangle().height();
+
                 Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
-                if(!obstacleManager.playerCollide(rect))
+
+                if(!obstacleManager.playerCollide(rect)) {
                     playerPosition.set(x,y);
+
+                    if (banana != null && banana.playerCollide(player.getRectangle())){
+                        banana = null;
+//                        banana.update(new Point(Constants.SCREEN_WIDTH / random.nextInt(10)+2, Constants.SCREEN_HEIGHT / random.nextInt(10)+2));
+                    }
+                }
+
                     player.moveTo(playerPosition);
+
                 break;
         }
     }
