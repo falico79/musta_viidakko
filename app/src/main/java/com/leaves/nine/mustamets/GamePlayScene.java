@@ -25,10 +25,10 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect(100, 100, 200, 200), 50.0f );
+        player = new Player(new Rect(100, 100, 200, 200), 250.0f );
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.setPos(playerPosition);
-        //player.update(playerPosition);
+        player.updatePosition();
 
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);

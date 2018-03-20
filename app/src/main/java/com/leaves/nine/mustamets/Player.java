@@ -15,7 +15,7 @@ import android.graphics.Rect;
 public class Player implements GameObject {
     private Rect rectangle;
 
-    private Point moveTo;
+
     private Animation idle;
     private Animation walkRight;
     private Animation walkLeft;
@@ -24,9 +24,10 @@ public class Player implements GameObject {
 
     long lastTime;
 
-    private float angle;
+    private float angle = 90;
 
     private PointF newPos;
+    private Point moveTo;
 
     public Player(Rect rectangle, float speed) {
         this.rectangle = rectangle;
@@ -63,7 +64,7 @@ public class Player implements GameObject {
         float vecX, vecY;
         vecX = (float)(moveTo.x-rectangle.centerX());
         vecY = (float)(moveTo.y-rectangle.centerY());
-        angle = (float)Math.atan2(vecX, vecY);
+        angle = (float)Math.atan2(vecX,vecY);
     }
 
     @Override
@@ -80,6 +81,7 @@ public class Player implements GameObject {
 
     public void setPos(Point pos) {
         moveTo = pos;
+        newPos.set((float)pos.x,(float)pos.y);
         rectangle.set(moveTo.x - rectangle.width()/2, moveTo.y - rectangle.height()/2, moveTo.x + rectangle.width()/2, moveTo.y + rectangle.height()/2);
     }
 
@@ -87,17 +89,17 @@ public class Player implements GameObject {
         float oldLeft = rectangle.left;
         long currentTime = System.currentTimeMillis();
         if((int)newPos.x != moveTo.x) {
-            float newX = (float)Math.sin(speed * (float)(currentTime-lastTime)/1000);
+            float newX = (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
 
-            if(moveTo.x-rectangle.centerX() < 0)
-                newX = newPos.x-newX;
-            else newX = newPos.x + newX;
+            //if(moveTo.x-rectangle.centerX() < 0)
+                newX = newPos.x+newX;
+            //else newX = newPos.x + newX;
 
-            float newY = (int)Math.cos(speed * (float)(currentTime-lastTime)/1000);
+            float newY = (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
 
-            if(moveTo.y-rectangle.centerY() < 0) {
-                newY = newPos.y - newY;
-            } else newY = newPos.y+ newY;
+            //if(moveTo.y-rectangle.centerY() < 0) {
+                newY = newPos.y + newY;
+           // } else newY = newPos.y+ newY;
             newPos.set(newX, newY);
         }
 
