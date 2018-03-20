@@ -74,7 +74,9 @@ public class ObstacleManager {
     }
 
     public void draw(Canvas canvas) {
-
+        for(Obstacle ob : obstacles) {
+            ob.draw(canvas);
+        }
     }
 
 }
