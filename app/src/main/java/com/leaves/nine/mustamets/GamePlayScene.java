@@ -104,20 +104,6 @@ public class GamePlayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())) {
-//                    movingPlayer = true;
-//                }
-//                if(gameOver && System.currentTimeMillis() - gameOverTime >= 2000) {
-//                    reset();
-//                    gameOver = false;
-//                }
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                if(!gameOver && movingPlayer) {
-//                    playerPosition.set((int) event.getX(), (int) event.getY());
-//                }
-//                break;
             case MotionEvent.ACTION_UP:
                 int x = (int)event.getX();
                 int y = (int)event.getY();

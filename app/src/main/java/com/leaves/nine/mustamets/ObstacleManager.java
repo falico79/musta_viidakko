@@ -50,21 +50,11 @@ public class ObstacleManager {
         obstacles.add(new Obstacle(0,Constants.SCREEN_HEIGHT - obstacleHeight, Constants.SCREEN_WIDTH, obstacleHeight, color));
         obstacles.add(new Obstacle(0,0,obstacleHeight, Constants.SCREEN_HEIGHT, color));
         obstacles.add(new Obstacle(Constants.SCREEN_WIDTH-obstacleHeight, 0, obstacleHeight, Constants.SCREEN_HEIGHT, color));
-//        int currY = -5*Constants.SCREEN_HEIGHT/4;
-//        while(currY < 0) {
-//            int xStart = (int)(Math.random()*(Constants.SCREEN_WIDTH-playerGap));
-//            obstacles.add(new Obstacle(obstacleHeight, color, xStart, currY, playerGap));
-//            currY += obstacleGap + obstacleHeight;
-//        }
+
     }
 
     public void update() {
-//        int elapsedTime = (int)(System.currentTimeMillis()-startTime);
-//        startTime = System.currentTimeMillis();
-//        float speed = (float)(Math.sqrt(1 + (startTime-initTime)/2000.0f)) * Constants.SCREEN_HEIGHT/10000.0f;
-//        for(Obstacle ob : obstacles) {
-//            ob.incrementY(speed*elapsedTime);
-//        }
+
 //        if(obstacles.get(obstacles.size()-1).getRectangle().top >= Constants.SCREEN_HEIGHT) {
 //            int xStart = (int)(Math.random()*(Constants.SCREEN_WIDTH-playerGap));
 //            obstacles.add(0, new Obstacle(obstacleHeight, color, xStart, obstacles.get(0).getRectangle().top - obstacleHeight - obstacleGap, playerGap));
