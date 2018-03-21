@@ -89,17 +89,10 @@ public class Player implements GameObject {
         float oldLeft = rectangle.left;
         long currentTime = System.currentTimeMillis();
         if((int)newPos.x != moveTo.x) {
-            float newX = (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
 
-            //if(moveTo.x-rectangle.centerX() < 0)
-                newX = newPos.x+newX;
-            //else newX = newPos.x + newX;
+            float newX = newPos.y + (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
+            float newY = newPos.y + (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
 
-            float newY = (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
-
-            //if(moveTo.y-rectangle.centerY() < 0) {
-                newY = newPos.y + newY;
-           // } else newY = newPos.y+ newY;
             newPos.set(newX, newY);
         }
 
