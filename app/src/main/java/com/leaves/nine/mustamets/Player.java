@@ -61,10 +61,10 @@ public class Player implements GameObject {
 
     public void moveTo(Point pos) {
         this.moveTo = pos;
-        float vecX, vecY;
-        vecX = (float)(moveTo.x-rectangle.centerX());
-        vecY = (float)(moveTo.y-rectangle.centerY());
-        angle = (float)Math.atan2(vecX,vecY);
+        float deltaX, deltaY;
+        deltaX = (float)(moveTo.x-rectangle.centerX());
+        deltaY = (float)(moveTo.y-rectangle.centerY());
+        angle = (float)Math.atan2(deltaX,deltaY);
     }
 
     @Override
