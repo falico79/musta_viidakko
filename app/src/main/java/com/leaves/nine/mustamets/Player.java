@@ -26,7 +26,7 @@ public class Player implements GameObject {
 
     private float angle = 90;
 
-    private PointF newPos;
+    private PointF calculatedMovement;
     private Point moveTo;
 
     public Player(Rect rectangle, float speed) {
@@ -50,7 +50,7 @@ public class Player implements GameObject {
 
         animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft});
         lastTime = System.currentTimeMillis();
-        newPos = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
+        calculatedMovement = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
 
         moveTo = new Point(rectangle.centerX(),rectangle.centerY());
     }
@@ -81,25 +81,29 @@ public class Player implements GameObject {
 
     public void setPos(Point pos) {
         moveTo = pos;
-        newPos.set((float)pos.x,(float)pos.y);
+        calculatedMovement.set((float)pos.x,(float)pos.y);
         rectangle.set(moveTo.x - rectangle.width()/2, moveTo.y - rectangle.height()/2, moveTo.x + rectangle.width()/2, moveTo.y + rectangle.height()/2);
     }
 
     public void updatePosition() {
         float oldLeft = rectangle.left;
         long currentTime = System.currentTimeMillis();
-        if((int)newPos.x != moveTo.x) {
+        if(rectangle.centerX() != moveTo.x) {
 
-            float newX = newPos.y + (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
-            float newY = newPos.y + (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
+            float newX = calculatedMovement.y + (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
+            float newY = calculatedMovement.y + (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
 
-            newPos.set(newX, newY);
+            calculatedMovement.set(newX, newY);
         }
 
 
 
 
-        rectangle.set((int)newPos.x - rectangle.width()/2, (int)newPos.y - rectangle.height()/2, (int)newPos.x + rectangle.width()/2, (int)newPos.y + rectangle.height()/2);
+        rectangle.set(
+                (int)calculatedMovement.x - rectangle.width()/2,
+                (int)calculatedMovement.y - rectangle.height()/2,
+                (int)calculatedMovement.x + rectangle.width()/2,
+                (int)calculatedMovement.y + rectangle.height()/2);
 
         int state = 0;
         if(rectangle.left-oldLeft > 5) {
