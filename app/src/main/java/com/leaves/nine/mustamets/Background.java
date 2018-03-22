@@ -10,18 +10,18 @@ import android.graphics.Rect;
  */
 
 public class Background implements GameObject {
-    Rect source;
-    Rect target;
+    private Rect source;
+    private Rect target;
 
 
-    Bitmap background;
+    private Bitmap background;
 
 
 
     public Background () {
         background = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.background);
         source = new Rect(0, 0, background.getWidth(), background.getHeight());
-        target = new Rect( 0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
+        target = new Rect(0, 0, Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT);
     }
 
     @Override
