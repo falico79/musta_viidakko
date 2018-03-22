@@ -22,6 +22,7 @@ public class GamePlayScene implements Scene {
     private ObstacleManager obstacleManager;
     private BackgroundItem backgroundItem;
     private Collectible banana;
+    private CollectibleManager bananas;
     private Random random;
     private boolean movingPlayer = false;
 
@@ -36,8 +37,10 @@ public class GamePlayScene implements Scene {
 
         random = new Random();
 
-        banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
-        banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
+        bananas = new CollectibleManager();
+        bananas.addCollectibles(new Rect(200, 200, 300, 300), Color.rgb(255, 255, 0));
+        //banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
+       // banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
 
         backgroundItem = new BackgroundItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
         backgroundItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
@@ -61,6 +64,8 @@ public class GamePlayScene implements Scene {
             player.updatePosition();
             obstacleManager.update();
 
+            if (bananas.playerCollide(player.getRectangle()))
+                System.out.println("Collected items: "+bananas.getCollectedItems());
 //            if(obstacleManager.playerCollide(player.getRectangle())) {
 //                gameOver = true;
 //                gameOverTime = System.currentTimeMillis();
@@ -73,10 +78,12 @@ public class GamePlayScene implements Scene {
         canvas.drawColor(Color.rgb(127, 63, 0));
 
         backgroundItem.draw(canvas);
-        if (banana != null)
-            banana.draw(canvas);
+      //  if (banana != null)
+      //      banana.draw(canvas);
+        bananas.draw(canvas);
         player.draw(canvas);
         obstacleManager.draw(canvas);
+
 
 //        if (gameOver) {
 //            Paint paint = new Paint();
@@ -104,20 +111,6 @@ public class GamePlayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()) {
-//            case MotionEvent.ACTION_DOWN:
-//                if(!gameOver && player.getRectangle().contains((int)event.getX(), (int)event.getY())) {
-//                    movingPlayer = true;
-//                }
-//                if(gameOver && System.currentTimeMillis() - gameOverTime >= 2000) {
-//                    reset();
-//                    gameOver = false;
-//                }
-//                break;
-//            case MotionEvent.ACTION_MOVE:
-//                if(!gameOver && movingPlayer) {
-//                    playerPosition.set((int) event.getX(), (int) event.getY());
-//                }
-//                break;
             case MotionEvent.ACTION_UP:
                 int x = (int)event.getX();
                 int y = (int)event.getY();
