@@ -24,9 +24,9 @@ public class CollectibleManager {
 
     }
 
-    public void addCollectibles(Rect rect, int color)
+    public void addCollectibles(Rect rect)
     {
-        collectibles.add(new Collectible(rect, color));
+        collectibles.add(new Collectible(rect));
     }
 
     public int getCollectedItems()

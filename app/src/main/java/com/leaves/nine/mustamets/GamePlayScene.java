@@ -39,7 +39,7 @@ public class GamePlayScene implements Scene {
         random = new Random();
 
         bananas = new CollectibleManager();
-        bananas.addCollectibles(new Rect(200, 200, 300, 300), Color.rgb(255, 255, 0));
+        bananas.addCollectibles(new Rect(200, 200, 300, 300));
         //banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
        // banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
 
