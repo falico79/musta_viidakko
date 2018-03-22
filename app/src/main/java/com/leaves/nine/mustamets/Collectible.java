@@ -1,5 +1,7 @@
 package com.leaves.nine.mustamets;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
@@ -13,28 +15,29 @@ import java.util.Random;
 
 public class Collectible implements GameObject {
 
-    Rect rectangle;
-    int color;
+    Rect source;
+    Rect target;
 
-    public Collectible(Rect rect, int color){
-        this.rectangle = rect;
-        this.color = color;
-        rectangle.set(rect.centerX() - rectangle.width()/2, rect.centerY() - rectangle.height()/2, rect.centerX() + rectangle.width()/2, rect.centerY() + rectangle.height()/2);
+    Bitmap itemBitmap;
+
+    public Collectible(Rect rect){
+        itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.luu);
+        source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
+        target = new Rect(rect.left, rect.top, rect.left + rect.width(), rect.top + (int)((float)itemBitmap.getHeight()/(float)itemBitmap.getWidth()*rect.width()));
+
     }
 
     public Rect getRectangle() {
-        return this.rectangle;
+        return this.target;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(color);
-        canvas.drawRect(rectangle, paint);
+        canvas.drawBitmap(itemBitmap, source, target,null);
     }
 
     public boolean playerCollide(Rect rect) {
-        return Rect.intersects(rectangle, rect);// || Rect.intersects(rectangle2, player.getRectangle());
+        return Rect.intersects(target, rect);// || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     @Override
