@@ -88,12 +88,20 @@ public class Player implements GameObject {
     public void updatePosition() {
         float oldLeft = rectangle.left;
         long currentTime = System.currentTimeMillis();
-        if(rectangle.centerX() != moveTo.x) {
+        float deltaX, deltaY;
 
-            float newX = calculatedMovement.y + (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
-            float newY = calculatedMovement.y + (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
+        deltaX = (float)Math.sin(angle) * speed * (float)(currentTime-lastTime)/1000;
+        deltaY = (float)Math.cos(angle) * speed * (float)(currentTime-lastTime)/1000;
+
+        if(!(calculatedMovement.x <= (float)moveTo.x + Math.abs(deltaX) && calculatedMovement.x >= (float)moveTo.x - Math.abs(deltaX)) &&
+                !(calculatedMovement.y <= (float)moveTo.y +Math.abs(deltaY) && calculatedMovement.y >= (float)moveTo.y - Math.abs(deltaY))) {
+
+            float newX = calculatedMovement.x + deltaX;
+            float newY = calculatedMovement.y + deltaY;
 
             calculatedMovement.set(newX, newY);
+        } else {
+            calculatedMovement.set(moveTo.x, moveTo.y);
         }
 
 
