@@ -19,6 +19,7 @@ public class GamePlayScene implements Scene {
 
     private Player player;
     private Point playerPosition;
+    private Background background;
     private ObstacleManager obstacleManager;
     private BackgroundItem backgroundItem;
     private Collectible banana;
@@ -44,7 +45,7 @@ public class GamePlayScene implements Scene {
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
 
-
+        background = new Background();
     }
 
 
@@ -70,8 +71,8 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawColor(Color.rgb(127, 63, 0));
-
+        //canvas.drawColor(Color.rgb(127, 63, 0));
+        background.draw(canvas);
         backgroundItem.draw(canvas);
         if (banana != null)
             banana.draw(canvas);
