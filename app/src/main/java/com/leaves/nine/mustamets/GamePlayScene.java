@@ -47,7 +47,7 @@ public class GamePlayScene implements Scene {
 //        visualItem = new VisualItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
 //        visualItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
 
-        obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
+        obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
         background = new Background(R.drawable.background);
         foreground = new Background(R.drawable.foreground);
@@ -57,7 +57,7 @@ public class GamePlayScene implements Scene {
     public void reset() {
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.setPos(playerPosition);
-        obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
+        obstacleManager = new ObstacleManager(1, Color.BLACK);
         movingPlayer = false;
     }
 
