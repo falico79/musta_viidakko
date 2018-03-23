@@ -15,17 +15,14 @@ public class ObstacleManager {
     private ArrayList<Obstacle> obstacles;
     private int score = 0;
 
-    private int playerGap;
-    private int obstacleGap;
     private int obstacleHeight;
     private int color;
 
     private long startTime;
     private long initTime;
 
-    public ObstacleManager(int playerGap, int obstacleGap, int obstacleHeight, int color) {
-        this.playerGap = playerGap;
-        this.obstacleGap = obstacleGap;
+    public ObstacleManager(int obstacleHeight, int color) {
+
         this.obstacleHeight = obstacleHeight;
         this.color = color;
 
