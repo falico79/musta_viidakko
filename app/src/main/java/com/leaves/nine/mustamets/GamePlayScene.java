@@ -20,6 +20,7 @@ public class GamePlayScene implements Scene {
     private Player player;
     private Point playerPosition;
     private Background background;
+    private Background foreground;
     private ObstacleManager obstacleManager;
     private BackgroundItem backgroundItem;
     private Collectible banana;
@@ -48,7 +49,8 @@ public class GamePlayScene implements Scene {
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
 
-        background = new Background();
+        background = new Background(R.drawable.background);
+        foreground = new Background(R.drawable.foreground);
     }
 
 
@@ -85,6 +87,7 @@ public class GamePlayScene implements Scene {
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
+        foreground.draw(canvas);
 
 //        if (gameOver) {
 //            Paint paint = new Paint();

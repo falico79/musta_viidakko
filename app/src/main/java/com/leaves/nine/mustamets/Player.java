@@ -57,6 +57,7 @@ public class Player implements GameObject {
         calculatedMovement = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
 
         moveTo = new Point(rectangle.centerX(),rectangle.centerY());
+
     }
 
     public Rect getRectangle() {
