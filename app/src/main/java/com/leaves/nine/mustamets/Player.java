@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.util.Log;
 
 /**
  * Created by lasse on 16/03/2018.
@@ -16,7 +17,8 @@ public class Player implements GameObject {
     private Rect rectangle;
 
 
-    private Animation idle;
+    private Animation idleLookRight;
+    private Animation idleLookLeft;
     private Animation walkRight;
     private Animation walkLeft;
     private float speed;
@@ -25,7 +27,7 @@ public class Player implements GameObject {
     long lastTime;
 
     private float angle = 90;
-
+    private int state = 0;
     private PointF calculatedMovement;
     private Point moveTo;
 
@@ -38,17 +40,19 @@ public class Player implements GameObject {
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk2);
 
-        idle = new Animation(new Bitmap[]{idleImage},2);
+        idleLookLeft = new Animation(new Bitmap[]{idleImage},2);
         walkLeft = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
 
         Matrix m = new Matrix();
         m.preScale(-1,1);
+        idleImage = Bitmap.createBitmap(idleImage, 0, 0, idleImage.getWidth(), idleImage.getHeight(), m, false);
         walk1 = Bitmap.createBitmap(walk1, 0, 0, walk1.getWidth(), walk1.getHeight(), m, false);
         walk2 = Bitmap.createBitmap(walk2, 0, 0, walk2.getWidth(), walk2.getHeight(), m, false);
 
+        idleLookRight = new Animation(new Bitmap[]{idleImage},2);
         walkRight = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
 
-        animManager = new AnimationManager(new Animation[]{idle, walkRight, walkLeft});
+        animManager = new AnimationManager(new Animation[]{idleLookRight, idleLookLeft, walkRight, walkLeft});
         lastTime = System.currentTimeMillis();
         calculatedMovement = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
 
@@ -86,7 +90,7 @@ public class Player implements GameObject {
     }
 
     public void updatePosition() {
-        float oldLeft = rectangle.left;
+        float oldLeft = calculatedMovement.x;
         long currentTime = System.currentTimeMillis();
         float deltaX, deltaY;
 
@@ -113,12 +117,18 @@ public class Player implements GameObject {
                 (int)calculatedMovement.x + rectangle.width()/2,
                 (int)calculatedMovement.y + rectangle.height()/2);
 
-        int state = 0;
-        if(rectangle.left-oldLeft > 5) {
-            state = 1;
-        } else if ( rectangle.left - oldLeft < -5) {
+        //Log.i("Test", "state: " + state);
+        if(calculatedMovement.x > oldLeft ) {
             state = 2;
+        } else if ( calculatedMovement.x < oldLeft ) {
+            state = 3;
+        } else if(state == 2 || state == 0) {
+            state = 0;
+        } else {
+            state = 1;
+
         }
+
         animManager.playAnim(state);
         animManager.update();
 
