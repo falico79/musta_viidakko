@@ -22,7 +22,7 @@ public class GamePlayScene implements Scene {
     private Background background;
     private Background foreground;
     private ObstacleManager obstacleManager;
-    private BackgroundItem backgroundItem;
+    private VisualItem visualItem;
     private Collectible banana;
     private CollectibleManager bananas;
     private Random random;
@@ -32,7 +32,7 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect(100, 100, 200, 200), 250.0f );
+        player = new Player(new Rect(100, 100, 300, 300), 250.0f );
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.setPos(playerPosition);
         player.updatePosition();
@@ -44,8 +44,8 @@ public class GamePlayScene implements Scene {
         //banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
        // banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
 
-        backgroundItem = new BackgroundItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
-        backgroundItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
+//        visualItem = new VisualItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
+//        visualItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
 
         obstacleManager = new ObstacleManager(200,350,75, Color.BLACK);
 
@@ -80,7 +80,7 @@ public class GamePlayScene implements Scene {
     public void draw(Canvas canvas) {
         //canvas.drawColor(Color.rgb(127, 63, 0));
         background.draw(canvas);
-        backgroundItem.draw(canvas);
+//        visualItem.draw(canvas);
       //  if (banana != null)
       //      banana.draw(canvas);
         bananas.draw(canvas);

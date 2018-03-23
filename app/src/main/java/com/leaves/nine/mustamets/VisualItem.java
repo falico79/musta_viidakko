@@ -11,12 +11,12 @@ import com.leaves.nine.mustamets.GameObject;
  * Created by mikae on 19.3.2018.
  */
 
-public class BackgroundItem implements GameObject {
+public class VisualItem implements GameObject {
 
     private Rect rectangle;
     private int color;
 
-    public BackgroundItem(Rect rectangle, int color) {
+    public VisualItem(Rect rectangle, int color) {
 
         this.rectangle = rectangle;
         this.color = color;
