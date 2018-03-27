@@ -9,12 +9,11 @@ import android.graphics.Rect;
 
 public class StoryItem extends Collectible implements StoryObject {
     AnimationManager animationManager;
-    Rect target;
+
 
     public StoryItem(AnimationManager animationManager, Rect target) {
         super(target, 1);
         this.animationManager = animationManager;
-        this.target = target;
     }
 
     @Override
