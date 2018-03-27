@@ -24,7 +24,7 @@ public class MainActivity extends Activity {
         setContentView(new GamePanel(this));
 
         MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.taustamelu);
+        ring.setLooping(true);
         ring.start();
-
     }
 }
