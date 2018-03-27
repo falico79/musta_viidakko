@@ -1,6 +1,7 @@
 package com.leaves.nine.mustamets;
 
 import android.app.Activity;
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.DisplayMetrics;
 import android.view.Window;
@@ -21,6 +22,9 @@ public class MainActivity extends Activity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
 
         setContentView(new GamePanel(this));
+
+        MediaPlayer ring= MediaPlayer.create(MainActivity.this,R.raw.taustamelu);
+        ring.start();
 
     }
 }

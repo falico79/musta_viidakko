@@ -20,10 +20,10 @@ public class Collectible implements GameObject {
 
     Bitmap itemBitmap;
 
-    public Collectible(Rect rect){
-        itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.luu);
+    public Collectible(Rect target, int imageId){
+        itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), imageId);
         source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
-        target = new Rect(rect.left, rect.top, rect.left + rect.width(), rect.top + (int)((float)itemBitmap.getHeight()/(float)itemBitmap.getWidth()*rect.width()));
+        this.target = new Rect(target.left, target.top, target.left + target.width(), target.top + (int)((float)itemBitmap.getHeight()/(float)itemBitmap.getWidth()*target.width()));
 
     }
 
@@ -42,11 +42,6 @@ public class Collectible implements GameObject {
 
     @Override
     public void update() {
-
-    }
-
-    public void update(Point point) {
-        //rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2, point.x + rectangle.width()/2, point.y + rectangle.height()/2);
 
     }
 }
