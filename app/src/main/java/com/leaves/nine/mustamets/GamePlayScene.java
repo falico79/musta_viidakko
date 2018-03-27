@@ -17,14 +17,14 @@ public class GamePlayScene implements Scene {
     //private SceneManager manager;
     private Rect r = new Rect();
 
+    private UserInterface userInterface;
     private Player player;
     private Point playerPosition;
     private Background background;
     private Background foreground;
     private ObstacleManager obstacleManager;
     private VisualItem visualItem;
-    private Collectible banana;
-    private CollectibleManager bananas;
+    private CollectibleManager collectiblesManager;
     private Random random;
     private boolean movingPlayer = false;
 
@@ -32,17 +32,17 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect(100, 100, 300, 300), 250.0f );
+        player = new Player(new Rect(100, 100, 300, 300), 500.0f );
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
         player.setPos(playerPosition);
         player.updatePosition();
 
+        userInterface = new UserInterface();
         random = new Random();
 
-        bananas = new CollectibleManager();
-        bananas.addCollectibles(new Rect(200, 200, 300, 300));
-        //banana = new Collectible(new Rect(100, 100, 200, 200), Color.rgb(255, 255, 0));
-       // banana.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 3));
+        collectiblesManager = new CollectibleManager();
+        collectiblesManager.addCollectibles(new Rect(200, 200, 300, 300),R.drawable.banaani);
+        collectiblesManager.addCollectibles(new Rect(400, 400, 500, 500),R.drawable.banaani);
 
 //        visualItem = new VisualItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
 //        visualItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
@@ -67,45 +67,28 @@ public class GamePlayScene implements Scene {
             player.updatePosition();
             obstacleManager.update();
 
-            if (bananas.playerCollide(player.getRectangle()))
-                System.out.println("Collected items: "+bananas.getCollectedItems());
-//            if(obstacleManager.playerCollide(player.getRectangle())) {
-//                gameOver = true;
-//                gameOverTime = System.currentTimeMillis();
-//            }
+            if (collectiblesManager.playerCollide(player.getRectangle())) {
+
+
+            }
+
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        //canvas.drawColor(Color.rgb(127, 63, 0));
+
         background.draw(canvas);
-//        visualItem.draw(canvas);
-      //  if (banana != null)
-      //      banana.draw(canvas);
-        bananas.draw(canvas);
+
+        collectiblesManager.draw(canvas);
         player.draw(canvas);
         obstacleManager.draw(canvas);
 
         foreground.draw(canvas);
 
-//        if (gameOver) {
-//            Paint paint = new Paint();
-//            paint.setTextSize(100);
-//            paint.setColor(Color.MAGENTA);
-//            drawCenterText(canvas, paint, "Game Over");
-//        }
+        userInterface.draw(canvas);
     }
-    private void drawCenterText(Canvas canvas, Paint paint, String text) {
-        paint.setTextAlign(Paint.Align.LEFT);
-        canvas.getClipBounds(r);
-        int cHeight = r.height();
-        int cWidth = r.width();
-        paint.getTextBounds(text, 0, text.length(), r);
-        float x = cWidth / 2f - r.width() / 2f - r.left;
-        float y = cHeight / 2f + r.height() / 2f - r.bottom;
-        canvas.drawText(text, x, y, paint);
-    }
+
 
     @Override
     public void terminate() {
@@ -121,18 +104,22 @@ public class GamePlayScene implements Scene {
                 int w = player.getRectangle().width();
                 int h = player.getRectangle().height();
 
+
+
                 Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
 
                 if(!obstacleManager.playerCollide(rect)) {
-                    playerPosition.set(x,y);
-
-                    if (banana != null && banana.playerCollide(player.getRectangle())){
-                        banana = null;
-//                        banana.update(new Point(Constants.SCREEN_WIDTH / random.nextInt(10)+2, Constants.SCREEN_HEIGHT / random.nextInt(10)+2));
-                    }
+                    playerPosition.set(x, y);
                 }
 
-                    player.moveTo(playerPosition);
+                Rect touchPoint = new Rect(x, y, x+1, y+1);
+                if (userInterface.playerCollide(touchPoint)) {
+                    UserInterface.removeBanana();
+                    // add health
+                }
+
+                player.moveTo(playerPosition);
+
 
                 break;
         }
