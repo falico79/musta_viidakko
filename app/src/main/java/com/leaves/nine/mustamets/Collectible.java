@@ -1,9 +1,13 @@
 package com.leaves.nine.mustamets;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Paint;
 import android.graphics.Point;
 import android.graphics.Rect;
+
+import java.util.Random;
 
 /**
  * Created by mikae on 19.3.2018.
@@ -11,27 +15,29 @@ import android.graphics.Rect;
 
 public class Collectible implements GameObject {
 
-    Rect rectangle;
-    int color;
+    Rect source;
+    Rect target;
 
-    public Collectible(Rect rect, int color){
-        this.rectangle = rect;
-        this.color = color;
+    Bitmap itemBitmap;
+
+    public Collectible(Rect rect){
+        itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.luu);
+        source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
+        target = new Rect(rect.left, rect.top, rect.left + rect.width(), rect.top + (int)((float)itemBitmap.getHeight()/(float)itemBitmap.getWidth()*rect.width()));
+
     }
 
     public Rect getRectangle() {
-        return this.rectangle;
+        return this.target;
     }
 
     @Override
     public void draw(Canvas canvas) {
-        Paint paint = new Paint();
-        paint.setColor(color);
-        canvas.drawRect(rectangle, paint);
+        canvas.drawBitmap(itemBitmap, source, target,null);
     }
 
     public boolean playerCollide(Rect rect) {
-        return Rect.intersects(rectangle, rect);// || Rect.intersects(rectangle2, player.getRectangle());
+        return Rect.intersects(target, rect);// || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     @Override
@@ -40,7 +46,7 @@ public class Collectible implements GameObject {
     }
 
     public void update(Point point) {
-        rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2, point.x + rectangle.width()/2, point.y + rectangle.height()/2);
+        //rectangle.set(point.x - rectangle.width()/2, point.y - rectangle.height()/2, point.x + rectangle.width()/2, point.y + rectangle.height()/2);
 
     }
 }
