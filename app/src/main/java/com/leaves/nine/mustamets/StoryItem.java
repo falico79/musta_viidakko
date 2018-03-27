@@ -8,20 +8,28 @@ import android.graphics.Rect;
  */
 
 public class StoryItem extends Collectible implements StoryObject {
-    public StoryItem(Rect target, int imageId) {
-        super(target, imageId);
+    AnimationManager animationManager;
+    Rect target;
+
+    public StoryItem(AnimationManager animationManager, Rect target) {
+        super(target, 1);
+        this.animationManager = animationManager;
+        this.target = target;
     }
 
     @Override
     public void update() {
         super.update();
 
+        animationManager.update();
 
     }
 
     @Override
     public void draw(Canvas canvas) {
         super.draw(canvas);
+
+        animationManager.draw(canvas, target);
 
 
     }
