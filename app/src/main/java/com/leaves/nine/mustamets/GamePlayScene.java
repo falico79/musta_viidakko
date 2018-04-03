@@ -54,8 +54,15 @@ public class GamePlayScene implements Scene {
         Bitmap collectibleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.banaani);
         Animation stillAnimation = new Animation(new Bitmap[]{collectibleImage}, 2);
         AnimationManager aniManager = new AnimationManager(new Animation[]{stillAnimation});
-        collectiblesManager.addCollectibles(new Collectible(new Rect(200, 200, 300,300), aniManager));
-        collectiblesManager.addCollectibles(new Collectible(new Rect(400,400,500,500), aniManager));
+        collectiblesManager.addCollectibles(new Collectible(new Rect(Constants.SCREEN_WIDTH / 19,
+                (Constants.SCREEN_HEIGHT / 11),
+                (Constants.SCREEN_WIDTH / 19)+(Constants.SCREEN_WIDTH / 19),
+                (Constants.SCREEN_HEIGHT / 11)+(Constants.SCREEN_HEIGHT / 11)), aniManager));
+
+        collectiblesManager.addCollectibles(new Collectible(new Rect(Constants.SCREEN_WIDTH / 10,
+                (Constants.SCREEN_HEIGHT / 5),
+                (Constants.SCREEN_WIDTH / 10)+(Constants.SCREEN_WIDTH / 19),
+                (Constants.SCREEN_HEIGHT / 5)+(Constants.SCREEN_HEIGHT / 11)), aniManager));
 
         /*Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
