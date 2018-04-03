@@ -37,11 +37,13 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect((int)(Constants.SCREEN_WIDTH / 5.4f),
-                (int)(Constants.SCREEN_HEIGHT / 5.4f),
-                (int)(Constants.SCREEN_WIDTH / 5.4f)*2,
-                (int)(Constants.SCREEN_HEIGHT / 5.4f)*2), (float)(Constants.SCREEN_WIDTH / 2.5f) );
-        playerPosition = new Point((int)(Constants.SCREEN_WIDTH/2.5f), 3*Constants.SCREEN_HEIGHT/4);
+        player = new Player(
+                new Rect((int)(Constants.SCREEN_WIDTH * 0.5f),
+                        (int)(Constants.SCREEN_HEIGHT * 0.75f),
+                        (int)(Constants.SCREEN_WIDTH * 0.5f + Constants.SCREEN_WIDTH * 0.1f),
+                        (int)(Constants.SCREEN_HEIGHT * 0.75f + Constants.SCREEN_HEIGHT * 0.2f)),
+                (Constants.SCREEN_WIDTH * 0.4f) );
+        playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
         player.setPos(playerPosition);
         player.updatePosition();
 
@@ -54,15 +56,15 @@ public class GamePlayScene implements Scene {
         Bitmap collectibleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.banaani);
         Animation stillAnimation = new Animation(new Bitmap[]{collectibleImage}, 2);
         AnimationManager aniManager = new AnimationManager(new Animation[]{stillAnimation});
-        collectiblesManager.addCollectibles(new Collectible(new Rect(Constants.SCREEN_WIDTH / 19,
-                (Constants.SCREEN_HEIGHT / 11),
-                (Constants.SCREEN_WIDTH / 19)+(Constants.SCREEN_WIDTH / 19),
-                (Constants.SCREEN_HEIGHT / 11)+(Constants.SCREEN_HEIGHT / 11)), aniManager));
+        collectiblesManager.addCollectibles(new Collectible(new Rect((int)(Constants.SCREEN_WIDTH * 0.5f),
+                (int)(Constants.SCREEN_HEIGHT * 0.3f),
+                (int)(Constants.SCREEN_WIDTH * 0.5f + Constants.SCREEN_WIDTH * 0.05f),
+                (int)(Constants.SCREEN_HEIGHT *0.3f + Constants.SCREEN_HEIGHT *0.1f)), aniManager));
 
-        collectiblesManager.addCollectibles(new Collectible(new Rect(Constants.SCREEN_WIDTH / 10,
-                (Constants.SCREEN_HEIGHT / 5),
-                (Constants.SCREEN_WIDTH / 10)+(Constants.SCREEN_WIDTH / 19),
-                (Constants.SCREEN_HEIGHT / 5)+(Constants.SCREEN_HEIGHT / 11)), aniManager));
+        collectiblesManager.addCollectibles(new Collectible(new Rect((int)(Constants.SCREEN_WIDTH * 0.3f),
+                (int)(Constants.SCREEN_HEIGHT * 0.7f),
+                (int)(Constants.SCREEN_WIDTH * 0.3f + Constants.SCREEN_WIDTH * 0.05f),
+                (int)(Constants.SCREEN_HEIGHT * 0.7f+ Constants.SCREEN_HEIGHT *0.1f)), aniManager));
 
         /*Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
