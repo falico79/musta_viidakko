@@ -15,16 +15,14 @@ import java.util.Random;
 
 public class Collectible implements GameObject {
 
-    Rect source;
     Rect target;
 
-    Bitmap itemBitmap;
+    AnimationManager animationManager;
 
-    public Collectible(Rect target, int imageId){
-        itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), imageId);
-        source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
-        this.target = new Rect(target.left, target.top, target.left + target.width(), target.top + (int)((float)itemBitmap.getHeight()/(float)itemBitmap.getWidth()*target.width()));
-
+    public Collectible(Rect target, AnimationManager animation){
+        this.animationManager = animation;
+        this.target = target;
+        this.animationManager.playAnim(0);
     }
 
     public Rect getRectangle() {
@@ -33,7 +31,7 @@ public class Collectible implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-        canvas.drawBitmap(itemBitmap, source, target,null);
+        animationManager.draw(canvas, target);
     }
 
     public boolean playerCollide(Rect rect) {
@@ -42,6 +40,6 @@ public class Collectible implements GameObject {
 
     @Override
     public void update() {
-
+        animationManager.update();
     }
 }
