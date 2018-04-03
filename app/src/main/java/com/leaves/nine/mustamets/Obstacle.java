@@ -19,7 +19,6 @@ public class Obstacle implements GameObject {
 
     public Obstacle(int x, int y, int w, int h, int color) {
         this.color = color;
-
         rectangle = new Rect(x, y, x+w, y+h);
     }
 

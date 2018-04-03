@@ -17,6 +17,7 @@ public class GamePlayScene implements Scene {
     //private SceneManager manager;
     private Rect r = new Rect();
 
+    private DoorObject doorObject;
     private UserInterface userInterface;
     private Player player;
     private Point playerPosition;
@@ -32,8 +33,11 @@ public class GamePlayScene implements Scene {
     private long gameOverTime;
 
     public GamePlayScene() {
-        player = new Player(new Rect(100, 100, 300, 300), 500.0f );
-        playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
+        player = new Player(new Rect((int)(Constants.SCREEN_WIDTH / 5.4f),
+                (int)(Constants.SCREEN_HEIGHT / 5.4f),
+                (int)(Constants.SCREEN_WIDTH / 5.4f)*2,
+                (int)(Constants.SCREEN_HEIGHT / 5.4f)*2), (float)(Constants.SCREEN_WIDTH / 2.5f) );
+        playerPosition = new Point((int)(Constants.SCREEN_WIDTH/2.5f), 3*Constants.SCREEN_HEIGHT/4);
         player.setPos(playerPosition);
         player.updatePosition();
 
@@ -51,6 +55,10 @@ public class GamePlayScene implements Scene {
 
         background = new Background(R.drawable.background);
         foreground = new Background(R.drawable.foreground);
+
+        doorObject = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
+                Constants.SCREEN_HEIGHT / 13,
+                Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
     }
 
 
@@ -81,12 +89,15 @@ public class GamePlayScene implements Scene {
         background.draw(canvas);
 
         collectiblesManager.draw(canvas);
+        doorObject.draw(canvas);
         player.draw(canvas);
         obstacleManager.draw(canvas);
+
 
         foreground.draw(canvas);
 
         userInterface.draw(canvas);
+
     }
 
 
