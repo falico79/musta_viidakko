@@ -12,8 +12,7 @@ public class StoryItem extends Collectible implements StoryObject {
 
 
     public StoryItem(AnimationManager animationManager, Rect target) {
-        super(target, 1);
-        this.animationManager = animationManager;
+        super(target, animationManager);
     }
 
     @Override
