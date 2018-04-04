@@ -12,6 +12,7 @@ import android.graphics.Rect;
 public class Animation {
     private Bitmap[] frames;
     private int frameIndex;
+    private Boolean animationFramesDone = false;
 
     private boolean isPlaying = false;
     public boolean isPlaying() {
@@ -21,6 +22,7 @@ public class Animation {
         isPlaying = true;
         frameIndex = 0;
         lastFrame = System.currentTimeMillis();
+        animationFramesDone = false;
     }
     public void stop() {
         isPlaying = false;
@@ -64,7 +66,15 @@ public class Animation {
         if(System.currentTimeMillis()-lastFrame>frameTime*1000) {
             frameIndex++;
             frameIndex = frameIndex >= frames.length ? 0 : frameIndex;
+            if(frameIndex >= frames.length) {
+                frameIndex = 0;
+                animationFramesDone = true;
+            }
             lastFrame = System.currentTimeMillis();
         }
+    }
+
+    public boolean isAnimationDone() {
+        return animationFramesDone;
     }
 }

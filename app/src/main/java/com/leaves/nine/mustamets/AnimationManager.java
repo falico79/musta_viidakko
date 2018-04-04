@@ -27,6 +27,10 @@ public class AnimationManager {
         animationIndex = index;
     }
 
+    public Boolean isAnimationDone() {
+        return animations[animationIndex].isAnimationDone();
+    }
+
     public void draw(Canvas canvas, Rect rect) {
         if(animations[animationIndex].isPlaying())
         animations[animationIndex].draw(canvas, rect);

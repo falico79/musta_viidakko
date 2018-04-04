@@ -16,6 +16,7 @@ public class CollectibleManager {
     private ArrayList<Collectible> collectibles;
     private Random random;
 
+
     private int collectedItems = 0;
 
     public CollectibleManager() {
@@ -33,15 +34,15 @@ public class CollectibleManager {
         return collectedItems;
     }
 
-    public Boolean playerCollide(Rect rect) {
+    public Collectible playerCollide(Rect rect) {
         for (Collectible item : collectibles) {
             if (item.playerCollide(rect)) {
                 collectibles.remove(item);
                 UserInterface.addBanana();
-                return true;
+                return item;
             }
         }
-        return false;
+        return null;
     }
 
     public void draw(Canvas canvas) {
