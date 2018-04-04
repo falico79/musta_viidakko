@@ -66,7 +66,20 @@ public class GamePlayScene implements Scene {
                 (int)(Constants.SCREEN_WIDTH * 0.3f + Constants.SCREEN_WIDTH * 0.05f),
                 (int)(Constants.SCREEN_HEIGHT * 0.7f+ Constants.SCREEN_HEIGHT *0.1f)), aniManager));
 
-        /*Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
+        Bitmap tera = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera1);
+        stillAnimation = new Animation(new Bitmap[]{tera}, 2);
+        Bitmap tera2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera2);
+        Bitmap tera3 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera3);
+        Bitmap tera4 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera4);
+        Bitmap tera5 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera5);
+        Animation blink = new Animation(new Bitmap[]{tera2, tera3,tera4,tera5,tera4,tera3,tera2},0.5f );
+        aniManager = new AnimationManager(new Animation[]{stillAnimation, blink});
+
+        collectiblesManager.addCollectibles(new StoryItem(aniManager, new Rect((int)(Constants.SCREEN_WIDTH * 0.6f),
+                (int)(Constants.SCREEN_HEIGHT * 0.4f),
+                (int)(Constants.SCREEN_WIDTH * 0.6f + Constants.SCREEN_WIDTH * 0.05f),
+                (int)(Constants.SCREEN_HEIGHT * 0.4f + Constants.SCREEN_HEIGHT * 0.1f))));
+        /*Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.b(), R.drawable.uuk1);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk2);
 
@@ -115,7 +128,8 @@ public class GamePlayScene implements Scene {
             player.updatePosition();
             obstacleManager.update();
 
-            if (collectiblesManager.playerCollide(player.getRectangle())) {
+            Collectible object;
+            if ((object = collectiblesManager.playerCollide(player.getRectangle())) != null) {
 
 
             }
