@@ -138,6 +138,14 @@ public class GamePlayScene implements Scene {
 
         userInterface.draw(canvas);
 
+        if (DoorObject.drawPopup) {
+            Paint paint = new Paint();
+            paint.setColor(Color.GREEN);
+            paint.setTextAlign(Paint.Align.CENTER);
+            paint.setTextSize((Constants.SCREEN_HEIGHT / 15));
+            DoorObject.drawPopupMessage(canvas, paint, "Kerää sahanterä ensin!!!");
+        }
+
     }
 
 
@@ -168,7 +176,11 @@ public class GamePlayScene implements Scene {
                     UserInterface.removeBanana();
                     // add health
                 }
-
+                if (DoorObject.touchCollide(touchPoint)){
+                    System.out.println("");
+                    System.out.println("Puun runko");
+                    System.out.println("");
+                }
                 player.moveTo(playerPosition);
 
 
