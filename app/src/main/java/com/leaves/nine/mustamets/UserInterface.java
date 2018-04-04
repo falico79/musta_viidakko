@@ -12,20 +12,23 @@ import android.graphics.Rect;
  */
 
 public class UserInterface implements GameObject{
-    Rect rectPanel;
-    Rect target;
-    Rect source;
+    private Rect rectPanel;
+    private Rect target;
+    private Rect source;
 
-    Bitmap bananaCountIcon;
+    private Bitmap bananaCountIcon;
 
-    private static int bananas = 0;
-
+    private static int bananas = 100;
+    private static int health = 50;
 
     public UserInterface() {
         rectPanel = new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10);
         bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaniterttu);
         source = new Rect(0, 0, bananaCountIcon.getWidth(), bananaCountIcon.getHeight());
-        target = new Rect(15,15,90,90);
+        target = new Rect(Constants.SCREEN_WIDTH / 128,
+                Constants.SCREEN_HEIGHT / 72,
+                (Constants.SCREEN_WIDTH / 128)+(Constants.SCREEN_WIDTH / 21),
+                (Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 12));
 
 
     }
@@ -35,8 +38,12 @@ public class UserInterface implements GameObject{
     }
 
     public static void removeBanana() {
-        if (bananas > 0)
+        if (bananas > 0 && health <= 95) {
             bananas--;
+            health += 5;
+        }
+
+
     }
 
     public static int getBananas() {
@@ -45,23 +52,38 @@ public class UserInterface implements GameObject{
 
     @Override
     public void draw(Canvas canvas) {
-                    Paint paint = new Paint();
-            paint.setTextSize(75);
-            paint.setColor(Color.YELLOW);
+        Paint paint = new Paint();
+        paint.setTextSize(Constants.SCREEN_HEIGHT / 14);
+        paint.setColor(Color.YELLOW);
         drawBananaCount(canvas, paint, "x " + bananas);
+        paint.setColor(Color.RED);
+        drawHealth(canvas, paint, "Health: " + health);
     }
 
     public boolean playerCollide(Rect rect) {
-        return Rect.intersects(target, rect);// || Rect.intersects(rectangle2, player.getRectangle());
+        return Rect.intersects(new Rect(0, 0, target.right + (Constants.SCREEN_WIDTH / 10), target.bottom), rect);// || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     private void drawBananaCount(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.LEFT);
         canvas.getClipBounds(rectPanel);
-        int cHeight = rectPanel.height();
-        int cWidth = rectPanel.width();
+//        int cHeight = rectPanel.height();
+//        int cWidth = rectPanel.width();
         paint.getTextBounds(text, 0, text.length(), rectPanel);
         float x = Constants.SCREEN_WIDTH / 18;
+        float y = Constants.SCREEN_HEIGHT / 14;
+        canvas.drawText(text, x, y, paint);
+//        canvas.drawRect(target, paint);
+        canvas.drawBitmap(bananaCountIcon, source, target,null);
+    }
+
+    private void drawHealth(Canvas canvas, Paint paint, String text) {
+        paint.setTextAlign(Paint.Align.CENTER);
+        canvas.getClipBounds(rectPanel);
+//        int cHeight = rectPanel.height();
+//        int cWidth = rectPanel.width();
+        paint.getTextBounds(text, 0, text.length(), rectPanel);
+        float x = Constants.SCREEN_WIDTH / 2;
         float y = Constants.SCREEN_HEIGHT / 14;
         canvas.drawText(text, x, y, paint);
 //        canvas.drawRect(target, paint);
