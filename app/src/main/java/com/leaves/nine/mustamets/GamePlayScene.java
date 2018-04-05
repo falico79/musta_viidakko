@@ -22,6 +22,7 @@ public class GamePlayScene implements Scene {
     private Rect r = new Rect();
 
     private DoorObject doorObject;
+    private StoryItem storyItem;
     private UserInterface userInterface;
     private Player player;
     private Point playerPosition;
@@ -52,6 +53,7 @@ public class GamePlayScene implements Scene {
 
         collectiblesManager = new CollectibleManager();
 
+        storyItem = new StoryItem();
 
         Bitmap collectibleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.banaani);
         Animation stillAnimation = new Animation(new Bitmap[]{collectibleImage}, 2);
@@ -130,7 +132,8 @@ public class GamePlayScene implements Scene {
 
             Collectible object;
             if ((object = collectiblesManager.playerCollide(player.getRectangle())) != null) {
-
+                if (object instanceof StoryItem)
+                    storyItem.advanceStory();
 
             }
 
@@ -152,13 +155,7 @@ public class GamePlayScene implements Scene {
 
         userInterface.draw(canvas);
 
-        if (DoorObject.drawPopup) {
-            Paint paint = new Paint();
-            paint.setColor(Color.GREEN);
-            paint.setTextAlign(Paint.Align.CENTER);
-            paint.setTextSize((Constants.SCREEN_HEIGHT / 15));
-            DoorObject.drawPopupMessage(canvas, paint, "Kerää sahanterä ensin!!!");
-        }
+
 
     }
 

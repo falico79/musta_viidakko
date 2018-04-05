@@ -25,6 +25,10 @@ public class Collectible implements GameObject {
         this.animationManager.playAnim(0);
     }
 
+    public Collectible(){
+
+    }
+
     public Rect getRectangle() {
         return this.target;
     }
