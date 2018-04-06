@@ -34,6 +34,16 @@ public class CollectibleManager {
         return collectedItems;
     }
 
+    public void updateStoryItems() {
+        for (Collectible item : collectibles) {
+            if ((item instanceof StoryItem)){
+                item.update();
+            }
+
+        }
+
+    }
+
     public Collectible playerCollide(Rect rect) {
         for (Collectible item : collectibles) {
             if (item.playerCollide(rect)) {
