@@ -106,6 +106,7 @@ public class GamePlayScene implements Scene {
                 switch (parser.getName()) {
                     case "item":
                         collectiblesManager.addCollectibles(addItem(parser));
+                        parser.next();
                         break;
                     default:
                         continue;
