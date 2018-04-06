@@ -76,30 +76,7 @@ public class GamePlayScene implements Scene {
                 (int)(Constants.SCREEN_HEIGHT * 0.4f),
                 (int)(Constants.SCREEN_WIDTH * 0.6f + Constants.SCREEN_WIDTH * 0.05f),
                 (int)(Constants.SCREEN_HEIGHT * 0.4f + Constants.SCREEN_HEIGHT * 0.1f))));
-        /*Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.b(), R.drawable.uuk1);
-        Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
-        Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk2);
 
-        idleLookLeft = new Animation(new Bitmap[]{idleImage},2);
-        walkLeft = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
-
-        Matrix m = new Matrix();
-        m.preScale(-1,1);
-        idleImage = Bitmap.createBitmap(idleImage, 0, 0, idleImage.getWidth(), idleImage.getHeight(), m, false);
-        walk1 = Bitmap.createBitmap(walk1, 0, 0, walk1.getWidth(), walk1.getHeight(), m, false);
-        walk2 = Bitmap.createBitmap(walk2, 0, 0, walk2.getWidth(), walk2.getHeight(), m, false);
-
-        idleLookRight = new Animation(new Bitmap[]{idleImage},2);
-        walkRight = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
-
-        animManager = new AnimationManager(new Animation[]{idleLookRight, idleLookLeft, walkRight, walkLeft});
-        lastTime = System.currentTimeMillis();
-        calculatedMovement = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
-
-        moveTo = new Point(rectangle.centerX(),rectangle.centerY());
-*/
-//        visualItem = new VisualItem(new Rect(100, 100, 200, 200), Color.rgb(127, 255, 0));
-//        visualItem.update(new Point(Constants.SCREEN_WIDTH / 2, Constants.SCREEN_HEIGHT / 2));
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
