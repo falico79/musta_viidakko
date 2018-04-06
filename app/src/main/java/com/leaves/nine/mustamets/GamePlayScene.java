@@ -13,6 +13,7 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -40,6 +41,9 @@ public class GamePlayScene implements Scene {
     private boolean gameOver = false;
     private long gameOverTime;
 
+    private int[] mapList;
+    private int currentMapIndex = -1;
+
     public GamePlayScene() {
         player = new Player(
                 new Rect((int)(Constants.SCREEN_WIDTH * 0.5f),
@@ -51,6 +55,8 @@ public class GamePlayScene implements Scene {
         player.setPos(playerPosition);
         player.updatePosition();
 
+        mapList = new int[]{ R.xml.map001 };
+
         userInterface = new UserInterface();
         random = new Random();
 
@@ -61,7 +67,7 @@ public class GamePlayScene implements Scene {
         Bitmap bananaImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.banaani);
         bananaAnimation = new Animation(new Bitmap[]{bananaImage}, 2);
 
-        loadMap(R.xml.map001);
+        loadMap(nextMap());
 
         Bitmap tera = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera1);
         Animation stillAnimation = new Animation(new Bitmap[]{tera}, 2);
@@ -88,6 +94,10 @@ public class GamePlayScene implements Scene {
                 Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
     }
 
+    private int nextMap()
+    {
+        return currentMapIndex < mapList.length - 1 ? mapList[++currentMapIndex] : mapList[0];
+    }
 
     public void reset() {
         playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
