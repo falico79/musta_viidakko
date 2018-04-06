@@ -69,7 +69,7 @@ public class GamePlayScene implements Scene {
         Bitmap tera3 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera3);
         Bitmap tera4 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera4);
         Bitmap tera5 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera5);
-        Animation blink = new Animation(new Bitmap[]{tera2, tera3,tera4,tera5,tera4,tera3,tera2},0.5f );
+        Animation blink = new Animation(new Bitmap[]{tera2, tera3,tera4,tera5},0.5f );
         AnimationManager aniManager = new AnimationManager(new Animation[]{stillAnimation, blink});
 
         collectiblesManager.addCollectibles(new StoryItem(aniManager, new Rect((int)(Constants.SCREEN_WIDTH * 0.6f),
@@ -154,6 +154,7 @@ public class GamePlayScene implements Scene {
             obstacleManager.update();
 
             Collectible object;
+            collectiblesManager.updateStoryItems();
             if ((object = collectiblesManager.playerCollide(player.getRectangle())) != null) {
                 if (object instanceof StoryItem)
                     storyItem.advanceStory();

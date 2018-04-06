@@ -21,6 +21,7 @@ public class StoryItem extends Collectible implements StoryObject {
 
     public StoryItem(AnimationManager animationManager, Rect target) {
         super(target, animationManager);
+        targetTime = System.currentTimeMillis() + 1000;
     }
 
     public StoryItem(){
@@ -34,7 +35,7 @@ public class StoryItem extends Collectible implements StoryObject {
         if(animationManager.isAnimationDone() && state == 1) {
             state = 0;
             animationManager.playAnim(state);
-            targetTime = System.currentTimeMillis() + 5000 + new Random().nextInt(20000);
+            targetTime = System.currentTimeMillis() + 2000+ new Random().nextInt(5000);
         }
         if(state == 0){
             if(System.currentTimeMillis()>= targetTime) {

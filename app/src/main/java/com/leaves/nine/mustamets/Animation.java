@@ -65,7 +65,7 @@ public class Animation {
             return;
         if(System.currentTimeMillis()-lastFrame>frameTime*1000) {
             frameIndex++;
-            frameIndex = frameIndex >= frames.length ? 0 : frameIndex;
+            //frameIndex = frameIndex >= frames.length ? 0 : frameIndex;
             if(frameIndex >= frames.length) {
                 frameIndex = 0;
                 animationFramesDone = true;
@@ -75,6 +75,7 @@ public class Animation {
     }
 
     public boolean isAnimationDone() {
+        // if(animationFramesDone) System.out.println("Done");
         return animationFramesDone;
     }
 }
