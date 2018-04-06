@@ -31,7 +31,6 @@ public class StoryItem extends Collectible implements StoryObject {
     public void update() {
         //super.update();
 
-
         if(animationManager.isAnimationDone() && state == 1) {
             state = 0;
             animationManager.playAnim(state);

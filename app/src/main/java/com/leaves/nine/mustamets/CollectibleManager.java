@@ -38,7 +38,10 @@ public class CollectibleManager {
         for (Collectible item : collectibles) {
             if (item.playerCollide(rect)) {
                 collectibles.remove(item);
-                UserInterface.addBanana();
+                if (!(item instanceof StoryItem)){
+                    UserInterface.addBanana();
+                }
+
                 return item;
             }
         }
