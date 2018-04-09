@@ -30,22 +30,22 @@ public class UserInterface implements GameObject{
         bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaniterttu);
         source = new Rect(0, 0, bananaCountIcon.getWidth(), bananaCountIcon.getHeight());
         target = new Rect(Constants.SCREEN_WIDTH / 128,
-                Constants.SCREEN_HEIGHT / 72,
+                Constants.SCREEN_HEIGHT / 65,
                 (Constants.SCREEN_WIDTH / 128)+(Constants.SCREEN_WIDTH / 21),
-                (Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 12));
+                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
 
-        HEALTH_BAR_MAX_HEIGHT = (int)(Constants.SCREEN_HEIGHT * 0.1);
+        HEALTH_BAR_MAX_HEIGHT = (int)(Constants.SCREEN_HEIGHT * 0.03);
         HEALTH_BAR_MAX_WIDTH = (int)(Constants.SCREEN_WIDTH * 0.2);
 
         healthBarBackground = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
-                (int)(Constants.SCREEN_HEIGHT / 72),
+                (int)(Constants.SCREEN_HEIGHT / 65),
                 (int)(Constants.SCREEN_WIDTH * 0.6),
-                (int)((Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 20)));
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
 
         healthBar = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
-                (int)(Constants.SCREEN_HEIGHT / 72),
+                (int)(Constants.SCREEN_HEIGHT / 65),
                 (int)(Constants.SCREEN_WIDTH * 0.4+getHealthBarWidth(health)),
-                (int)((Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 20)));
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
 
     }
 
@@ -109,9 +109,9 @@ public class UserInterface implements GameObject{
 //        canvas.drawText(text, x, y, paint);
 //        canvas.drawRect(target, paint);
         healthBar = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
-                (int)(Constants.SCREEN_HEIGHT / 72),
+                (int)(Constants.SCREEN_HEIGHT / 65),
                 (int)(Constants.SCREEN_WIDTH * 0.4+getHealthBarWidth(health)),
-                (int)((Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 20)));
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
         canvas.drawRect(healthBarBackground, paint);
         paint.setColor(Color.RED);
         canvas.drawRect(healthBar, paint);
