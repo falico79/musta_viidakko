@@ -13,11 +13,16 @@ import android.graphics.Rect;
 
 public class DoorObject implements GameObject {
 
+    private static Rect rectPanel;
     private static Rect target;
     private Rect source;
     private Bitmap itemBitmap;
+    public static boolean drawPopup = false;
 
     public DoorObject(int x, int y, int w, int h, int imageID){
+        rectPanel = new Rect((int)(Constants.SCREEN_WIDTH * 0.8), (int)(Constants.SCREEN_HEIGHT * 0.6),
+                (int)(Constants.SCREEN_WIDTH * 0.2), (int)(Constants.SCREEN_HEIGHT * 0.4));
+
         itemBitmap = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), imageID);
         target = new Rect(x, y, x+w, y+h);
         source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
@@ -26,11 +31,32 @@ public class DoorObject implements GameObject {
     }
 
     public static boolean touchCollide(Rect rect) {
-        return Rect.intersects(target, rect);
+        if (Rect.intersects(new Rect(target.left, (int)(target.top + target.top*0.3), target.right, (int)(target.bottom - target.bottom * 0.3)), rect)){
+            drawPopup = true;
+            return true;
+        }
+        drawPopup = false;
+        return false;
+    }
+
+    public static void drawPopupMessage(Canvas canvas, Paint paint, String text) {
+        paint.setTextAlign(Paint.Align.CENTER);
+//        canvas.getClipBounds(rectPanel);
+//        int cHeight = rectPanel.height();
+//        int cWidth = rectPanel.width();
+//        paint.getTextBounds(text, 0, text.length(), rectPanel);
+        float x = Constants.SCREEN_WIDTH * 0.5f;
+        float y = Constants.SCREEN_HEIGHT * 0.5f;
+        canvas.drawRect(rectPanel, new Paint(Color.argb(50, 0, 255, 200)));
+        canvas.drawText(text, x, y, paint);
+//        canvas.drawRect(target, paint);
+//        canvas.drawBitmap(bananaCountIcon, source, target,null);
     }
 
     @Override
     public void draw(Canvas canvas) {
+
+
         canvas.drawBitmap(itemBitmap, source, target,null);
     }
 

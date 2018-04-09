@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <item type="banaani">
+        <position x="30" y="50"/>
+    </item>
+    <item type="banaani">
+        <position x="70" y="30"/>
+    </item>
+</resources>
