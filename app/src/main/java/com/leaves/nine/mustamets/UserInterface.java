@@ -15,6 +15,10 @@ public class UserInterface implements GameObject{
     private Rect rectPanel;
     private Rect target;
     private Rect source;
+    private Rect healthBarBackground;
+    private Rect healthBar;
+    private static int HEALTH_BAR_MAX_WIDTH;
+    private static int HEALTH_BAR_MAX_HEIGHT;
 
     private Bitmap bananaCountIcon;
 
@@ -26,11 +30,27 @@ public class UserInterface implements GameObject{
         bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaniterttu);
         source = new Rect(0, 0, bananaCountIcon.getWidth(), bananaCountIcon.getHeight());
         target = new Rect(Constants.SCREEN_WIDTH / 128,
-                Constants.SCREEN_HEIGHT / 72,
+                Constants.SCREEN_HEIGHT / 65,
                 (Constants.SCREEN_WIDTH / 128)+(Constants.SCREEN_WIDTH / 21),
-                (Constants.SCREEN_HEIGHT / 72)+(Constants.SCREEN_HEIGHT / 12));
+                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
 
+        HEALTH_BAR_MAX_HEIGHT = (int)(Constants.SCREEN_HEIGHT * 0.03);
+        HEALTH_BAR_MAX_WIDTH = (int)(Constants.SCREEN_WIDTH * 0.2);
 
+        healthBarBackground = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
+                (int)(Constants.SCREEN_HEIGHT / 65),
+                (int)(Constants.SCREEN_WIDTH * 0.6),
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
+
+        healthBar = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
+                (int)(Constants.SCREEN_HEIGHT / 65),
+                (int)(Constants.SCREEN_WIDTH * 0.4+getHealthBarWidth(health)),
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
+
+    }
+
+    private float getHealthBarWidth(int health){
+        return HEALTH_BAR_MAX_WIDTH * (health / 100.0f);
     }
 
     public static void addBanana() {
@@ -56,8 +76,9 @@ public class UserInterface implements GameObject{
         paint.setTextSize(Constants.SCREEN_HEIGHT / 14);
         paint.setColor(Color.YELLOW);
         drawBananaCount(canvas, paint, "x " + bananas);
-        paint.setColor(Color.RED);
-        drawHealth(canvas, paint, "Health: " + health);
+        paint.setColor(Color.BLACK);
+        drawHealth(canvas, paint, health);
+        System.out.println("HEALTH  " + getHealthBarWidth(health));
     }
 
     public boolean playerCollide(Rect rect) {
@@ -77,17 +98,23 @@ public class UserInterface implements GameObject{
         canvas.drawBitmap(bananaCountIcon, source, target,null);
     }
 
-    private void drawHealth(Canvas canvas, Paint paint, String text) {
-        paint.setTextAlign(Paint.Align.CENTER);
+    private void drawHealth(Canvas canvas, Paint paint, int health) {
+//        paint.setTextAlign(Paint.Align.CENTER);
         canvas.getClipBounds(rectPanel);
 //        int cHeight = rectPanel.height();
 //        int cWidth = rectPanel.width();
-        paint.getTextBounds(text, 0, text.length(), rectPanel);
-        float x = Constants.SCREEN_WIDTH / 2;
-        float y = Constants.SCREEN_HEIGHT / 14;
-        canvas.drawText(text, x, y, paint);
+//        paint.getTextBounds(text, 0, text.length(), rectPanel);
+//        float x = Constants.SCREEN_WIDTH / 2;
+//        float y = Constants.SCREEN_HEIGHT / 14;
+//        canvas.drawText(text, x, y, paint);
 //        canvas.drawRect(target, paint);
-        canvas.drawBitmap(bananaCountIcon, source, target,null);
+        healthBar = new Rect((int)(Constants.SCREEN_WIDTH * 0.4),
+                (int)(Constants.SCREEN_HEIGHT / 65),
+                (int)(Constants.SCREEN_WIDTH * 0.4+getHealthBarWidth(health)),
+                (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
+        canvas.drawRect(healthBarBackground, paint);
+        paint.setColor(Color.RED);
+        canvas.drawRect(healthBar, paint);
     }
 
     @Override
