@@ -6,6 +6,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
+
+import java.util.ArrayList;
+import java.util.Currency;
+import java.util.Random;
 
 /**
  * Created by mikae on 26.3.2018.
@@ -19,11 +24,14 @@ public class UserInterface implements GameObject{
     private Rect healthBar;
     private static int HEALTH_BAR_MAX_WIDTH;
     private static int HEALTH_BAR_MAX_HEIGHT;
+    private static MediaPlayer eatbanana;
 
     private Bitmap bananaCountIcon;
 
     private static int bananas = 100;
     private static int health = 50;
+    static ArrayList<Integer> playlist;
+    static Random random;
 
     public UserInterface() {
         rectPanel = new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10);
@@ -47,6 +55,14 @@ public class UserInterface implements GameObject{
                 (int)(Constants.SCREEN_WIDTH * 0.4+getHealthBarWidth(health)),
                 (int)((Constants.SCREEN_HEIGHT / 65)+HEALTH_BAR_MAX_HEIGHT));
 
+        random=new Random();
+
+        playlist = new ArrayList<>();
+        playlist.add(R.raw.eating1);
+        playlist.add(R.raw.eating2);
+
+        eatbanana= MediaPlayer.create(Constants.CURRENT_CONTEXT,playlist.get(1));
+
     }
 
     private float getHealthBarWidth(int health){
@@ -61,6 +77,7 @@ public class UserInterface implements GameObject{
         if (bananas > 0 && health <= 95) {
             bananas--;
             health += 5;
+            eatbanana.start();
         }
 
 
