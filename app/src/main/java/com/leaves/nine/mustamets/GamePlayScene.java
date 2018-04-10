@@ -13,7 +13,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -133,12 +132,12 @@ public class GamePlayScene implements Scene {
             throw new XmlPullParserException("virheellinen xml");
         }
         if( parser.getAttributeValue(0).equals("banaani")) {
-            return addBanaani(parser);
+            return addBanana(parser);
         }
         return null;
     }
 
-    private Collectible addBanaani(XmlResourceParser parser) throws IOException, XmlPullParserException {
+    private Collectible addBanana(XmlResourceParser parser) throws IOException, XmlPullParserException {
         float x = 0.5f, y = 0.5f;
         while(parser.next() != XmlPullParser.END_TAG) {
             System.out.println("test");
