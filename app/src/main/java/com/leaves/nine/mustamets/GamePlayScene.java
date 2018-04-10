@@ -220,6 +220,10 @@ public class GamePlayScene implements Scene {
                     UserInterface.removeBanana();
                     // add health
                 }
+                if (userInterface.musicbuttonClick(touchPoint)) {
+                    UserInterface.stopMusic();
+                    // stop music
+                }
                 if (DoorObject.touchCollide(touchPoint)){
                     System.out.println("");
                     System.out.println("Puun runko");
