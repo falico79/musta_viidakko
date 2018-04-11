@@ -30,10 +30,12 @@ public class UserInterface implements GameObject{
     private static MediaPlayer ring;
 
     private Bitmap bananaCountIcon;
-    private Bitmap MusicButton;
+    private static Bitmap MusicButton;
+    private Bitmap MusicButtonOff;
 
     private static int bananas = 100;
     private static int health = 50;
+    public static int musicicon = R.drawable.musicbutton;
     static ArrayList<Integer> playlist;
     static Random random;
 
@@ -48,7 +50,7 @@ public class UserInterface implements GameObject{
                 (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
 
         rectPanel = new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10);
-        MusicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.musicbutton);
+        MusicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), musicicon);
         sourceMusic = new Rect(0, 0, MusicButton.getWidth(), MusicButton.getHeight());
         targetMusic = new Rect((int) (Constants.SCREEN_WIDTH * 0.9),
                 Constants.SCREEN_HEIGHT / 65,
@@ -102,12 +104,17 @@ public class UserInterface implements GameObject{
     public static void stopMusic() {
         if (ring.isPlaying()){
             ring.stop();
-            // ikonin vaihto tähän
+            musicicon = R.drawable.musicbuttonoff; //ikonin vaihto off-moodiin
+            MusicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), musicicon);
+
+
         }else
             { ring= MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.taustamelu);
             ring.setLooping(true);
             ring.start();
-        //ikonin vaihto takaisin
+                musicicon = R.drawable.musicbutton; //ikonin vaihto takaisin
+                MusicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), musicicon);
+
         }
 
     }
