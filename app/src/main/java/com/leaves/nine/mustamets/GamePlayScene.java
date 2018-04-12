@@ -169,7 +169,7 @@ public class GamePlayScene implements Scene {
                     storyItem.advanceStory();
 
             }
-
+            userInterface.update();
         }
     }
 
@@ -220,14 +220,13 @@ public class GamePlayScene implements Scene {
                     UserInterface.removeBanana();
                     // add health
                 }
-                if (userInterface.musicbuttonClick(touchPoint)) {
+                if (userInterface.musicButtonClick(touchPoint)) {
                     UserInterface.stopMusic();
                     // stop music
                 }
                 if (DoorObject.touchCollide(touchPoint)){
-                    System.out.println("");
-                    System.out.println("Puun runko");
-                    System.out.println("");
+                    UserInterface.DoDamage(10);
+                    // VÄLIAIKAINEN TESTI DAMAGE
                 }
                 player.moveTo(playerPosition);
 
