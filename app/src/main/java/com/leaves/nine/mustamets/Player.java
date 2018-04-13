@@ -21,6 +21,12 @@ public class Player implements GameObject {
     private Animation idleLookLeft;
     private Animation walkRight;
     private Animation walkLeft;
+    private Animation dieLeft;
+    private Animation damageLeft;
+    private Animation dieRight;
+    private Animation damageRight;
+    private Animation idleDeadLeft;
+    private Animation idleDeadRight;
     private float speed;
     private AnimationManager animManager;
 
@@ -39,9 +45,18 @@ public class Player implements GameObject {
         Bitmap idleImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk1);
         Bitmap walk2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.uuk2);
+        Bitmap die1 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dying1);
+        Bitmap die2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dying2);
+        Bitmap die3 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dying3);
+        Bitmap takingDamage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.takingdamage);
 
         idleLookLeft = new Animation(new Bitmap[]{idleImage},2);
         walkLeft = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
+
+        dieLeft = new Animation(new Bitmap[] {die1, die2, die3}, 0.5f);
+        damageLeft = new Animation(new Bitmap[] {takingDamage}, 0.5f);
+
+        idleDeadLeft = new Animation(new Bitmap[] {die3}, 2f);
 
         Matrix m = new Matrix();
         m.preScale(-1,1);
@@ -49,10 +64,20 @@ public class Player implements GameObject {
         walk1 = Bitmap.createBitmap(walk1, 0, 0, walk1.getWidth(), walk1.getHeight(), m, false);
         walk2 = Bitmap.createBitmap(walk2, 0, 0, walk2.getWidth(), walk2.getHeight(), m, false);
 
+        die1 = Bitmap.createBitmap(die1, 0, 0, die1.getWidth(), die1.getHeight(), m, false);
+        die2 = Bitmap.createBitmap(die2, 0, 0, die2.getWidth(), die2.getHeight(), m, false);
+        die3 = Bitmap.createBitmap(die3, 0, 0, die3.getWidth(), die3.getHeight(), m, false);
+        takingDamage = Bitmap.createBitmap(takingDamage, 0, 0, takingDamage.getWidth(), takingDamage.getHeight(), m, false);
+
         idleLookRight = new Animation(new Bitmap[]{idleImage},2);
         walkRight = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
 
-        animManager = new AnimationManager(new Animation[]{idleLookRight, idleLookLeft, walkRight, walkLeft});
+        dieRight = new Animation(new Bitmap[] {die1, die2, die3}, 0.5f);
+        damageRight = new Animation(new Bitmap[] {takingDamage}, 0.5f);
+
+        idleDeadRight = new Animation(new Bitmap[] {die3}, 2f);
+
+        animManager = new AnimationManager(new Animation[]{idleLookRight, idleLookLeft, walkRight, walkLeft, dieRight, dieLeft, damageRight, damageLeft, idleDeadRight, idleDeadLeft});
         lastTime = System.currentTimeMillis();
         calculatedMovement = new PointF((float)(rectangle.centerX()), (float) rectangle.centerY());
 
@@ -90,7 +115,7 @@ public class Player implements GameObject {
         rectangle.set(moveTo.x - rectangle.width()/2, moveTo.y - rectangle.height()/2, moveTo.x + rectangle.width()/2, moveTo.y + rectangle.height()/2);
     }
 
-    public void updatePosition() {
+    public void updatePosition(long damageTime, boolean killMonkey) {
         float oldLeft = calculatedMovement.x;
         long currentTime = System.currentTimeMillis();
         float deltaX, deltaY;
@@ -109,26 +134,56 @@ public class Player implements GameObject {
             calculatedMovement.set(moveTo.x, moveTo.y);
         }
 
-
-
-
-        rectangle.set(
-                (int)calculatedMovement.x - rectangle.width()/2,
-                (int)calculatedMovement.y - rectangle.height()/2,
-                (int)calculatedMovement.x + rectangle.width()/2,
-                (int)calculatedMovement.y + rectangle.height()/2);
-
-        //Log.i("Test", "state: " + state);
-        if(calculatedMovement.x > oldLeft ) {
-            state = 2;
-        } else if ( calculatedMovement.x < oldLeft ) {
-            state = 3;
-        } else if(state == 2 || state == 0) {
-            state = 0;
-        } else {
-            state = 1;
-
+        if (!killMonkey) {
+            rectangle.set(
+                    (int)calculatedMovement.x - rectangle.width()/2,
+                    (int)calculatedMovement.y - rectangle.height()/2,
+                    (int)calculatedMovement.x + rectangle.width()/2,
+                    (int)calculatedMovement.y + rectangle.height()/2);
         }
+
+
+        //idleLookRight, idleLookLeft, walkRight, walkLeft, dieRight, dieLeft, damageRight, damageLeft, idleDeadRight, idleDeadLeft
+        //Log.i("Test", "state: " + state);
+
+
+        if (!killMonkey) {
+            if (damageTime > System.currentTimeMillis()) {
+                if(calculatedMovement.x > oldLeft || state == 2 || state == 0) {
+                    state = 6;
+                } else if ( calculatedMovement.x < oldLeft || state == 1 || state == 3) {
+                    state = 7;
+                }
+            } else {
+                if(calculatedMovement.x > oldLeft ) {
+                    state = 2;
+                } else if ( calculatedMovement.x < oldLeft ) {
+                    state = 3;
+                } else if(state == 2 || state == 0 || state == 6) {
+                    state = 0;
+                } else {
+                    state = 1;
+                }
+            }
+        } else {
+            if(calculatedMovement.x > oldLeft || state == 2 || state == 0) {
+                state = 4;
+            } else if ( calculatedMovement.x < oldLeft || state == 1 || state == 3) {
+                state = 5;
+            }
+
+            if ( animManager.isAnimationDone()) {
+                if (state == 4)
+                    state = 8;
+                if (state == 5)
+                    state = 9;
+
+                GamePlayScene.gameOver = true;
+            }
+        }
+
+
+
 
         animManager.playAnim(state);
         animManager.update();

@@ -54,8 +54,7 @@ public class UserInterface implements GameObject{
     private static int heartBeatTime;
 
     private static final int DEFAULT_HEARTBEAT_DELAY = 300;
-
-
+    public static int health = 0;
 
 //    private static boolean lowHealth = false;
 
@@ -128,8 +127,10 @@ public class UserInterface implements GameObject{
     public static void DoDamage(int damage){
         if (targetHealthValue - damage > 0) {
             targetHealthValue -= damage;
+            health = targetHealthValue;
         } else {
             targetHealthValue = 0;
+            health = targetHealthValue;
             System.out.println("APINA KUOLI");
         }
     }
@@ -139,6 +140,7 @@ public class UserInterface implements GameObject{
         if (bananas > 0 && targetHealthValue <= 95) {
             bananas--;
             targetHealthValue += 5;
+            health = targetHealthValue;
             eatBanana.start();
         }
     }
