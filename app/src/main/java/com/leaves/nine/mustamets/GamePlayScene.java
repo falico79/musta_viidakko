@@ -15,6 +15,7 @@ import org.xmlpull.v1.XmlPullParserException;
 import java.io.IOException;
 import java.util.ArrayList;
 
+
 /**
  * Created by lasse on 16/03/2018.
  */
@@ -33,7 +34,9 @@ public class GamePlayScene implements Scene {
 
 
 
-    private boolean gameOver = false;
+    public static boolean gameOver = false;
+    private long damageMillis = 0;
+    private boolean killMonkey = false;
 
     private int[] mapList;
     private int currentMapIndex = -1;
@@ -47,7 +50,7 @@ public class GamePlayScene implements Scene {
                 (Constants.SCREEN_WIDTH * 0.4f) );
         playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
         player.setPos(playerPosition);
-        player.updatePosition();
+        player.updatePosition(damageMillis, killMonkey);
 
         mapList = new int[]{ R.xml.map001 };
 
@@ -120,7 +123,7 @@ public class GamePlayScene implements Scene {
     @Override
     public void update() {
         if(!gameOver) {
-            player.updatePosition();
+            player.updatePosition(damageMillis, killMonkey);
             obstacleManager.update();
 
             Collectible object;
@@ -188,8 +191,14 @@ public class GamePlayScene implements Scene {
                 if (DoorObject.touchCollide(touchPoint)){
 
                     UserInterface.DoDamage(10);
+                    damageMillis = System.currentTimeMillis() + 250;
+                    if (UserInterface.health == 0)
+                        killMonkey = true;
                     // VÄLIAIKAINEN TESTI DAMAGE
 
+                }
+                else {
+                    damageMillis = 0;
                 }
                 player.moveTo(playerPosition);
 
