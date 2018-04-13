@@ -99,8 +99,6 @@ public class Player implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
-
-
         animManager.draw(canvas, rectangle);
     }
 
@@ -181,9 +179,6 @@ public class Player implements GameObject {
                 GamePlayScene.gameOver = true;
             }
         }
-
-
-
 
         animManager.playAnim(state);
         animManager.update();
