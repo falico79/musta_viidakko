@@ -13,7 +13,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 import java.util.Random;
 
 /**
@@ -136,6 +135,7 @@ public class GamePlayScene implements Scene {
             throw new XmlPullParserException("virheellinen xml");
         }
         if( parser.getAttributeValue(0).equals("banaani")) {
+
             return addBanaani(parser);
         } else if(parser.getAttributeValue(0).equals("tera")) {
 
@@ -143,6 +143,7 @@ public class GamePlayScene implements Scene {
         }
         return null;
     }
+
 
     private StoryItem addTera(XmlResourceParser parser) throws IOException, XmlPullParserException {
         float x = 0.5f, y = 0.5f;
@@ -185,6 +186,7 @@ public class GamePlayScene implements Scene {
     }
 
     private Collectible addBanaani(XmlResourceParser parser) throws IOException, XmlPullParserException {
+
         float x = 0.5f, y = 0.5f;
         while(parser.next() != XmlPullParser.END_TAG) {
             for(int i = 0; i < parser.getAttributeCount(); i++) {
@@ -215,7 +217,7 @@ public class GamePlayScene implements Scene {
                     storyItem.advanceStory();
 
             }
-
+            userInterface.update();
         }
     }
 
@@ -265,7 +267,14 @@ public class GamePlayScene implements Scene {
                 if (userInterface.playerCollide(touchPoint)) {
                     UserInterface.removeBanana();
                 }
+                if (userInterface.musicButtonClick(touchPoint)) {
+                    UserInterface.stopMusic();
+                    // stop music
+                }
                 if (DoorObject.touchCollide(touchPoint)){
+
+                    UserInterface.DoDamage(10);
+                    // VÄLIAIKAINEN TESTI DAMAGE
 
                 }
                 player.moveTo(playerPosition);
