@@ -32,14 +32,12 @@ public class GamePlayScene implements Scene {
     private Background background;
     private Background foreground;
     private ObstacleManager obstacleManager;
-    private VisualItem visualItem;
     private CollectibleManager collectiblesManager;
     private Random random;
     private boolean movingPlayer = false;
     private Animation bananaAnimation;
 
     private boolean gameOver = false;
-    private long gameOverTime;
 
     private int[] mapList;
     private int currentMapIndex = -1;
@@ -69,6 +67,7 @@ public class GamePlayScene implements Scene {
 
         loadMap(nextMap());
 
+        /*
         Bitmap tera = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera1);
         Animation stillAnimation = new Animation(new Bitmap[]{tera}, 2);
         Bitmap tera2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera2);
@@ -83,7 +82,7 @@ public class GamePlayScene implements Scene {
                 (int)(Constants.SCREEN_WIDTH * 0.6f + Constants.SCREEN_WIDTH * 0.05f),
                 (int)(Constants.SCREEN_HEIGHT * 0.4f + Constants.SCREEN_HEIGHT * 0.1f))));
 
-
+*/
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
         background = new Background(R.drawable.background);
@@ -112,11 +111,15 @@ public class GamePlayScene implements Scene {
         try {
             parser.next();
 
-            while (parser.next() != XmlPullParser.END_TAG) {
+            while (parser.next() != XmlPullParser.END_DOCUMENT) {
+                System.out.println(parser.getName());
                 switch (parser.getName()) {
                     case "item":
-                        collectiblesManager.addCollectibles(addItem(parser));
-                        parser.next();
+                        Collectible temp = addItem(parser);
+                        if(temp!=null) {
+                            collectiblesManager.addCollectibles(temp);
+                            parser.next();
+                        }
                         break;
                     default:
                         continue;
@@ -134,14 +137,56 @@ public class GamePlayScene implements Scene {
         }
         if( parser.getAttributeValue(0).equals("banaani")) {
             return addBanaani(parser);
+        } else if(parser.getAttributeValue(0).equals("tera")) {
+
+            return addTera(parser);
         }
         return null;
+    }
+
+    private StoryItem addTera(XmlResourceParser parser) throws IOException, XmlPullParserException {
+        float x = 0.5f, y = 0.5f;
+        ArrayList<Animation> animations = new ArrayList<>();
+
+        while(parser.next() != XmlPullParser.END_TAG) {
+
+            if(parser.getName().equals("position")) {
+                for (int i = 0; i < parser.getAttributeCount(); i++) {
+                    if (parser.getAttributeName(i).equals("x")) {
+                        x = Float.parseFloat(parser.getAttributeValue(i)) / 100;
+                    } else if (parser.getAttributeName(i).equals("y")) {
+                        y = Float.parseFloat(parser.getAttributeValue(i)) / 100;
+                    }
+                }
+                parser.next();
+            } else if(parser.getName().equals("animation")) {
+                if(parser.getAttributeCount() == 1) {
+                    float animTime = parser.getAttributeFloatValue(0, 0.0f);
+
+
+                    ArrayList<Bitmap> pictures = new ArrayList<>();
+                    while (parser.next() != XmlPullParser.END_TAG) {
+                        pictures.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), parser.getAttributeResourceValue(0, -1)));
+                        parser.next();
+                    }
+
+                    animations.add(new Animation(pictures.toArray(new Bitmap[pictures.size() ]), animTime));
+                }
+            }
+        }
+
+
+        return new StoryItem(new AnimationManager(animations.toArray(new Animation[animations.size()])), new Rect(
+                (int)(Constants.SCREEN_WIDTH * x),
+                (int)(Constants.SCREEN_HEIGHT * y),
+                (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
+                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)));
+
     }
 
     private Collectible addBanaani(XmlResourceParser parser) throws IOException, XmlPullParserException {
         float x = 0.5f, y = 0.5f;
         while(parser.next() != XmlPullParser.END_TAG) {
-            System.out.println("test");
             for(int i = 0; i < parser.getAttributeCount(); i++) {
                 if(parser.getAttributeName(i).equals("x")) {
                     x = Float.parseFloat(parser.getAttributeValue(i)) /100;
@@ -219,12 +264,9 @@ public class GamePlayScene implements Scene {
                 Rect touchPoint = new Rect(x, y, x+1, y+1);
                 if (userInterface.playerCollide(touchPoint)) {
                     UserInterface.removeBanana();
-                    // add health
                 }
                 if (DoorObject.touchCollide(touchPoint)){
-                    System.out.println("");
-                    System.out.println("Puun runko");
-                    System.out.println("");
+
                 }
                 player.moveTo(playerPosition);
 

@@ -6,4 +6,16 @@
     <item type="banaani">
         <position x="70" y="30"/>
     </item>
+    <item type="tera">
+        <position x="75" y="50"/>
+        <animation animTime="2.0">
+            <frame file="@drawable/sahantera1" />
+        </animation>
+        <animation animTime="0.5">
+            <frame file="@drawable/sahantera2" />
+            <frame file="@drawable/sahantera3" />
+            <frame file="@drawable/sahantera4" />
+            <frame file="@drawable/sahantera5" />
+        </animation>
+    </item>
 </resources>
