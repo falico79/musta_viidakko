@@ -1,7 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.graphics.Canvas;
-import android.graphics.Point;
 import android.graphics.Rect;
 
 import java.util.ArrayList;

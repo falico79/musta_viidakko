@@ -41,16 +41,12 @@ public class DoorObject implements GameObject {
 
     public static void drawPopupMessage(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.CENTER);
-//        canvas.getClipBounds(rectPanel);
-//        int cHeight = rectPanel.height();
-//        int cWidth = rectPanel.width();
-//        paint.getTextBounds(text, 0, text.length(), rectPanel);
+
         float x = Constants.SCREEN_WIDTH * 0.5f;
         float y = Constants.SCREEN_HEIGHT * 0.5f;
         canvas.drawRect(rectPanel, new Paint(Color.argb(50, 0, 255, 200)));
         canvas.drawText(text, x, y, paint);
-//        canvas.drawRect(target, paint);
-//        canvas.drawBitmap(bananaCountIcon, source, target,null);
+
     }
 
     @Override

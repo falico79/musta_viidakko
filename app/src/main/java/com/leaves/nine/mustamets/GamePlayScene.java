@@ -13,18 +13,16 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.Random;
+import java.util.ArrayList;
 
 /**
  * Created by lasse on 16/03/2018.
  */
 
 public class GamePlayScene implements Scene {
-    //private SceneManager manager;
     private Rect r = new Rect();
 
     private DoorObject doorObject;
-    private StoryItem storyItem;
     private UserInterface userInterface;
     private Player player;
     private Point playerPosition;
@@ -32,9 +30,8 @@ public class GamePlayScene implements Scene {
     private Background foreground;
     private ObstacleManager obstacleManager;
     private CollectibleManager collectiblesManager;
-    private Random random;
-    private boolean movingPlayer = false;
-    private Animation bananaAnimation;
+
+
 
     private boolean gameOver = false;
 
@@ -55,33 +52,14 @@ public class GamePlayScene implements Scene {
         mapList = new int[]{ R.xml.map001 };
 
         userInterface = new UserInterface();
-        random = new Random();
 
         collectiblesManager = new CollectibleManager();
 
-        storyItem = new StoryItem();
 
-        Bitmap bananaImage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(),R.drawable.banaani);
-        bananaAnimation = new Animation(new Bitmap[]{bananaImage}, 2);
+
 
         loadMap(nextMap());
 
-        /*
-        Bitmap tera = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera1);
-        Animation stillAnimation = new Animation(new Bitmap[]{tera}, 2);
-        Bitmap tera2 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera2);
-        Bitmap tera3 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera3);
-        Bitmap tera4 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera4);
-        Bitmap tera5 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.sahantera5);
-        Animation blink = new Animation(new Bitmap[]{tera2, tera3,tera4,tera5},0.5f );
-        AnimationManager aniManager = new AnimationManager(new Animation[]{stillAnimation, blink});
-
-        collectiblesManager.addCollectibles(new StoryItem(aniManager, new Rect((int)(Constants.SCREEN_WIDTH * 0.6f),
-                (int)(Constants.SCREEN_HEIGHT * 0.4f),
-                (int)(Constants.SCREEN_WIDTH * 0.6f + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * 0.4f + Constants.SCREEN_HEIGHT * 0.1f))));
-
-*/
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
         background = new Background(R.drawable.background);
@@ -97,12 +75,6 @@ public class GamePlayScene implements Scene {
         return currentMapIndex < mapList.length - 1 ? mapList[++currentMapIndex] : mapList[0];
     }
 
-    public void reset() {
-        playerPosition = new Point(Constants.SCREEN_WIDTH/2, 3*Constants.SCREEN_HEIGHT/4);
-        player.setPos(playerPosition);
-        obstacleManager = new ObstacleManager(1, Color.BLACK);
-        movingPlayer = false;
-    }
 
     public void loadMap(int fileId) {
         XmlResourceParser parser = Constants.CURRENT_CONTEXT.getResources().getXml(fileId);
@@ -111,7 +83,6 @@ public class GamePlayScene implements Scene {
             parser.next();
 
             while (parser.next() != XmlPullParser.END_DOCUMENT) {
-                System.out.println(parser.getName());
                 switch (parser.getName()) {
                     case "item":
                         Collectible temp = addItem(parser);
@@ -136,73 +107,15 @@ public class GamePlayScene implements Scene {
         }
         if( parser.getAttributeValue(0).equals("banaani")) {
 
-            return addBanaani(parser);
-        } else if(parser.getAttributeValue(0).equals("tera")) {
+            return Collectible.addBanaani(parser);
+        } else if(parser.getAttributeValue(0).equals("storyitem")) {
 
-            return addTera(parser);
+            return StoryItem.addStoryItem(parser);
         }
         return null;
     }
 
 
-    private StoryItem addTera(XmlResourceParser parser) throws IOException, XmlPullParserException {
-        float x = 0.5f, y = 0.5f;
-        ArrayList<Animation> animations = new ArrayList<>();
-
-        while(parser.next() != XmlPullParser.END_TAG) {
-
-            if(parser.getName().equals("position")) {
-                for (int i = 0; i < parser.getAttributeCount(); i++) {
-                    if (parser.getAttributeName(i).equals("x")) {
-                        x = Float.parseFloat(parser.getAttributeValue(i)) / 100;
-                    } else if (parser.getAttributeName(i).equals("y")) {
-                        y = Float.parseFloat(parser.getAttributeValue(i)) / 100;
-                    }
-                }
-                parser.next();
-            } else if(parser.getName().equals("animation")) {
-                if(parser.getAttributeCount() == 1) {
-                    float animTime = parser.getAttributeFloatValue(0, 0.0f);
-
-
-                    ArrayList<Bitmap> pictures = new ArrayList<>();
-                    while (parser.next() != XmlPullParser.END_TAG) {
-                        pictures.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), parser.getAttributeResourceValue(0, -1)));
-                        parser.next();
-                    }
-
-                    animations.add(new Animation(pictures.toArray(new Bitmap[pictures.size() ]), animTime));
-                }
-            }
-        }
-
-
-        return new StoryItem(new AnimationManager(animations.toArray(new Animation[animations.size()])), new Rect(
-                (int)(Constants.SCREEN_WIDTH * x),
-                (int)(Constants.SCREEN_HEIGHT * y),
-                (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)));
-
-    }
-
-    private Collectible addBanaani(XmlResourceParser parser) throws IOException, XmlPullParserException {
-
-        float x = 0.5f, y = 0.5f;
-        while(parser.next() != XmlPullParser.END_TAG) {
-            for(int i = 0; i < parser.getAttributeCount(); i++) {
-                if(parser.getAttributeName(i).equals("x")) {
-                    x = Float.parseFloat(parser.getAttributeValue(i)) /100;
-                } else if(parser.getAttributeName(i).equals("y")) {
-                    y = Float.parseFloat(parser.getAttributeValue(i)) /100;
-                }
-            }
-        }
-
-        return new Collectible(new Rect(new Rect((int)(Constants.SCREEN_WIDTH * x),
-                (int)(Constants.SCREEN_HEIGHT * y),
-                (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT *0.1f))), new AnimationManager(new Animation[]{bananaAnimation}));
-    }
 
     @Override
     public void update() {
@@ -212,9 +125,10 @@ public class GamePlayScene implements Scene {
 
             Collectible object;
             collectiblesManager.updateStoryItems();
-            if ((object = collectiblesManager.playerCollide(player.getRectangle())) != null) {
+            Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
+            if ((object = collectiblesManager.playerCollide(test)) != null) {
                 if (object instanceof StoryItem)
-                    storyItem.advanceStory();
+                    ((StoryItem)object).advanceStory();
 
             }
             userInterface.update();
