@@ -25,7 +25,6 @@ public class UserInterface implements GameObject{
     private Rect targetHealth;
     private Rect sourceHealth;
 
-    private Rect healthBarBackground;
     private Rect healthBar;
     private static int HEALTH_BAR_MAX_WIDTH;
     private static int HEALTH_BAR_MAX_HEIGHT;
@@ -54,9 +53,7 @@ public class UserInterface implements GameObject{
     private static int heartBeatTime;
 
     private static final int DEFAULT_HEARTBEAT_DELAY = 300;
-    public static int health = 0;
-
-//    private static boolean lowHealth = false;
+    public static int health;
 
     public UserInterface() {
         rectPanel = new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10);
@@ -112,6 +109,8 @@ public class UserInterface implements GameObject{
         heartBeatTime = (int)(DEFAULT_HEARTBEAT_DELAY * currentHealthValue / 20);
         targetTime = System.currentTimeMillis() + heartBeatTime;
         currentHealthValue = targetHealthValue;
+
+        health = targetHealthValue;
     }
 
 
@@ -137,7 +136,7 @@ public class UserInterface implements GameObject{
 
 
     public static void removeBanana() {
-        if (bananas > 0 && targetHealthValue <= 95) {
+        if (bananas > 0 && targetHealthValue <= 95 && health != 0) {
             bananas--;
             targetHealthValue += 5;
             health = targetHealthValue;
