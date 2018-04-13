@@ -6,7 +6,7 @@
     <item type="banaani">
         <position x="70" y="30"/>
     </item>
-    <item type="tera">
+    <item type="storyitem">
         <position x="75" y="50"/>
         <animation animTime="2.0">
             <frame file="@drawable/sahantera1" />
