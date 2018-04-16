@@ -1,8 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Paint;
 import android.graphics.Rect;
 
 import java.util.ArrayList;
@@ -13,20 +11,14 @@ import java.util.ArrayList;
 
 public class ObstacleManager {
     private ArrayList<Obstacle> obstacles;
-    private int score = 0;
 
     private int obstacleHeight;
     private int color;
-
-    private long startTime;
-    private long initTime;
 
     public ObstacleManager(int obstacleHeight, int color) {
 
         this.obstacleHeight = obstacleHeight;
         this.color = color;
-
-        startTime = initTime = System.currentTimeMillis();
 
         obstacles = new ArrayList<>();
 
@@ -52,12 +44,6 @@ public class ObstacleManager {
 
     public void update() {
 
-//        if(obstacles.get(obstacles.size()-1).getRectangle().top >= Constants.SCREEN_HEIGHT) {
-//            int xStart = (int)(Math.random()*(Constants.SCREEN_WIDTH-playerGap));
-//            obstacles.add(0, new Obstacle(obstacleHeight, color, xStart, obstacles.get(0).getRectangle().top - obstacleHeight - obstacleGap, playerGap));
-//            obstacles.remove(obstacles.size()-1);
-//            score++;
-//        }
     }
 
     public void draw(Canvas canvas) {
