@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <background file="@drawable/tokavikatausta"/>
+    <foreground file="@drawable/tokavikaetuala"/>
+    <item type="banaani">
+        <position x="30" y="50"/>
+    </item>
+    <item type="banaani">
+        <position x="70" y="30"/>
+    </item>
+
+    <!-- apinat häkissä? -->
+
+    <!-- työmies -->
+    <item type="npc">
+        <position x="75" y="50"/>
+        <animation animTime="">
+            <frame file="@drawable/" />
+        </animation>
+        <animation animTime="">
+            <frame file="@drawable/" />
+            <frame file="@drawable/" />
+            <frame file="@drawable/" />
+        </animation>
+    </item>
+</resources>
