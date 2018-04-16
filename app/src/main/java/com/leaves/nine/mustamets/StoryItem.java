@@ -24,7 +24,7 @@ public class StoryItem extends Collectible implements StoryObject {
 
     private long targetTime;
 
-    private boolean completed = false;
+    private static boolean completed = false;
     private Canvas myCanvas;
 
     public StoryItem(AnimationManager animationManager, Rect target) {
@@ -115,6 +115,10 @@ public class StoryItem extends Collectible implements StoryObject {
             paint.setTextAlign(Paint.Align.CENTER);
             paint.setTextSize((Constants.SCREEN_HEIGHT / 15));
             DoorObject.drawPopupMessage(myCanvas, paint, "Kerää sahanterä ensin!!!");
+        }
+        else if (completed){
+//            System.out.println("Next map");
+//            GamePlayScene.nextMap();
         }
     }
 

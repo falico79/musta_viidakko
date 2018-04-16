@@ -2,25 +2,28 @@
 <resources>
     <background file="@drawable/tokavikatausta"/>
     <foreground file="@drawable/tokavikaetuala"/>
+
+    <start>
+        <position x = "50" y = "75" />
+    </start>
+
     <item type="banaani">
         <position x="30" y="50"/>
     </item>
     <item type="banaani">
         <position x="70" y="30"/>
     </item>
-
-    <!-- apinat häkissä? -->
-
-    <!-- työmies -->
     <item type="npc">
         <position x="75" y="50"/>
         <animation animTime="">
-            <frame file="@drawable/" />
+            <frame file="@drawable/gorilla" />
         </animation>
         <animation animTime="">
-            <frame file="@drawable/" />
-            <frame file="@drawable/" />
-            <frame file="@drawable/" />
+            <frame file="@drawable/gorillahit1" />
+            <frame file="@drawable/gorillahit2" />
+            <frame file="@drawable/gorillahit3" />
         </animation>
     </item>
+
+
 </resources>

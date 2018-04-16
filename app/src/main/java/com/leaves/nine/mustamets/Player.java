@@ -9,13 +9,16 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.util.Log;
 
+import static com.leaves.nine.mustamets.UserInterface.*;
+import static com.leaves.nine.mustamets.UserInterface.health;
+
 /**
  * Created by lasse on 16/03/2018.
  */
 
 public class Player implements GameObject {
     private Rect rectangle;
-
+    boolean killMonkey = false;
 
     private float speed;
     private AnimationManager animManager;
@@ -75,6 +78,21 @@ public class Player implements GameObject {
 
     }
 
+    public void killCharacter() {
+        killMonkey = true;
+    }
+
+    public void doDamage(int damagePercentage) {
+        if ((targetHealthValue - damagePercentage) > 0) {
+            targetHealthValue -= damagePercentage;
+            health = targetHealthValue;
+        } else {
+            targetHealthValue = 0;
+            health = targetHealthValue;
+            System.out.println("APINA KUOLI");
+        }
+    }
+
     public Rect getRectangle() {
         return this.rectangle;
     }
@@ -103,7 +121,7 @@ public class Player implements GameObject {
         rectangle.set(moveTo.x - rectangle.width()/2, moveTo.y - rectangle.height()/2, moveTo.x + rectangle.width()/2, moveTo.y + rectangle.height()/2);
     }
 
-    public void updatePosition(long damageTime, boolean killMonkey) {
+    public void updatePosition(long damageTime) {
         float oldLeft = calculatedMovement.x;
         long currentTime = System.currentTimeMillis();
         float deltaX, deltaY;
