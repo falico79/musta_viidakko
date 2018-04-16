@@ -17,20 +17,10 @@ public class Player implements GameObject {
     private Rect rectangle;
 
 
-    private Animation idleLookRight;
-    private Animation idleLookLeft;
-    private Animation walkRight;
-    private Animation walkLeft;
-    private Animation dieLeft;
-    private Animation damageLeft;
-    private Animation dieRight;
-    private Animation damageRight;
-    private Animation idleDeadLeft;
-    private Animation idleDeadRight;
     private float speed;
     private AnimationManager animManager;
 
-    long lastTime;
+    private long lastTime;
 
     private float angle = 90;
     private int state = 0;
@@ -50,13 +40,13 @@ public class Player implements GameObject {
         Bitmap die3 = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.dying3);
         Bitmap takingDamage = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.takingdamage);
 
-        idleLookLeft = new Animation(new Bitmap[]{idleImage},2);
-        walkLeft = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
+        Animation idleLookLeft = new Animation(new Bitmap[]{idleImage}, 2);
+        Animation walkLeft = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
 
-        dieLeft = new Animation(new Bitmap[] {die1, die2, die3}, 0.5f);
-        damageLeft = new Animation(new Bitmap[] {takingDamage}, 0.5f);
+        Animation dieLeft = new Animation(new Bitmap[]{die1, die2, die3}, 0.5f);
+        Animation damageLeft = new Animation(new Bitmap[]{takingDamage}, 0.5f);
 
-        idleDeadLeft = new Animation(new Bitmap[] {die3}, 2f);
+        Animation idleDeadLeft = new Animation(new Bitmap[]{die3}, 2f);
 
         Matrix m = new Matrix();
         m.preScale(-1,1);
@@ -69,13 +59,13 @@ public class Player implements GameObject {
         die3 = Bitmap.createBitmap(die3, 0, 0, die3.getWidth(), die3.getHeight(), m, false);
         takingDamage = Bitmap.createBitmap(takingDamage, 0, 0, takingDamage.getWidth(), takingDamage.getHeight(), m, false);
 
-        idleLookRight = new Animation(new Bitmap[]{idleImage},2);
-        walkRight = new Animation(new Bitmap[]{walk1,walk2}, 0.5f);
+        Animation idleLookRight = new Animation(new Bitmap[]{idleImage}, 2);
+        Animation walkRight = new Animation(new Bitmap[]{walk1, walk2}, 0.5f);
 
-        dieRight = new Animation(new Bitmap[] {die1, die2, die3}, 0.5f);
-        damageRight = new Animation(new Bitmap[] {takingDamage}, 0.5f);
+        Animation dieRight = new Animation(new Bitmap[]{die1, die2, die3}, 0.5f);
+        Animation damageRight = new Animation(new Bitmap[]{takingDamage}, 0.5f);
 
-        idleDeadRight = new Animation(new Bitmap[] {die3}, 2f);
+        Animation idleDeadRight = new Animation(new Bitmap[]{die3}, 2f);
 
         animManager = new AnimationManager(new Animation[]{idleLookRight, idleLookLeft, walkRight, walkLeft, dieRight, dieLeft, damageRight, damageLeft, idleDeadRight, idleDeadLeft});
         lastTime = System.currentTimeMillis();

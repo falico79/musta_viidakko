@@ -52,7 +52,7 @@ public class GamePlayScene implements Scene {
         player.setPos(playerPosition);
         player.updatePosition(damageMillis, killMonkey);
 
-        mapList = new int[]{ R.xml.map001 };
+        mapList = new int[]{ R.xml.map003 };
 
         userInterface = new UserInterface();
 
@@ -65,8 +65,6 @@ public class GamePlayScene implements Scene {
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
-        background = new Background(R.drawable.background);
-        foreground = new Background(R.drawable.foreground);
 
         doorObject = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
                 Constants.SCREEN_HEIGHT / 13,
@@ -93,6 +91,14 @@ public class GamePlayScene implements Scene {
                             collectiblesManager.addCollectibles(temp);
                             parser.next();
                         }
+                        break;
+                    case "background":
+                        background = new Background(parser.getAttributeResourceValue(0, -1));
+                        parser.next();
+                        break;
+                    case "foreground":
+                        foreground = new Background(parser.getAttributeResourceValue(0, -1));
+                        parser.next();
                         break;
                     default:
                         continue;
