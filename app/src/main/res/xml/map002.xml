@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <background file = "@drawable/background2"/>
+    <foreground file = "@drawable/foreground2"/>
+    <start>
+        <position x = "10" y = "75" />
+    </start>
+    <item type = "bush">
+        <position x = "25" y = "30" />
+        <animation animTime = "2.0">
+            <frame file="@drawable/puska_kiinni"/>
+        </animation>
+        <animation animTime = "2.0">
+            <frame file="@drawable/puska_aukeaa1"/>
+            <frame file="@drawable/puska_aukeaa2"/>
+            <frame file="@drawable/puska_aukeaa3"/>
+            <frame file="@drawable/puska_aukeaa4"/>
+        </animation>
+        <animation animTime = "2.0">
+            <frame file="@drawable/puska_auki"/>
+        </animation>
+    </item>
+    <item type = "monster">
+        <position x = "40" y = "40" />
+        <animation animTime = "2.0">
+            <frame file="@drawable/lihis1"/>
+            <frame file="@drawable/lihis2"/>
+            <frame file="@drawable/lihis3"/>
+        </animation>
+        <animation animTime = "2.0">
+            <frame file="@drawable/lihis_side_attack1"/>
+            <frame file="@drawable/lihis_side_attack2"/>
+            <frame file="@drawable/lihis_side_attack3"/>
+        </animation>
+        <animation animTime = "2.0">
+            <frame file="@drawable/lihis_kivi1"/>
+            <frame file="@drawable/lihis_kivi2"/>
+            <frame file="@drawable/lihis_kivi3"/>
+        </animation>
+    </item>
+    <item type = "npc">
+        <position x = "33" y = "20" />
+        <animation animTime = "0.5">
+            <frame file="@drawable/eeh1"/>
+            <frame file="@drawable/eeh2"/>
+        </animation>
+
+    </item>
+</resources>
