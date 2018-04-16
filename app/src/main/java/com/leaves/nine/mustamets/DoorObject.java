@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
+import android.graphics.Typeface;
 
 /**
  * Created by mikae on 3.4.2018.
@@ -30,7 +31,7 @@ public class DoorObject implements GameObject {
 
     }
 
-    public static boolean touchCollide(Rect rect) {
+    public static boolean playerCollide(Rect rect) {
         if (Rect.intersects(new Rect(target.left, (int)(target.top + target.top*0.3), target.right, (int)(target.bottom - target.bottom * 0.3)), rect)){
             drawPopup = true;
             return true;
@@ -46,6 +47,7 @@ public class DoorObject implements GameObject {
         float y = Constants.SCREEN_HEIGHT * 0.5f;
         canvas.drawRect(rectPanel, new Paint(Color.argb(50, 0, 255, 200)));
         canvas.drawText(text, x, y, paint);
+
 
     }
 

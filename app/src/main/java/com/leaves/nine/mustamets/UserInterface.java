@@ -45,7 +45,7 @@ public class UserInterface implements GameObject{
     private Bitmap healthBarFrameLow;
 
     private static int bananas = 100;
-    private static int targetHealthValue = 5;
+    private static int targetHealthValue = 50;
     private static float currentHealthValue = 0;
 
     private static int state = 0;
@@ -57,7 +57,7 @@ public class UserInterface implements GameObject{
 
     public UserInterface() {
         rectPanel = new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10);
-        bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaniterttu);
+        bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaninappi);
         healthBarFrame = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.healthbar);
         healthBarFrameLow = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.healthbarlow);
 
@@ -165,7 +165,7 @@ public class UserInterface implements GameObject{
     @Override
     public void draw(Canvas canvas) {
         Paint paint = new Paint();
-        paint.setTextSize(Constants.SCREEN_HEIGHT / 14);
+        paint.setTextSize(Constants.SCREEN_HEIGHT / 15);
         paint.setColor(Color.YELLOW);
         drawBananaCount(canvas, paint, "x " + bananas);
         paint.setColor(Color.BLACK);

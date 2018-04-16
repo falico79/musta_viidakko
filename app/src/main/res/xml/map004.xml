@@ -1,21 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <background file="@drawable/"/>
+    <foreground file="@drawable/"/>
     <item type="banaani">
         <position x="30" y="50"/>
     </item>
     <item type="banaani">
         <position x="70" y="30"/>
     </item>
-    <item type="storyitem">
+    <!-- apinat häkissä? -->
+
+    <!-- työmies -->
+    <item type="npc">
         <position x="75" y="50"/>
-        <animation animTime="2.0">
-            <frame file="@drawable/sahantera1" />
+        <animation animTime="">
+            <frame file="@drawable/" />
         </animation>
-        <animation animTime="0.5">
-            <frame file="@drawable/sahantera2" />
-            <frame file="@drawable/sahantera3" />
-            <frame file="@drawable/sahantera4" />
-            <frame file="@drawable/sahantera5" />
+        <animation animTime="">
+            <frame file="@drawable/" />
+            <frame file="@drawable/" />
+            <frame file="@drawable/" />
         </animation>
     </item>
 </resources>
