@@ -1,8 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.content.res.XmlResourceParser;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
@@ -13,7 +11,6 @@ import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 
 /**
@@ -38,8 +35,8 @@ public class GamePlayScene implements Scene {
     private long damageMillis = 0;
     private boolean killMonkey = false;
 
-    private int[] mapList;
-    private int currentMapIndex = -1;
+    private static int[] mapList;
+    private static int currentMapIndex = -1;
 
     public GamePlayScene() {
         player = new Player(
@@ -52,7 +49,7 @@ public class GamePlayScene implements Scene {
         player.setPos(playerPosition);
         player.updatePosition(damageMillis, killMonkey);
 
-        mapList = new int[]{ R.xml.map003 };
+        mapList = new int[]{ R.xml.map001, R.xml.map003 };
 
         userInterface = new UserInterface();
 
@@ -71,7 +68,7 @@ public class GamePlayScene implements Scene {
                 Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
     }
 
-    private int nextMap()
+    public static int nextMap()
     {
         return currentMapIndex < mapList.length - 1 ? mapList[++currentMapIndex] : mapList[0];
     }
@@ -136,10 +133,13 @@ public class GamePlayScene implements Scene {
             collectiblesManager.updateStoryItems();
             Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
             if ((object = collectiblesManager.playerCollide(test)) != null) {
-                if (object instanceof StoryItem)
-                    ((StoryItem)object).advanceStory();
+                if (object instanceof StoryItem) {
+                    ((StoryItem) object).advanceStory();
+
+                }
 
             }
+
             userInterface.update();
         }
     }
@@ -194,7 +194,12 @@ public class GamePlayScene implements Scene {
                     UserInterface.stopMusic();
                     // stop music
                 }
-                if (DoorObject.touchCollide(touchPoint)){
+                else {
+                    damageMillis = 0;
+                }
+                player.moveTo(playerPosition);
+
+                if (DoorObject.playerCollide(touchPoint)){
 
                     UserInterface.DoDamage(10);
                     damageMillis = System.currentTimeMillis() + 250;
@@ -203,11 +208,6 @@ public class GamePlayScene implements Scene {
                     // VÄLIAIKAINEN TESTI DAMAGE
 
                 }
-                else {
-                    damageMillis = 0;
-                }
-                player.moveTo(playerPosition);
-
 
                 break;
         }
