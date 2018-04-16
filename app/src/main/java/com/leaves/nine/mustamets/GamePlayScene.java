@@ -1,16 +1,7 @@
 package com.leaves.nine.mustamets;
 
-import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
-import android.graphics.Color;
-import android.graphics.Point;
-import android.graphics.Rect;
 import android.view.MotionEvent;
-
-import org.xmlpull.v1.XmlPullParser;
-import org.xmlpull.v1.XmlPullParserException;
-
-import java.io.IOException;
 
 /**
  * Created by lasse on 16/03/2018.
@@ -28,7 +19,7 @@ public class GamePlayScene implements Scene {
     public GamePlayScene() {
         gameObjectManager = new GameObjectManager();
 
-        mapList = new int[]{ R.xml.map001, R.xml.map003 };
+        mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
         gameObjectManager.loadMap(nextMap());
     }
 
