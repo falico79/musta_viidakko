@@ -18,7 +18,7 @@ import static com.leaves.nine.mustamets.UserInterface.health;
 
 public class Player implements GameObject {
     private Rect rectangle;
-    boolean killMonkey = false;
+    private boolean killMonkey = false;
 
     private float speed;
     private AnimationManager animManager;

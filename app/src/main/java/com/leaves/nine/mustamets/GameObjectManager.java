@@ -113,19 +113,15 @@ public class GameObjectManager {
 
         playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
         player.setPos(playerPosition);
-        player.updatePosition(damageMillis, killMonkey);
-
-
+        player.updatePosition(damageMillis);
+        
         goal = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
                 Constants.SCREEN_HEIGHT / 13,
                 Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
-
-
     }
 
-
     public void update() {
-        player.updatePosition(damageMillis, killMonkey);
+        player.updatePosition(damageMillis);
 
         Collectible object;
         updateStoryItems();
@@ -136,10 +132,7 @@ public class GameObjectManager {
 
         }
         userInterface.update();
-
         obstacleManager.update();
-
-
     }
 
 
@@ -148,11 +141,7 @@ public class GameObjectManager {
             if ((item instanceof StoryItem)){
                 item.update();
             }
-
         }
-
-
-
     }
 
     public Collectible playerCollide(Rect rect) {
@@ -178,15 +167,9 @@ public class GameObjectManager {
 
         goal.draw(canvas);
         player.draw(canvas);
-
-
         foreground.draw(canvas);
-
         obstacleManager.draw(canvas);
-
         userInterface.draw(canvas);
-
-
     }
 
     public void receiveTouch(MotionEvent event) {
@@ -197,8 +180,6 @@ public class GameObjectManager {
                 int w = player.getRectangle().width();
                 int h = player.getRectangle().height();
 
-
-
                 Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
 
                 if(!obstacleManager.playerCollide(rect)) {
@@ -207,18 +188,18 @@ public class GameObjectManager {
 
                 Rect touchPoint = new Rect(x, y, x+1, y+1);
                 if (userInterface.playerCollide(touchPoint)) {
-                    UserInterface.removeBanana();
+                    UserInterface.eatBanana();
                 }
                 if (userInterface.musicButtonClick(touchPoint)) {
                     UserInterface.stopMusic();
                     // stop music
                 }
-                if (DoorObject.touchCollide(touchPoint)){
+                if (DoorObject.playerCollide(touchPoint)){
 
-                    UserInterface.DoDamage(10);
+                    player.doDamage(10);
                     damageMillis = System.currentTimeMillis() + 250;
                     if (UserInterface.health == 0)
-                        killMonkey = true;
+                        player.killCharacter();
                     // VÄLIAIKAINEN TESTI DAMAGE
 
                 }

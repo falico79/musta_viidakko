@@ -26,15 +26,9 @@ public class GamePlayScene implements Scene {
     private static int currentMapIndex = -1;
 
     public GamePlayScene() {
-        mapList = new int[]{ R.xml.map003 };
-
         gameObjectManager = new GameObjectManager();
 
         mapList = new int[]{ R.xml.map001, R.xml.map003 };
-
-        userInterface = new UserInterface();
-        collectiblesManager = new CollectibleManager();
-
         gameObjectManager.loadMap(nextMap());
     }
 
