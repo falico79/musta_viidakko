@@ -18,7 +18,6 @@ import java.io.IOException;
  */
 
 public class GamePlayScene implements Scene {
-    private Rect r = new Rect();
 
     private DoorObject doorObject;
     private UserInterface userInterface;
@@ -29,11 +28,8 @@ public class GamePlayScene implements Scene {
     private ObstacleManager obstacleManager;
     private CollectibleManager collectiblesManager;
 
-
-
     public static boolean gameOver = false;
     private long damageMillis = 0;
-    private boolean killMonkey = false;
 
     private static int[] mapList;
     private static int currentMapIndex = -1;
@@ -45,23 +41,21 @@ public class GamePlayScene implements Scene {
                         (int)(Constants.SCREEN_WIDTH * 0.5f + Constants.SCREEN_WIDTH * 0.1f),
                         (int)(Constants.SCREEN_HEIGHT * 0.75f + Constants.SCREEN_HEIGHT * 0.2f)),
                 (Constants.SCREEN_WIDTH * 0.4f) );
+
         playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
         player.setPos(playerPosition);
-        player.updatePosition(damageMillis, killMonkey);
+
+        player.updatePosition(damageMillis);
+
 
         mapList = new int[]{ R.xml.map001, R.xml.map003 };
 
         userInterface = new UserInterface();
-
         collectiblesManager = new CollectibleManager();
-
-
-
 
         loadMap(nextMap());
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
-
 
         doorObject = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
                 Constants.SCREEN_HEIGHT / 13,
@@ -72,7 +66,6 @@ public class GamePlayScene implements Scene {
     {
         return currentMapIndex < mapList.length - 1 ? mapList[++currentMapIndex] : mapList[0];
     }
-
 
     public void loadMap(int fileId) {
         XmlResourceParser parser = Constants.CURRENT_CONTEXT.getResources().getXml(fileId);
@@ -104,7 +97,6 @@ public class GamePlayScene implements Scene {
         } catch (Exception e) {
             e.printStackTrace();
         }
-
     }
 
     private Collectible addItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
@@ -121,23 +113,23 @@ public class GamePlayScene implements Scene {
         return null;
     }
 
-
-
     @Override
     public void update() {
         if(!gameOver) {
-            player.updatePosition(damageMillis, killMonkey);
+            player.updatePosition(damageMillis);
             obstacleManager.update();
 
             Collectible object;
             collectiblesManager.updateStoryItems();
-            Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
+            Rect test = new Rect(player.getRectangle().centerX(),
+                    player.getRectangle().centerY(),
+                    player.getRectangle().centerX() + 1,
+                    player.getRectangle().centerY() + 1);
+
             if ((object = collectiblesManager.playerCollide(test)) != null) {
                 if (object instanceof StoryItem) {
                     ((StoryItem) object).advanceStory();
-
                 }
-
             }
 
             userInterface.update();
@@ -146,21 +138,13 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void draw(Canvas canvas) {
-
         background.draw(canvas);
-
         collectiblesManager.draw(canvas);
         doorObject.draw(canvas);
         player.draw(canvas);
         obstacleManager.draw(canvas);
-
-
         foreground.draw(canvas);
-
         userInterface.draw(canvas);
-
-
-
     }
 
 
@@ -178,8 +162,6 @@ public class GamePlayScene implements Scene {
                 int w = player.getRectangle().width();
                 int h = player.getRectangle().height();
 
-
-
                 Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
 
                 if(!obstacleManager.playerCollide(rect)) {
@@ -188,7 +170,7 @@ public class GamePlayScene implements Scene {
 
                 Rect touchPoint = new Rect(x, y, x+1, y+1);
                 if (userInterface.playerCollide(touchPoint)) {
-                    UserInterface.removeBanana();
+                    UserInterface.eatBanana();
                 }
                 if (userInterface.musicButtonClick(touchPoint)) {
                     UserInterface.stopMusic();
@@ -201,10 +183,10 @@ public class GamePlayScene implements Scene {
 
                 if (DoorObject.playerCollide(touchPoint)){
 
-                    UserInterface.DoDamage(10);
+                    player.doDamage(10);
                     damageMillis = System.currentTimeMillis() + 250;
                     if (UserInterface.health == 0)
-                        killMonkey = true;
+                        player.killCharacter();
                     // VÄLIAIKAINEN TESTI DAMAGE
 
                 }
