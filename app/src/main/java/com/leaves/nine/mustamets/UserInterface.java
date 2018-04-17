@@ -16,7 +16,6 @@ import java.util.ArrayList;
 
 public class UserInterface implements GameObject{
 
-  
     private Rect targetMusic;
     private Rect sourceMusic;
     private Rect targetBanana;
