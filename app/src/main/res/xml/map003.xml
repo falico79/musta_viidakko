@@ -14,11 +14,11 @@
         <position x="70" y="30"/>
     </item>
     <item type="npc">
-        <position x="75" y="50"/>
-        <animation animTime="">
+        <position x="50" y="30"/>
+        <animation animTime="2.0">
             <frame file="@drawable/gorilla" />
         </animation>
-        <animation animTime="">
+        <animation animTime="2.0">
             <frame file="@drawable/gorillahit1" />
             <frame file="@drawable/gorillahit2" />
             <frame file="@drawable/gorillahit3" />
