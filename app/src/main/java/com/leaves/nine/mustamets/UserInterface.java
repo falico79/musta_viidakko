@@ -1,5 +1,6 @@
 package com.leaves.nine.mustamets;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -7,6 +8,12 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.view.Gravity;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.view.View;
+import android.widget.PopupMenu;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -14,11 +21,13 @@ import java.util.ArrayList;
  * Created by mikae on 26.3.2018.
  */
 
-public class UserInterface implements GameObject{
+public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListener {
 
   
     private Rect targetMusic;
     private Rect sourceMusic;
+    private Rect targetMenu;
+    private Rect sourceMenu;
     private Rect targetBanana;
     private Rect sourceBanana;
     private Rect targetHealth;
@@ -34,6 +43,10 @@ public class UserInterface implements GameObject{
   
     private static Bitmap musicButton;
     private Bitmap musicButtonOff;
+
+    private static Bitmap menuButton;
+
+    public static int menuIcon = R.drawable.menu;
 
     public static int musicIcon = R.drawable.musicbutton;
     private static ArrayList<Integer> playlist;
@@ -53,6 +66,7 @@ public class UserInterface implements GameObject{
 
         initializeBananaButton();
         initializeMusicButton();
+        initializeMenuButton();
         initializeHealthBar();
 
         HEALTH_BAR_MAX_HEIGHT = (int)(targetHealth.height() * 0.2);
@@ -76,6 +90,7 @@ public class UserInterface implements GameObject{
 
         health = targetHealthValue;
     }
+
 
     private void initializeHealthBar() {
         Bitmap healthBarFrame = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.healthbar);
@@ -108,6 +123,15 @@ public class UserInterface implements GameObject{
         targetMusic = new Rect((int) (Constants.SCREEN_WIDTH * 0.9),
                 Constants.SCREEN_HEIGHT / 65,
                 (int) ((Constants.SCREEN_WIDTH * 0.9)+(Constants.SCREEN_WIDTH / 21)),
+                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
+    }
+
+    private void initializeMenuButton() {
+        menuButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), menuIcon);
+        sourceMenu = new Rect(0, 0, menuButton.getWidth(), menuButton.getHeight());
+        targetMenu = new Rect((int) (Constants.SCREEN_WIDTH * 0.8),
+                Constants.SCREEN_HEIGHT / 65,
+                (int) ((Constants.SCREEN_WIDTH * 0.8)+(Constants.SCREEN_WIDTH / 21)),
                 (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
     }
 
@@ -146,6 +170,36 @@ public class UserInterface implements GameObject{
         }
     }
 
+    public void showPopup(View v) {
+        PopupMenu popup = new PopupMenu(Constants.CURRENT_CONTEXT, v, Gravity.CENTER);
+        MenuInflater inflater = popup.getMenuInflater();
+        popup.setOnMenuItemClickListener(this);
+        inflater.inflate(R.menu.main_menu, popup.getMenu());
+        popup.show();
+        //Popup-menun tulostus
+    }
+
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
+        switch (item.getItemId()) {
+            case R.id.continue_game:
+                //archive(item);
+                return true;
+            case R.id.new_game:
+                //delete(item);
+                return true;
+            case R.id.help:
+                Toast.makeText(Constants.CURRENT_CONTEXT, R.string.help_text,
+                        Toast.LENGTH_LONG).show();
+                return true;
+            default:
+                return false;
+        }
+    }
+
+
+
+
     public static int getBananas() {
         return bananas;
     }
@@ -158,6 +212,11 @@ public class UserInterface implements GameObject{
         drawBananaCount(canvas, paint, "x " + bananas);
         drawHealth(canvas, paint);
         drawMusicButton(canvas);
+        drawMenuButton (canvas);
+    }
+
+    private void drawMenuButton(Canvas canvas) {
+        canvas.drawBitmap(menuButton, sourceMenu, targetMenu,null);
     }
 
     public boolean playerCollide(Rect rect) {
@@ -166,6 +225,10 @@ public class UserInterface implements GameObject{
 
     public boolean musicButtonClick(Rect rect) {
         return Rect.intersects(new Rect(targetMusic.left, targetMusic.top, targetMusic.right, targetMusic.bottom), rect);// || Rect.intersects(rectangle2, player.getRectangle());
+    }
+
+    public boolean menuButtonClick(Rect rect) {
+        return Rect.intersects(new Rect(targetMenu.left, targetMenu.top, targetMenu.right, targetMenu.bottom), rect);// || Rect.intersects(rectangle2, player.getRectangle());
     }
 
     private void drawBananaCount(Canvas canvas, Paint paint, String text) {

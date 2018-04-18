@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+    <menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/continue_game"
+        android:title="Continue" />
+        <!-- android:icon="@drawable/ic_continue" -->
+    <item android:id="@+id/new_game"
+    android:title="New Game" />
+    <!--android:icon="@drawable/ic_new_game" -->
+<item android:id="@+id/help"
+    android:title="Help" />
+    <!-- android:icon="@drawable/ic_help"-->
+ </menu>
