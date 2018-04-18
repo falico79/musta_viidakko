@@ -61,7 +61,11 @@ public class GameObjectManager {
         asd.add("B");
         asd.add("C");
         asd.add("D");
-        storyBoard = new StoryBoard("Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged.", asd, 2);
+        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
+                "aliquip debitis maiestatis eum. " +
+                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
+                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
+                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
 
     }
 
@@ -214,6 +218,9 @@ public class GameObjectManager {
                 else {
                     damageMillis = 0;
                 }
+
+
+
                 player.moveTo(playerPosition);
 
 

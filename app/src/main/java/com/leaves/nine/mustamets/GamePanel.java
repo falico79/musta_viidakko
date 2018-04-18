@@ -2,6 +2,7 @@ package com.leaves.nine.mustamets;
 
 import android.content.Context;
 import android.graphics.Canvas;
+import android.graphics.Typeface;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -21,6 +22,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
         getHolder().addCallback(this);
 
         Constants.CURRENT_CONTEXT = context;
+        Constants.PAPYRUS_FONT = Typeface.createFromAsset(this.getContext().getApplicationContext().getAssets(),  "fonts/papyrus.ttf");
 
         thread = new MainThread(getHolder(), this);
 

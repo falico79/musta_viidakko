@@ -48,5 +48,6 @@ public class GamePlayScene implements Scene {
     @Override
     public void receiveTouch(MotionEvent event) {
         gameObjectManager.receiveTouch(event);
+
     }
 }

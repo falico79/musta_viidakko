@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+import android.view.View;
 
 import java.util.ArrayList;
 
@@ -175,6 +176,7 @@ public class UserInterface implements GameObject{
         float y = Constants.SCREEN_HEIGHT / 14;
         canvas.drawText(text, x, y, paint);
         canvas.drawBitmap(bananaCountIcon, sourceBanana, targetBanana,null);
+
     }
 
     private void drawMusicButton(Canvas canvas) {
