@@ -15,13 +15,15 @@
     </item>
     <item type="npc">
         <position x="50" y="30"/>
-        <animation animTime="2.0">
-            <frame file="@drawable/gorilla" />
+        <animation animTime="0.1">
+            <frame file="@drawable/gorillakone1" />
+            <frame file="@drawable/gorillakone2" />
         </animation>
         <animation animTime="2.0">
-            <frame file="@drawable/gorillahit1" />
-            <frame file="@drawable/gorillahit2" />
-            <frame file="@drawable/gorillahit3" />
+            <frame file="@drawable/gorilla_tuhoaa1" />
+            <frame file="@drawable/gorilla_tuhoaa2" />
+            <frame file="@drawable/gorilla_tuhoaa3" />
+            <frame file="@drawable/gorilla_tuhoaa4" />
         </animation>
     </item>
 
