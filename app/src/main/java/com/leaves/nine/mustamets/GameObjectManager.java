@@ -20,6 +20,8 @@ import java.util.Random;
 
 public class GameObjectManager {
 
+    private StoryBoard storyBoard;
+
     private Background background;
     private Background foreground;
 
@@ -56,7 +58,16 @@ public class GameObjectManager {
         userInterface = new UserInterface();
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
-
+        ArrayList<String> asd = new ArrayList<String>();
+        asd.add("A");
+        asd.add("B");
+        asd.add("C");
+        asd.add("D");
+        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
+                "aliquip debitis maiestatis eum. " +
+                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
+                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
+                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
 
     }
 
@@ -184,6 +195,7 @@ public class GameObjectManager {
         foreground.draw(canvas);
         obstacleManager.draw(canvas);
         userInterface.draw(canvas);
+        storyBoard.draw(canvas);
     }
 
     public void receiveTouch(MotionEvent event) {
@@ -220,6 +232,9 @@ public class GameObjectManager {
                 else {
                     damageMillis = 0;
                 }
+
+
+
                 player.moveTo(playerPosition);
 
 
