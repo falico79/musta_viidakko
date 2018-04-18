@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
 import android.view.MotionEvent;
+import android.view.View;
 
 import org.xmlpull.v1.XmlPullParser;
 import org.xmlpull.v1.XmlPullParserException;
@@ -219,6 +220,11 @@ public class GameObjectManager {
                 if (userInterface.musicButtonClick(touchPoint)) {
                     UserInterface.stopMusic();
                     // stop music
+                }
+
+                    if (userInterface.menuButtonClick(touchPoint)) {
+                        userInterface.showPopup(new View(Constants.CURRENT_CONTEXT));
+                        // open popup menu
                 }
                 if (DoorObject.playerCollide(touchPoint)){
 

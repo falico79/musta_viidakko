@@ -1,6 +1,14 @@
 <resources>
+
+    <string name="app_name">Musta metsä</string>
+    <string name="help_text">Welcome to the Black Jungle./n Moving: Move by clicking on the map. You might run ito obstacles that
+    you need to pass by finding the right items or by answering to the questions./n Survival: If your health gets too low, click on your bananas
+        and eat a few to get your strength back./n Audio: To turn the audio on or off, click on the note icon.
+    </string>
+
     <string name="app_name">Musta Viidakko</string>
     <string name="gorilla_quest">Haluatko että murskaan tuon esteen?</string>
     <string name="Yes">Kyllä</string>
     <string name="No">Ei</string>
+
 </resources>
