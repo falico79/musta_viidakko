@@ -20,7 +20,7 @@ public class GamePlayScene implements Scene {
         gameObjectManager = new GameObjectManager();
 
         mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
-        gameObjectManager.loadMap(nextMap());
+        gameObjectManager.loadMap(mapList[2]);
     }
 
     public static int nextMap()

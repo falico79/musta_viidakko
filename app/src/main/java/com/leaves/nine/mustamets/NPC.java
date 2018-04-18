@@ -18,23 +18,30 @@ import java.util.ArrayList;
 
 public class NPC implements StoryObject, GameObject {
 
-    public NPC(AnimationManager animationManager, Rect rect) {
+    private AnimationManager manager;
+    private Rect drawRect;
+    private int state = 0;
 
+    public NPC(AnimationManager animationManager, Rect rect) {
+        manager = animationManager;
+        drawRect = rect;
+        animationManager.playAnim(state);
+        manager.update();
     }
 
     @Override
     public void draw(Canvas canvas) {
-
+        manager.draw(canvas, drawRect);
     }
 
     @Override
     public void update() {
-
+        manager.update();
     }
 
     @Override
     public void openStoryBoard() {
-
+        // StoryBoard board = new StoryBoard(tnis, viesti, ArrayList<String>, int oikeaVastaus)
     }
 
     @Override
@@ -75,10 +82,10 @@ public class NPC implements StoryObject, GameObject {
 
 
         return new NPC(new AnimationManager(animations.toArray(new Animation[animations.size()])), new Rect(
-                (int)(Constants.SCREEN_WIDTH * x),
-                (int)(Constants.SCREEN_HEIGHT * y),
-                (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)));
+                (int)(Constants.SCREEN_WIDTH * x - Constants.SCREEN_WIDTH * 0.05f*4),
+                (int)(Constants.SCREEN_HEIGHT * y - Constants.SCREEN_HEIGHT * 0.1f*4),
+                (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f*4),
+                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f*4)));
 
     }
 }

@@ -26,9 +26,9 @@ public class GameObjectManager {
     private Player player;
     private Point playerPosition;
 
-    private ArrayList<Collectible> collectibles;
-    private ArrayList<StoryItem> storyItems;
-    private ArrayList<NPC> npcs;
+    private ArrayList<Collectible> collectibles = null;
+    private ArrayList<StoryItem> storyItems = null;
+    private ArrayList<NPC> npcs = null;
     // private ArrayList<Bush> bushes;
 
     private DoorObject goal;
@@ -48,6 +48,8 @@ public class GameObjectManager {
     public GameObjectManager() {
         random = new Random();
         collectibles = new ArrayList<>();
+        storyItems = new ArrayList<>();
+        npcs = new ArrayList<>();
 
         player = new Player(new Rect(0, 0, (int)(Constants.SCREEN_WIDTH * 0.1f), (int)(Constants.SCREEN_HEIGHT * 0.2f)), (Constants.SCREEN_WIDTH * 0.4f) );
 
@@ -80,6 +82,8 @@ public class GameObjectManager {
         } else if(parser.getAttributeValue(0).equals("storyitem")) {
 
             addStoryItems(StoryItem.addStoryItem(parser));
+        } else if(parser.getAttributeValue(0).equals("npc")) {
+            addNPCs(NPC.addNPC(parser));
         }
     }
 
@@ -124,6 +128,10 @@ public class GameObjectManager {
         player.updatePosition(damageMillis);
 
         Collectible object;
+
+        for(NPC item : npcs) {
+            item.update();
+        }
         updateStoryItems();
         Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
         if ((object = playerCollide(test)) != null) {
@@ -131,6 +139,8 @@ public class GameObjectManager {
                 ((StoryItem)object).advanceStory();
 
         }
+
+
         userInterface.update();
         obstacleManager.update();
     }
@@ -162,6 +172,10 @@ public class GameObjectManager {
         background.draw(canvas);
 
         for(Collectible item : collectibles) {
+            item.draw(canvas);
+        }
+
+        for(NPC item : npcs) {
             item.draw(canvas);
         }
 
