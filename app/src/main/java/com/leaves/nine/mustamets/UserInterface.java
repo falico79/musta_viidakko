@@ -8,12 +8,14 @@ import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
+
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.PopupMenu;
 import android.widget.Toast;
+
 
 import java.util.ArrayList;
 
@@ -23,7 +25,6 @@ import java.util.ArrayList;
 
 public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListener {
 
-  
     private Rect targetMusic;
     private Rect sourceMusic;
     private Rect targetMenu;
@@ -239,6 +240,7 @@ public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListe
         float y = Constants.SCREEN_HEIGHT / 14;
         canvas.drawText(text, x, y, paint);
         canvas.drawBitmap(bananaCountIcon, sourceBanana, targetBanana,null);
+
     }
 
     private void drawMusicButton(Canvas canvas) {

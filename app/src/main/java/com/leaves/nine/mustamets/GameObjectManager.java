@@ -21,15 +21,17 @@ import java.util.Random;
 
 public class GameObjectManager {
 
+    private StoryBoard storyBoard;
+
     private Background background;
     private Background foreground;
 
     private Player player;
     private Point playerPosition;
 
-    private ArrayList<Collectible> collectibles;
-    private ArrayList<StoryItem> storyItems;
-    private ArrayList<NPC> npcs;
+    private ArrayList<Collectible> collectibles = null;
+    private ArrayList<StoryItem> storyItems = null;
+    private ArrayList<NPC> npcs = null;
     // private ArrayList<Bush> bushes;
 
     private DoorObject goal;
@@ -49,13 +51,24 @@ public class GameObjectManager {
     public GameObjectManager() {
         random = new Random();
         collectibles = new ArrayList<>();
+        storyItems = new ArrayList<>();
+        npcs = new ArrayList<>();
 
         player = new Player(new Rect(0, 0, (int)(Constants.SCREEN_WIDTH * 0.1f), (int)(Constants.SCREEN_HEIGHT * 0.2f)), (Constants.SCREEN_WIDTH * 0.4f) );
 
         userInterface = new UserInterface();
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
-
+        ArrayList<String> asd = new ArrayList<String>();
+        asd.add("A");
+        asd.add("B");
+        asd.add("C");
+        asd.add("D");
+        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
+                "aliquip debitis maiestatis eum. " +
+                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
+                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
+                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
 
     }
 
@@ -81,6 +94,8 @@ public class GameObjectManager {
         } else if(parser.getAttributeValue(0).equals("storyitem")) {
 
             addStoryItems(StoryItem.addStoryItem(parser));
+        } else if(parser.getAttributeValue(0).equals("npc")) {
+            addNPCs(NPC.addNPC(parser));
         }
     }
 
@@ -125,6 +140,10 @@ public class GameObjectManager {
         player.updatePosition(damageMillis);
 
         Collectible object;
+
+        for(NPC item : npcs) {
+            item.update();
+        }
         updateStoryItems();
         Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
         if ((object = playerCollide(test)) != null) {
@@ -132,6 +151,8 @@ public class GameObjectManager {
                 ((StoryItem)object).advanceStory();
 
         }
+
+
         userInterface.update();
         obstacleManager.update();
     }
@@ -166,11 +187,16 @@ public class GameObjectManager {
             item.draw(canvas);
         }
 
+        for(NPC item : npcs) {
+            item.draw(canvas);
+        }
+
         goal.draw(canvas);
         player.draw(canvas);
         foreground.draw(canvas);
         obstacleManager.draw(canvas);
         userInterface.draw(canvas);
+        storyBoard.draw(canvas);
     }
 
     public void receiveTouch(MotionEvent event) {
@@ -212,6 +238,9 @@ public class GameObjectManager {
                 else {
                     damageMillis = 0;
                 }
+
+
+
                 player.moveTo(playerPosition);
 
 
