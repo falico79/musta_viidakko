@@ -23,5 +23,4 @@ public class MainActivity extends Activity {
         setContentView(new GamePanel(this));
 
     }
-
 }
