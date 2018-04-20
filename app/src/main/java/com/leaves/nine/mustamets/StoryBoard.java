@@ -30,7 +30,9 @@ public class StoryBoard implements GameObject {
     private int correctAnswer;
     private Bitmap backgroundGraphics;
 
-    public StoryBoard(/*StoryObject caller, */String message, ArrayList<String> options, int correctAnswer) {
+    StoryObject callback = null;
+
+    public StoryBoard(StoryObject caller, String message, ArrayList<String> options, int correctAnswer) {
 
         // options: 2-4 options
         // correctAnswer: index of correct answer in arraylist options
@@ -49,6 +51,8 @@ public class StoryBoard implements GameObject {
 
         backgroundGraphics = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.paperikorkea);
         backgroundSource = new Rect(0,0,backgroundGraphics.getWidth(), backgroundGraphics.getHeight());
+
+        callback = caller;
     }
 
     private ArrayList<Button> getButtons(ArrayList<String> options){

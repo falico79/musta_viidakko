@@ -6,8 +6,11 @@
     </string>
 
     <string name="app_name">Musta Viidakko</string>
+    <string name="quest_not_complete">Sinulla on vielä jotakin tehtävää ennen kuin voit jatkaa.</string>
+    <string name="map_end_question">Haluatko jatkaa eteenpäin?</string>
     <string name="gorilla_quest">Haluatko että murskaan tuon esteen?</string>
     <string name="Yes">Kyllä</string>
     <string name="No">Ei</string>
+    <string name="ok">Ok</string>
 
 </resources>
