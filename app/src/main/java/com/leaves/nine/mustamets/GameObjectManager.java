@@ -223,6 +223,7 @@ public class GameObjectManager {
 
                     if (userInterface.menuButtonClick(touchPoint)) {
                         userInterface.showPopup(new View(Constants.CURRENT_CONTEXT));
+                        
                         // open popup menu
                 }
                 if (DoorObject.playerCollide(touchPoint)){
