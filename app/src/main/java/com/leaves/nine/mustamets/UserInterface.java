@@ -9,6 +9,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 
+import android.view.ContextThemeWrapper;
 import android.view.Gravity;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -23,7 +24,7 @@ import java.util.ArrayList;
  * Created by mikae on 26.3.2018.
  */
 
-public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListener {
+public class UserInterface implements GameObject {
 
     private Rect targetMusic;
     private Rect sourceMusic;
@@ -171,32 +172,7 @@ public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListe
         }
     }
 
-    public void showPopup(View v) {
-        PopupMenu popup = new PopupMenu(Constants.CURRENT_CONTEXT, v, Gravity.CENTER);
-        MenuInflater inflater = popup.getMenuInflater();
-        popup.setOnMenuItemClickListener(this);
-        inflater.inflate(R.menu.main_menu, popup.getMenu());
-        popup.show();
-        //Popup-menun tulostus
-    }
 
-    @Override
-    public boolean onMenuItemClick(MenuItem item) {
-        switch (item.getItemId()) {
-            case R.id.continue_game:
-                //archive(item);
-                return true;
-            case R.id.new_game:
-                //delete(item);
-                return true;
-            case R.id.help:
-                Toast.makeText(Constants.CURRENT_CONTEXT, R.string.help_text,
-                        Toast.LENGTH_LONG).show();
-                return true;
-            default:
-                return false;
-        }
-    }
 
 
 

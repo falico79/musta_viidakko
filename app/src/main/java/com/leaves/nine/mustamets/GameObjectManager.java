@@ -1,5 +1,6 @@
 package com.leaves.nine.mustamets;
 
+import android.content.Intent;
 import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
@@ -223,8 +224,10 @@ public class GameObjectManager {
                 }
 
                     if (userInterface.menuButtonClick(touchPoint)) {
-                        userInterface.showPopup(new View(Constants.CURRENT_CONTEXT));
-                        // open popup menu
+                        Intent intent = new Intent(Constants.CURRENT_CONTEXT, MainActivity.class);
+
+                        Constants.CURRENT_CONTEXT.startActivity(intent);
+                        // Go to Main Menu
                 }
                 if (DoorObject.playerCollide(touchPoint)){
 
