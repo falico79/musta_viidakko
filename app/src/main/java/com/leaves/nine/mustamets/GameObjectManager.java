@@ -64,11 +64,11 @@ public class GameObjectManager {
         asd.add("B");
         asd.add("C");
         asd.add("D");
-        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
-                "aliquip debitis maiestatis eum. " +
-                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
-                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
-                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
+//        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
+//                "aliquip debitis maiestatis eum. " +
+//                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
+//                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
+//                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
 
     }
 
