@@ -48,10 +48,11 @@ public class DoorObject implements GameObject, StoryObject {
 
     public static void drawPopupMessage(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.CENTER);
-
+        Bitmap backgroundGraphics = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.paperikapea);
         float x = Constants.SCREEN_WIDTH * 0.5f;
         float y = Constants.SCREEN_HEIGHT * 0.5f;
-        canvas.drawRect(rectPanel, new Paint(Color.argb(50, 0, 255, 200)));
+        Rect backgroundRect = new Rect(0,0,backgroundGraphics.getWidth(), backgroundGraphics.getHeight());
+        canvas.drawBitmap(backgroundGraphics, backgroundRect, rectPanel, null);
         canvas.drawText(text, x, y, paint);
 
 
