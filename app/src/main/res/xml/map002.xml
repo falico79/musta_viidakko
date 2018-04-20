@@ -5,7 +5,7 @@
     <start>
         <position x = "10" y = "75" />
     </start>
-    <item type = "bush">
+    <item type="bush">
         <position x = "25" y = "30" />
         <animation animTime = "2.0">
             <frame file="@drawable/puska_kiinni"/>
@@ -20,7 +20,7 @@
             <frame file="@drawable/puska_auki"/>
         </animation>
     </item>
-    <item type = "monster">
+    <item type="monster">
         <position x = "40" y = "40" />
         <animation animTime = "2.0">
             <frame file="@drawable/lihis1"/>
