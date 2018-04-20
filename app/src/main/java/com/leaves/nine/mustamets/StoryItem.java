@@ -78,17 +78,21 @@ public class StoryItem extends Collectible implements StoryObject {
 
 
                     ArrayList<Bitmap> pictures = new ArrayList<>();
+                    // parsataan frame tagit
                     while (parser.next() != XmlPullParser.END_TAG) {
                         pictures.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), parser.getAttributeResourceValue(0, -1)));
+                        // siirrytään frame end tagiin
                         parser.next();
                     }
 
                     animations.add(new Animation(pictures.toArray(new Bitmap[pictures.size() ]), animTime));
+
                 }
+
             }
+
+
         }
-
-
         return new StoryItem(new AnimationManager(animations.toArray(new Animation[animations.size()])), new Rect(
                 (int)(Constants.SCREEN_WIDTH * x),
                 (int)(Constants.SCREEN_HEIGHT * y),
@@ -108,18 +112,8 @@ public class StoryItem extends Collectible implements StoryObject {
     }
 
     @Override
-    public void openStoryBoard() {
-        if (DoorObject.drawPopup && !completed) {
-            Paint paint = new Paint();
-            paint.setColor(Color.GREEN);
-            paint.setTextAlign(Paint.Align.CENTER);
-            paint.setTextSize((Constants.SCREEN_HEIGHT / 15));
-            DoorObject.drawPopupMessage(myCanvas, paint, "Kerää sahanterä ensin!!!");
-        }
-        else if (completed){
-//            System.out.println("Next map");
-//            GamePlayScene.nextMap();
-        }
+    public StoryBoard openStoryBoard() {
+        return null;
     }
 
     @Override

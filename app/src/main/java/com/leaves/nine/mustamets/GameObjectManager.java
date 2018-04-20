@@ -59,17 +59,6 @@ public class GameObjectManager {
         userInterface = new UserInterface();
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
-        ArrayList<String> asd = new ArrayList<String>();
-        asd.add("A");
-        asd.add("B");
-        asd.add("C");
-        asd.add("D");
-        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
-                "aliquip debitis maiestatis eum. " +
-                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
-                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
-                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
-
     }
 
     public void addCollectibles(Collectible item) {
@@ -80,24 +69,32 @@ public class GameObjectManager {
 
     public void addNPCs(NPC item) {npcs.add(item);}
 
+    public void addDoor(DoorObject item) {goal = item;}
+
     public void setPlayer() {
 
     }
 
-    private void addItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
-        if( parser.getAttributeCount() != 1) {
-            throw new XmlPullParserException("virheellinen xml");
-        }
-        if( parser.getAttributeValue(0).equals("banaani")) {
+        private void addItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
+            System.out.println(parser.getName());
+            System.out.println(parser.getEventType());
 
-            addCollectibles(Collectible.addBanaani(parser));
-        } else if(parser.getAttributeValue(0).equals("storyitem")) {
+            if( parser.getAttributeCount() != 1) {
+                throw new XmlPullParserException("virheellinen xml");
+            }
+            if( parser.getAttributeValue(0).equals("banaani")) {
 
-            addStoryItems(StoryItem.addStoryItem(parser));
-        } else if(parser.getAttributeValue(0).equals("npc")) {
-            addNPCs(NPC.addNPC(parser));
+                addCollectibles(Collectible.addBanaani(parser));
+                parser.next();
+            } else if(parser.getAttributeValue(0).equals("storyitem")) {
+
+                addStoryItems(StoryItem.addStoryItem(parser));
+            } else if(parser.getAttributeValue(0).equals("npc")) {
+                addNPCs(NPC.addNPC(parser));
+            } else if(parser.getAttributeValue(0).equals("door")) {
+                addDoor(DoorObject.addDoorObject(parser));
+            }
         }
-    }
 
     public void loadMap(int fileId) {
         XmlResourceParser parser = Constants.CURRENT_CONTEXT.getResources().getXml(fileId);
@@ -109,7 +106,7 @@ public class GameObjectManager {
                 switch (parser.getName()) {
                     case "item":
                         addItem(parser);
-                        parser.next();
+                        //parser.next();
                         break;
                     case "background":
                         background = new Background(parser.getAttributeResourceValue(0, -1));
@@ -119,6 +116,9 @@ public class GameObjectManager {
                         foreground = new Background(parser.getAttributeResourceValue(0, -1));
                         parser.next();
                         break;
+                    //case "start":
+                    //    parser.next();
+                    //    break;
                     default:
                         continue;
                 }
@@ -131,12 +131,11 @@ public class GameObjectManager {
         player.setPos(playerPosition);
         player.updatePosition(damageMillis);
         
-        goal = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
-                Constants.SCREEN_HEIGHT / 13,
-                Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
+
     }
 
     public void update() {
+        goal.update();
         player.updatePosition(damageMillis);
 
         Collectible object;
@@ -196,7 +195,7 @@ public class GameObjectManager {
         foreground.draw(canvas);
         obstacleManager.draw(canvas);
         userInterface.draw(canvas);
-        storyBoard.draw(canvas);
+        //storyBoard.draw(canvas);
     }
 
     public void receiveTouch(MotionEvent event) {

@@ -39,9 +39,13 @@ public class NPC implements StoryObject, GameObject {
         manager.update();
     }
 
+
+    /// TODO storyboard
     @Override
-    public void openStoryBoard() {
+    public StoryBoard openStoryBoard() {
         // StoryBoard board = new StoryBoard(tnis, viesti, ArrayList<String>, int oikeaVastaus)
+
+        return null;
     }
 
     @Override
