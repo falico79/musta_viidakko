@@ -25,5 +25,10 @@
             <frame file="@drawable/sahantera5" />
         </animation>
     </item>
+    <item type="door">
+        <position x= "90" y="10" />
+        <image file="@drawable/kaatunutpuu"/>
+        <exitQuestion text="@string/map_end_question"/>
+    </item>
 
 </resources>

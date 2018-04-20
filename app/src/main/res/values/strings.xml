@@ -4,8 +4,13 @@
     you need to pass by finding the right items or by answering to the questions. Survival: If your health gets too low, click on your bananas
         and eat a few to get your strength back. Audio: To turn the audio on or off, click on the note icon.
     </string>
+
+    <string name="quest_not_complete">Sinulla on vielä jotakin tehtävää ennen kuin voit jatkaa.</string>
+    <string name="map_end_question">Haluatko jatkaa eteenpäin?</string>
+
     <string name="gorilla_quest">Haluatko että murskaan tuon esteen?</string>
     <string name="Yes">Kyllä</string>
     <string name="No">Ei</string>
+    <string name="ok">Ok</string>
 
 </resources>

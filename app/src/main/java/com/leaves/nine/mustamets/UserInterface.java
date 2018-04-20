@@ -64,6 +64,9 @@ public class UserInterface implements GameObject {
     private static final int DEFAULT_HEARTBEAT_DELAY = 300;
     public static int health;
 
+    private final int BUTTON_WIDTH = (int)(Constants.SCREEN_WIDTH * 0.07);
+    private final int BUTTON_HEIGHT = (int) (Constants.SCREEN_HEIGHT * 0.12);
+
     public UserInterface() {
 
         initializeBananaButton();
@@ -103,38 +106,46 @@ public class UserInterface implements GameObject {
 
         heartAnimationManager = new AnimationManager(new Animation[]{ heartStillAnimation, heartBeatAnimation });
 
-        targetHealth = new Rect(
-                (int)(Constants.SCREEN_WIDTH * 0.5 - Constants.SCREEN_WIDTH * 0.1),
-                (int)((Constants.SCREEN_WIDTH * 0.2) / 2.25 - (Constants.SCREEN_WIDTH * 0.2) / 2.25 * 1.1),
-                (int)(Constants.SCREEN_WIDTH * 0.5 + Constants.SCREEN_WIDTH * 0.1),
-                (int)(((Constants.SCREEN_WIDTH * 0.2) / 2.25 - (Constants.SCREEN_WIDTH * 0.2) / 2.25 * 1.1)+((Constants.SCREEN_WIDTH * 0.2) / 2.25)));
+//        int width = (int)(Constants.SCREEN_WIDTH * 0.24);
+//        int height = (int)(Constants.SCREEN_WIDTH * 0.09);
+//        int x = (int)(Constants.SCREEN_WIDTH * 0.38);
+//        int y = (int)((Constants.SCREEN_WIDTH * 0.09) - (Constants.SCREEN_WIDTH * 0.09) * 1.1);
+//
+//        targetHealth = new Rect(x, y, x+width, y+height);
+        int left = (int)(Constants.SCREEN_WIDTH * 0.4);
+        int top = (int)(Constants.SCREEN_WIDTH * 0.09 - Constants.SCREEN_WIDTH * 0.09 * 1.1);
+        int right = (int)(Constants.SCREEN_WIDTH * 0.6);
+        int bottom = (int)(top + Constants.SCREEN_WIDTH * 0.09);
+
+        targetHealth = new Rect(left, top, right, bottom);
     }
 
     private void initializeBananaButton() {
         bananaCountIcon = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.banaaninappi);
         sourceBanana = new Rect(0, 0, bananaCountIcon.getWidth(), bananaCountIcon.getHeight());
+
         targetBanana = new Rect(Constants.SCREEN_WIDTH / 128,
                 Constants.SCREEN_HEIGHT / 65,
-                (Constants.SCREEN_WIDTH / 128)+(Constants.SCREEN_WIDTH / 21),
-                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
+                (int) ((Constants.SCREEN_WIDTH / 128)+BUTTON_WIDTH),
+                (int) ((Constants.SCREEN_HEIGHT / 65)+BUTTON_HEIGHT));
     }
 
     private void initializeMusicButton() {
         musicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), musicIcon);
         sourceMusic = new Rect(0, 0, musicButton.getWidth(), musicButton.getHeight());
-        targetMusic = new Rect((int) (Constants.SCREEN_WIDTH * 0.9),
+        targetMusic = new Rect((int) (Constants.SCREEN_WIDTH * 0.82),
                 Constants.SCREEN_HEIGHT / 65,
-                (int) ((Constants.SCREEN_WIDTH * 0.9)+(Constants.SCREEN_WIDTH / 21)),
-                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
+                (int) ((Constants.SCREEN_WIDTH * 0.82)+BUTTON_WIDTH),
+                (Constants.SCREEN_HEIGHT / 65)+BUTTON_HEIGHT);
     }
 
     private void initializeMenuButton() {
         menuButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), menuIcon);
         sourceMenu = new Rect(0, 0, menuButton.getWidth(), menuButton.getHeight());
-        targetMenu = new Rect((int) (Constants.SCREEN_WIDTH * 0.8),
+        targetMenu = new Rect((int) (Constants.SCREEN_WIDTH * 0.92),
                 Constants.SCREEN_HEIGHT / 65,
-                (int) ((Constants.SCREEN_WIDTH * 0.8)+(Constants.SCREEN_WIDTH / 21)),
-                (Constants.SCREEN_HEIGHT / 65)+(Constants.SCREEN_HEIGHT / 12));
+                (int) ((Constants.SCREEN_WIDTH * 0.92)+BUTTON_WIDTH),
+                (Constants.SCREEN_HEIGHT / 65)+BUTTON_HEIGHT);
     }
 
 
@@ -212,8 +223,8 @@ public class UserInterface implements GameObject {
 
         paint.setColor(Color.YELLOW);
         paint.getTextBounds(text, 0, text.length(), new Rect(0,0,Constants.SCREEN_WIDTH, Constants.SCREEN_HEIGHT / 10));
-        float x = targetBanana.width() * 1.5f;
-        float y = Constants.SCREEN_HEIGHT / 14;
+        float x = targetBanana.width() * 1.3f;
+        float y = targetBanana.height() * 0.8f;
         canvas.drawText(text, x, y, paint);
         canvas.drawBitmap(bananaCountIcon, sourceBanana, targetBanana,null);
 
