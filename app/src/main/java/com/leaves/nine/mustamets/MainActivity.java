@@ -31,7 +31,6 @@ public class MainActivity extends Activity {
     public void continue_game (View view) {}
 
     public void exit_game (View view) {
-        finish();
-        System.exit(0);
+        this.finishAffinity();
     }
 }
