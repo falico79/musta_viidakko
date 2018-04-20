@@ -109,5 +109,21 @@ public class StoryBoard implements GameObject {
 
     public void receiveTouch(MotionEvent event){
 
+        int x = (int) event.getX();
+        int y = (int) event.getY();
+
+        Rect touchPoint = new Rect(x, y, x+1, y+1);
+
+        switch (event.getAction()){
+            case MotionEvent.ACTION_UP:
+                for (Button button: buttons){
+                    if (button.getRectangle().intersect(touchPoint) &&
+                            buttons.indexOf(button) == correctAnswer){
+                        System.out.println("OIKEIN");
+                    } else {
+                        System.out.println("VÄÄRIN");
+                    }
+                }
+        }
     }
 }

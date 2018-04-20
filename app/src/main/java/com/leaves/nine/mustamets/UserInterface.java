@@ -1,7 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.content.Context;
-import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -185,11 +184,10 @@ public class UserInterface implements GameObject, PopupMenu.OnMenuItemClickListe
     public boolean onMenuItemClick(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.continue_game:
-
+                //archive(item);
                 return true;
             case R.id.new_game:
-                //tähän restart
-
+                //delete(item);
                 return true;
             case R.id.help:
                 Toast.makeText(Constants.CURRENT_CONTEXT, R.string.help_text,
