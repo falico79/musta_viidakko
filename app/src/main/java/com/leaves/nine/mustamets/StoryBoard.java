@@ -92,7 +92,10 @@ public class StoryBoard implements GameObject {
 
         int i = 0;
         for (Button button : buttons) {
-            canvas.drawBitmap(button.getGraphics(), buttonSource, button.getRectangle(),null);
+//            canvas.drawBitmap(button.getGraphics(), buttonSource, button.getRectangle(),null);
+            paint.setColor(Color.TRANSPARENT);
+            canvas.drawRect(button.getRectangle(), paint);
+            paint.setColor(Color.BLACK);
             canvas.drawText(options.get(i++), button.getRectangle().left + textSize, button.getRectangle().top + textSize * 1.5f, paint);
         }
 
