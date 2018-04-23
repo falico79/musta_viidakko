@@ -50,7 +50,7 @@ public class MainActivity extends Activity {
             }
         });
 
-//        setContentView(new GamePanel(this));
+        //setContentView(new GamePanel(this));
     }
 
     public void continue_game (View view) {}
