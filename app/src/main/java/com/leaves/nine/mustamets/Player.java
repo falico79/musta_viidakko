@@ -7,6 +7,8 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+
+import android.media.MediaPlayer;
 import android.os.Bundle;
 import android.util.Log;
 
@@ -31,7 +33,10 @@ public class Player implements GameObject {
     private PointF calculatedMovement;
     private Point moveTo;
 
+    private static MediaPlayer damageSound;
+
     public Player(Rect rectangle, float speed, Bundle saveState) {
+
         this.rectangle = rectangle;
         this.speed = speed;
 
@@ -77,6 +82,8 @@ public class Player implements GameObject {
 
         moveTo = new Point(rectangle.centerX(),rectangle.centerY());
 
+        damageSound = MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.damagescream);
+
     }
 
     public void killCharacter() {
@@ -87,6 +94,7 @@ public class Player implements GameObject {
         if ((targetHealthValue - damagePercentage) > 0) {
             targetHealthValue -= damagePercentage;
             health = targetHealthValue;
+            damageSound.start();
         } else {
             targetHealthValue = 0;
             health = targetHealthValue;
