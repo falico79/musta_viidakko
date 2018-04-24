@@ -13,6 +13,9 @@ import android.widget.VideoView;
 
 public class MainActivity extends Activity {
 
+    VideoView videoView;
+    Uri videoUri;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
@@ -26,14 +29,18 @@ public class MainActivity extends Activity {
         Constants.SCREEN_WIDTH = dm.widthPixels;
 
         setContentView(R.layout.layout_main_menu);
+    }
 
+    public void skipIntro(View view){
+        videoView.stopPlayback();
+        setContentView(new GamePanel(Constants.CURRENT_CONTEXT));
     }
 
     public void new_game (View view) {
         setContentView(R.layout.layout_intro_video);
-        VideoView videoView = findViewById(R.id.videoViewIntro);
+        videoView = findViewById(R.id.videoViewIntro);
         String introVideoPath = "android.resource://" + getPackageName() + "/" + R.raw.introvideo;
-        Uri videoUri = Uri.parse(introVideoPath);
+        videoUri = Uri.parse(introVideoPath);
         videoView.setVideoURI(videoUri);
 
         videoView.setMediaController(null);
