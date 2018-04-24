@@ -1,6 +1,5 @@
 package com.leaves.nine.mustamets;
 
-import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,13 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 
-import android.view.ContextThemeWrapper;
-import android.view.Gravity;
-import android.view.MenuInflater;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.PopupMenu;
-import android.widget.Toast;
+import android.os.Bundle;
 
 
 import java.util.ArrayList;
@@ -67,7 +60,11 @@ public class UserInterface implements GameObject {
     private final int BUTTON_WIDTH = (int)(Constants.SCREEN_WIDTH * 0.07);
     private final int BUTTON_HEIGHT = (int) (Constants.SCREEN_HEIGHT * 0.12);
 
-    public UserInterface() {
+    private static Bundle bundleState;
+
+    public UserInterface(Bundle saveState) {
+
+        bundleState = saveState;
 
         initializeBananaButton();
         initializeMusicButton();
@@ -158,6 +155,7 @@ public class UserInterface implements GameObject {
 
     public static void addBanana() {
         bananas++;
+        bundleState.putInt("bananaCount", bananas);
     }
 
     public static void eatBanana() {
@@ -166,6 +164,7 @@ public class UserInterface implements GameObject {
             targetHealthValue += 5;
             health = targetHealthValue;
             eatBananaSound.start();
+            bundleState.putInt("bananaCount", bananas);
         }
     }
 

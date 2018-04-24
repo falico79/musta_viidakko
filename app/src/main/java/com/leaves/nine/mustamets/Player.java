@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.util.Log;
 
 import static com.leaves.nine.mustamets.UserInterface.*;
@@ -30,7 +31,7 @@ public class Player implements GameObject {
     private PointF calculatedMovement;
     private Point moveTo;
 
-    public Player(Rect rectangle, float speed) {
+    public Player(Rect rectangle, float speed, Bundle saveState) {
         this.rectangle = rectangle;
         this.speed = speed;
 

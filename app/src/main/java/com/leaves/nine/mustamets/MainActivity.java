@@ -16,12 +16,16 @@ public class MainActivity extends Activity {
     VideoView videoView;
     Uri videoUri;
 
+    Bundle saveState;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
+
+        saveState = savedInstanceState;
 
         DisplayMetrics dm = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(dm);
@@ -33,7 +37,7 @@ public class MainActivity extends Activity {
 
     public void skipIntro(View view){
         videoView.stopPlayback();
-        setContentView(new GamePanel(Constants.CURRENT_CONTEXT));
+        setContentView(new GamePanel(Constants.CURRENT_CONTEXT, saveState));
     }
 
     public void new_game (View view) {
@@ -52,7 +56,7 @@ public class MainActivity extends Activity {
 
             @Override
             public void onCompletion(MediaPlayer mp) {
-                setContentView(new GamePanel(Constants.CURRENT_CONTEXT));
+                setContentView(new GamePanel(Constants.CURRENT_CONTEXT, saveState));
             }
         });
     }
