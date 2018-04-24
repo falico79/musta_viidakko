@@ -60,16 +60,6 @@ public class GameObjectManager {
         userInterface = new UserInterface();
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
-        ArrayList<String> asd = new ArrayList<String>();
-        asd.add("A");
-        asd.add("B");
-        asd.add("C");
-        asd.add("D");
-        storyBoard = new StoryBoard("Lorem ipsum dolor sit amet, ne " +
-                "aliquip debitis maiestatis eum. " +
-                "Vero bonorum in quo, pro nemore audiam tacimates id. " +
-                "Mei cu illum reformidans, sea quem consulatu ne. Pro an" +
-                "assentior referrentur, alii albucius offendit ex vel.", asd, 2);
 
     }
 
@@ -80,6 +70,8 @@ public class GameObjectManager {
     public void addStoryItems(StoryItem item) {storyItems.add(item);}
 
     public void addNPCs(NPC item) {npcs.add(item);}
+
+    public void addDoor(DoorObject item) {goal = item;}
 
     public void setPlayer() {
 
@@ -92,11 +84,14 @@ public class GameObjectManager {
         if( parser.getAttributeValue(0).equals("banaani")) {
 
             addCollectibles(Collectible.addBanaani(parser));
+            parser.next();
         } else if(parser.getAttributeValue(0).equals("storyitem")) {
 
             addStoryItems(StoryItem.addStoryItem(parser));
         } else if(parser.getAttributeValue(0).equals("npc")) {
             addNPCs(NPC.addNPC(parser));
+        } else if(parser.getAttributeValue(0).equals("door")) {
+            addDoor(DoorObject.addDoorObject(parser));
         }
     }
 
@@ -110,7 +105,7 @@ public class GameObjectManager {
                 switch (parser.getName()) {
                     case "item":
                         addItem(parser);
-                        parser.next();
+                        //parser.next();
                         break;
                     case "background":
                         background = new Background(parser.getAttributeResourceValue(0, -1));
@@ -132,15 +127,16 @@ public class GameObjectManager {
         player.setPos(playerPosition);
         player.updatePosition(damageMillis);
         
-        goal = new DoorObject(Constants.SCREEN_WIDTH - ((int)(Constants.SCREEN_WIDTH / 3f)),
-                Constants.SCREEN_HEIGHT / 13,
-                Constants.SCREEN_WIDTH / 3, Constants.SCREEN_HEIGHT / 3, R.drawable.kaatunutpuu);
     }
 
     public void update() {
         player.updatePosition(damageMillis);
 
         Collectible object;
+
+        if(goal != null) {
+            goal.update();
+        }
 
         for(NPC item : npcs) {
             item.update();
@@ -191,13 +187,15 @@ public class GameObjectManager {
         for(NPC item : npcs) {
             item.draw(canvas);
         }
+        if(goal != null) {
+            goal.draw(canvas);
+        }
 
-        goal.draw(canvas);
         player.draw(canvas);
         foreground.draw(canvas);
         obstacleManager.draw(canvas);
         userInterface.draw(canvas);
-        storyBoard.draw(canvas);
+        //storyBoard.draw(canvas);
     }
 
     public void receiveTouch(MotionEvent event) {
