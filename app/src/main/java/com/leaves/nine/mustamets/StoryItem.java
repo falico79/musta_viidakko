@@ -63,6 +63,7 @@ public class StoryItem extends Collectible implements StoryObject {
 
         while(parser.next() != XmlPullParser.END_TAG) {
 
+
             if(parser.getName().equals("position")) {
                 for (int i = 0; i < parser.getAttributeCount(); i++) {
                     if (parser.getAttributeName(i).equals("x")) {
@@ -83,6 +84,8 @@ public class StoryItem extends Collectible implements StoryObject {
                         pictures.add(BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), parser.getAttributeResourceValue(0, -1)));
                         // siirrytään frame end tagiin
                         parser.next();
+
+                        System.out.println(parser.getName());
                     }
 
                     animations.add(new Animation(pictures.toArray(new Bitmap[pictures.size() ]), animTime));
@@ -90,7 +93,7 @@ public class StoryItem extends Collectible implements StoryObject {
                 }
 
             }
-
+            //parser.next();
 
         }
         return new StoryItem(new AnimationManager(animations.toArray(new Animation[animations.size()])), new Rect(
