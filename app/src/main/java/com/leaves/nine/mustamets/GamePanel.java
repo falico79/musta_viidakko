@@ -3,6 +3,7 @@ package com.leaves.nine.mustamets;
 import android.content.Context;
 import android.graphics.Canvas;
 import android.graphics.Typeface;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
@@ -16,7 +17,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
     private SceneManager manager;
 
-    public GamePanel(Context context) {
+    public GamePanel(Context context, Bundle saveSate) {
         super(context);
 
         getHolder().addCallback(this);
@@ -26,7 +27,7 @@ public class GamePanel extends SurfaceView implements SurfaceHolder.Callback {
 
         thread = new MainThread(getHolder(), this);
 
-        manager = new SceneManager();
+        manager = new SceneManager(saveSate);
 
         setFocusable(true);
     }

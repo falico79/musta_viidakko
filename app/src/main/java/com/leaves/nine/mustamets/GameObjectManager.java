@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
 import android.graphics.Rect;
+import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 
@@ -49,15 +50,15 @@ public class GameObjectManager {
 
 
 
-    public GameObjectManager() {
+    public GameObjectManager(Bundle saveState) {
         random = new Random();
         collectibles = new ArrayList<>();
         //storyItems = new ArrayList<>();
         npcs = new ArrayList<>();
 
-        player = new Player(new Rect(0, 0, (int)(Constants.SCREEN_WIDTH * 0.1f), (int)(Constants.SCREEN_HEIGHT * 0.2f)), (Constants.SCREEN_WIDTH * 0.4f) );
+        player = new Player(new Rect(0, 0, (int)(Constants.SCREEN_WIDTH * 0.1f), (int)(Constants.SCREEN_HEIGHT * 0.2f)), (Constants.SCREEN_WIDTH * 0.4f), saveState);
 
-        userInterface = new UserInterface();
+        userInterface = new UserInterface(saveState);
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
 
