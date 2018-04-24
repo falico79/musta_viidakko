@@ -224,7 +224,7 @@ public class GameObjectManager {
 
                     if (userInterface.menuButtonClick(touchPoint)) {
                         Intent intent = new Intent(Constants.CURRENT_CONTEXT, MainActivity.class);
-
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                         Constants.CURRENT_CONTEXT.startActivity(intent);
                         // Go to Main Menu
                 }
