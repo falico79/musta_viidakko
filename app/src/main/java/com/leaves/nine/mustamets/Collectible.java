@@ -51,10 +51,11 @@ public class Collectible implements GameObject {
             }
         }
 
-        return new Collectible(new Rect(new Rect((int)(Constants.SCREEN_WIDTH * x),
+        return new Collectible(new Rect(
+                (int)(Constants.SCREEN_WIDTH * x),
                 (int)(Constants.SCREEN_HEIGHT * y),
                 (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT *0.1f))), new AnimationManager(new Animation[]{bananaAnimation}));
+                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT *0.1f)), new AnimationManager(new Animation[]{bananaAnimation}));
     }
 
 
