@@ -60,6 +60,6 @@ public class MainActivity extends Activity {
     public void continue_game (View view) {}
 
     public void exit_game (View view) {
-        this.finishAffinity();
+        this.finishAndRemoveTask();
     }
 }
