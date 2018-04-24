@@ -1,7 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.graphics.Canvas;
-import android.os.Bundle;
 import android.view.MotionEvent;
 
 /**
@@ -17,8 +16,8 @@ public class GamePlayScene implements Scene {
     private static int[] mapList;
     private static int currentMapIndex = -1;
 
-    public GamePlayScene(Bundle saveState) {
-        gameObjectManager = new GameObjectManager(saveState);
+    public GamePlayScene() {
+        gameObjectManager = new GameObjectManager();
 
         mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
 

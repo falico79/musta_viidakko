@@ -1,7 +1,6 @@
 package com.leaves.nine.mustamets;
 
 import android.graphics.Canvas;
-import android.os.Bundle;
 import android.view.MotionEvent;
 
 import java.util.ArrayList;
@@ -14,9 +13,9 @@ public class SceneManager {
     private ArrayList<Scene> scenes = new ArrayList<>();
     public static int ACTIVE_SCENE;
 
-    public SceneManager(Bundle saveState) {
+    public SceneManager() {
         ACTIVE_SCENE = 0;
-        scenes.add(new GamePlayScene(saveState));
+        scenes.add(new GamePlayScene());
     }
 
     public void receiveTouch(MotionEvent event) {

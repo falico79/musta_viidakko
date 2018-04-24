@@ -13,7 +13,7 @@
     <item type="banaani">
         <position x="70" y="30"/>
     </item>
-    <item type="storyitem" id="tera">
+    <item type="storyitem">
         <position x="75" y="50"/>
         <animation animTime="2.0">
             <frame file="@drawable/sahantera1" />
@@ -28,7 +28,6 @@
     <item type="door">
         <position x= "90" y="10" />
         <image file="@drawable/kaatunutpuu"/>
-        <requires object="tera"/>
         <exitQuestion text="@string/map_end_question"/>
     </item>
 
