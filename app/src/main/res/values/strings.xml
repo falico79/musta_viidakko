@@ -12,5 +12,6 @@
     <string name="Yes">Kyllä</string>
     <string name="No">Ei</string>
     <string name="ok">Ok</string>
+    <string name="skip">Skip</string>
 
 </resources>
