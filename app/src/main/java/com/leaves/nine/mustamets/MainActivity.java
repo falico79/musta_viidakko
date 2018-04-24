@@ -37,17 +37,16 @@ public class MainActivity extends Activity {
     }
 
     public void new_game (View view) {
+        Constants.CURRENT_CONTEXT = this;
+
         setContentView(R.layout.layout_intro_video);
         videoView = findViewById(R.id.videoViewIntro);
         String introVideoPath = "android.resource://" + getPackageName() + "/" + R.raw.introvideo;
         videoUri = Uri.parse(introVideoPath);
         videoView.setVideoURI(videoUri);
-
         videoView.setMediaController(null);
 
         videoView.start();
-
-        Constants.CURRENT_CONTEXT = this;
 
         videoView.setOnCompletionListener(new MediaPlayer.OnCompletionListener() {
 
@@ -56,8 +55,6 @@ public class MainActivity extends Activity {
                 setContentView(new GamePanel(Constants.CURRENT_CONTEXT));
             }
         });
-
-        //setContentView(new GamePanel(this));
     }
 
     public void continue_game (View view) {}
