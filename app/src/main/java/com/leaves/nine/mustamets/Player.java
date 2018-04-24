@@ -7,6 +7,7 @@ import android.graphics.Matrix;
 import android.graphics.Point;
 import android.graphics.PointF;
 import android.graphics.Rect;
+import android.media.MediaPlayer;
 import android.util.Log;
 
 import static com.leaves.nine.mustamets.UserInterface.*;
@@ -29,6 +30,8 @@ public class Player implements GameObject {
     private int state = 0;
     private PointF calculatedMovement;
     private Point moveTo;
+
+    private static MediaPlayer damageSound;
 
     public Player(Rect rectangle, float speed) {
         this.rectangle = rectangle;
@@ -76,6 +79,8 @@ public class Player implements GameObject {
 
         moveTo = new Point(rectangle.centerX(),rectangle.centerY());
 
+        damageSound = MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.damagescream);
+
     }
 
     public void killCharacter() {
@@ -86,6 +91,7 @@ public class Player implements GameObject {
         if ((targetHealthValue - damagePercentage) > 0) {
             targetHealthValue -= damagePercentage;
             health = targetHealthValue;
+            damageSound.start();
         } else {
             targetHealthValue = 0;
             health = targetHealthValue;

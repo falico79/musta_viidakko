@@ -15,6 +15,7 @@ public class MainActivity extends Activity {
 
     VideoView videoView;
     Uri videoUri;
+    private  MediaPlayer menuMusic;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,16 +29,24 @@ public class MainActivity extends Activity {
         Constants.SCREEN_HEIGHT = dm.heightPixels;
         Constants.SCREEN_WIDTH = dm.widthPixels;
 
+        menuMusic = MediaPlayer.create(this,R.raw.menumusic);
+
+        menuMusic.start();
+        menuMusic.setLooping(true);
+
         setContentView(R.layout.layout_main_menu);
     }
 
     public void skipIntro(View view){
         videoView.stopPlayback();
+        menuMusic.stop();
         setContentView(new GamePanel(Constants.CURRENT_CONTEXT));
     }
 
     public void new_game (View view) {
         Constants.CURRENT_CONTEXT = this;
+
+        menuMusic.stop();
 
         setContentView(R.layout.layout_intro_video);
         videoView = findViewById(R.id.videoViewIntro);
