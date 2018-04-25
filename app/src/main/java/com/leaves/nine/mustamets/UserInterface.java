@@ -26,6 +26,7 @@ import java.util.ArrayList;
 
 public class UserInterface implements GameObject {
 
+    private static final int POWER_UP_STRENGTH = 20;
     private Rect targetMusic;
     private Rect sourceMusic;
     private Rect targetMenu;
@@ -38,7 +39,7 @@ public class UserInterface implements GameObject {
     private static int HEALTH_BAR_MAX_WIDTH;
     private static int HEALTH_BAR_MAX_HEIGHT;
     private static MediaPlayer eatBananaSound;
-    private static MediaPlayer ring;
+    public static MediaPlayer ring;
     private static AnimationManager heartAnimationManager;
 
     private Bitmap bananaCountIcon;
@@ -96,6 +97,14 @@ public class UserInterface implements GameObject {
         health = targetHealthValue;
     }
 
+    public static void resetValues(){
+        targetHealthValue = 100;
+        health = targetHealthValue;
+        currentHealthValue = targetHealthValue;
+        bananas = 3;
+        state = 0;
+        GamePlayScene.gameOver = false;
+    }
 
     private void initializeHealthBar() {
         Bitmap healthBarFrame = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.healthbar);
@@ -161,9 +170,9 @@ public class UserInterface implements GameObject {
     }
 
     public static void eatBanana() {
-        if (bananas > 0 && targetHealthValue <= 95 && health != 0) {
+        if (bananas > 0 && targetHealthValue <= 100 - POWER_UP_STRENGTH && health != 0) {
             bananas--;
-            targetHealthValue += 5;
+            targetHealthValue += POWER_UP_STRENGTH;
             health = targetHealthValue;
             eatBananaSound.start();
         }
@@ -182,11 +191,6 @@ public class UserInterface implements GameObject {
             musicButton = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), musicIcon);
         }
     }
-
-
-
-
-
 
     public static int getBananas() {
         return bananas;

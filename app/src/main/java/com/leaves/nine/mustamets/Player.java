@@ -37,6 +37,8 @@ public class Player implements GameObject {
         this.rectangle = rectangle;
         this.speed = speed;
 
+        killMonkey = false;
+
         damageSound = MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.damagescream);
 
         //BitmapFactory bf = new BitmapFactory();

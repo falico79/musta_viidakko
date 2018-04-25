@@ -3,6 +3,8 @@ package com.leaves.nine.mustamets;
 import android.graphics.Canvas;
 import android.view.MotionEvent;
 
+import java.util.ArrayList;
+
 /**
  * Created by lasse on 16/03/2018.
  */
@@ -13,6 +15,8 @@ public class GamePlayScene implements Scene {
 
     private static int[] mapList;
     private static int currentMapIndex = -1;
+    private final StoryBoard storyBoard;
+
 
     public GamePlayScene() {
         Constants.objectManager = new GameObjectManager();
@@ -20,6 +24,11 @@ public class GamePlayScene implements Scene {
         mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
 
         Constants.objectManager.loadMap(mapList[0]);
+
+                storyBoard = new StoryBoard(
+                Constants.CURRENT_CONTEXT.getString(R.string.help_text),
+                Constants.CURRENT_CONTEXT.getString(R.string.button_continue),0);
+
 
     }
 
@@ -37,7 +46,9 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void draw(Canvas canvas) {
+
         Constants.objectManager.draw(canvas);
+
     }
 
     @Override
@@ -47,6 +58,7 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void receiveTouch(MotionEvent event) {
+
         Constants.objectManager.receiveTouch(event);
 
     }

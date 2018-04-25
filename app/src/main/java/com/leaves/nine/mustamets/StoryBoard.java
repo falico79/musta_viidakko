@@ -29,27 +29,44 @@ public class StoryBoard implements GameObject {
     private ArrayList<Button> buttons;
     private int correctAnswer;
     private Bitmap backgroundGraphics;
+    private Boolean draw = false;
 
     private StoryObject callback;
+
+    public StoryBoard(String message, String option, int correctAnswer){
+        this.message = message;
+        options = new ArrayList<String>();
+        this.options.add(option);
+        this.correctAnswer = correctAnswer;
+        this.draw = true;
+
+        initializeBoard();
+
+        buttons = getButtons(options);
+    }
 
     public StoryBoard(StoryObject caller, String message, ArrayList<String> options, int correctAnswer) {
 
         // options: 2-4 options
         // correctAnswer: index of correct answer in arraylist options
+        this.draw = true;
         this.message = message;
         this.options = options;
         this.correctAnswer = correctAnswer;
 
+        initializeBoard();
+
+        buttons = getButtons(options);
+        callback = caller;
+    }
+
+    private void initializeBoard(){
         int width = (int) (Constants.SCREEN_WIDTH * 0.5);
         int height = (int) (Constants.SCREEN_HEIGHT * 0.9);
         int x = (int) (Constants.SCREEN_WIDTH * 0.25);
         int y = (int) (Constants.SCREEN_HEIGHT * 0.05);
 
         board = new Rect(x, y, x + width, y + height);
-
-        buttons = getButtons(options);
-
-        callback = caller;
 
         backgroundGraphics = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.paperikorkea);
         backgroundSource = new Rect(0,0,backgroundGraphics.getWidth(), backgroundGraphics.getHeight());
@@ -81,6 +98,12 @@ public class StoryBoard implements GameObject {
 
     @Override
     public void draw(Canvas canvas) {
+        if (draw) {
+            drawBoard(canvas);
+        }
+    }
+
+    private void drawBoard(Canvas canvas) {
         int textSize = Constants.SCREEN_HEIGHT / 24;
         Paint paint = new Paint();
 
@@ -102,13 +125,6 @@ public class StoryBoard implements GameObject {
 
         canvas.translate(board.left + textSize, board.top + textSize);
         staticLayout.draw(canvas);
-
-//        canvas.restore();
-
-
-//        canvas.drawText(message, board.left + textSize, board.right - textSize, board.left + textSize, board.top + textSize, paint);
-
-//        canvas.drawBitmap(backgroundImage, board.left, board.top ,null);
     }
 
     @Override
@@ -128,10 +144,12 @@ public class StoryBoard implements GameObject {
                 for (Button button: buttons){
                     if (button.getRectangle().intersect(touchPoint) &&
                             buttons.indexOf(button) == correctAnswer){
+
                             callback.advanceStory();
                             return true;
                     } else if(button.getRectangle().intersect(touchPoint)){
                         return true;
+
                     }
                 }
         }
