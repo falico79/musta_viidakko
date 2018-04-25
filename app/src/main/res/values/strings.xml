@@ -1,8 +1,8 @@
 <resources>
     <string name="app_name">Musta Viidakko</string>
-    <string name="help_text">Welcome to the Black Jungle. Moving: Move by clicking on the map. You might run ito obstacles that
-    you need to pass by finding the right items or by answering to the questions. Survival: If your health gets too low, click on your bananas
-        and eat a few to get your strength back. Audio: To turn the audio on or off, click on the note icon.
+    <string name="help_text">Tervetuloa Mustaan Viidakkoon. Liikkuminen: liiku koskettamalla kenttää. Joka tasolla on este, josta pääsee seuraavaan
+        tasoon, kun olet löytänyt tarvittavat esineet ja vastannut oikein kysymykseen. Selviytyminen: jotkin esineet tai olennot saattavat tuottaa
+        vahinkoa hahmollesi. Kerää banaaneja ja syö niitä klikkaamalla banaani-ikonia palautuaksesi vahingoista.
     </string>
 
     <string name="quest_not_complete">Sinulla on vielä jotakin tehtävää ennen kuin voit jatkaa.</string>
@@ -12,6 +12,9 @@
     <string name="Yes">Kyllä</string>
     <string name="No">Ei</string>
     <string name="ok">Ok</string>
-    <string name="skip">Skip</string>
+    <string name="button_skip">Ohita</string>
+    <string name="button_new_game">Uusi peli</string>
+    <string name="button_exit">Lopeta</string>
+    <string name="button_continue">Jatka</string>
 
 </resources>
