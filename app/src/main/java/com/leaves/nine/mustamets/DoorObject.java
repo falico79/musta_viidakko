@@ -151,8 +151,7 @@ public class DoorObject implements GameObject, StoryObject {
 
     @Override
     public void advanceStory() {
-        GamePlayScene.nextMap();
-
+        Constants.objectManager.loadMap(GamePlayScene.nextMap());
     }
 
     public void completeObjective(StoryItem storyItem) {
