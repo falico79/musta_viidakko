@@ -40,6 +40,7 @@ public class UserInterface implements GameObject {
     private static int HEALTH_BAR_MAX_HEIGHT;
     private static MediaPlayer eatBananaSound;
     public static MediaPlayer ring;
+    public static MediaPlayer pickupitem;
     private static AnimationManager heartAnimationManager;
 
     private Bitmap bananaCountIcon;
@@ -166,7 +167,10 @@ public class UserInterface implements GameObject {
     }
 
     public static void addBanana() {
+        pickupitem = MediaPlayer.create(Constants.CURRENT_CONTEXT,R.raw.pop);
+        pickupitem.start();
         bananas++;
+
     }
 
     public static void eatBanana() {
