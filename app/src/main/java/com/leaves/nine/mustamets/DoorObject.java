@@ -27,6 +27,8 @@ public class DoorObject implements GameObject, StoryObject {
     private Bitmap itemBitmap;
     private String exitText;
     public static boolean drawPopup = false;
+    private StoryObject object;
+
 
     public DoorObject(int x, int y, int w, int h, int imageID, int exitText){
         rectPanel = new Rect((int)(Constants.SCREEN_WIDTH * 0.8), (int)(Constants.SCREEN_HEIGHT * 0.6),
@@ -47,7 +49,7 @@ public class DoorObject implements GameObject, StoryObject {
         drawPopup = false;
         return false;
     }
-
+/*
     public static void drawPopupMessage(Canvas canvas, Paint paint, String text) {
         paint.setTextAlign(Paint.Align.CENTER);
         Bitmap backgroundGraphics = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.paperikapea);
@@ -59,7 +61,7 @@ public class DoorObject implements GameObject, StoryObject {
 
 
     }
-
+*/
 
     public static DoorObject addDoorObject(XmlResourceParser parser) throws IOException, XmlPullParserException {
         float x = 0.5f, y = 0.5f;
@@ -111,19 +113,39 @@ public class DoorObject implements GameObject, StoryObject {
 
     @Override
     public void update() {
+         if(hasQuestRequirements()) {
+            int temp;
+         }
+    }
 
+    private boolean hasQuestRequirements() {
+        return false;
+    }
+
+    public void addObjective(StoryObject objective) {
+        object = objective;
     }
 
     @Override
     public StoryBoard openStoryBoard() {
         String yesText = Constants.CURRENT_CONTEXT.getString(R.string.Yes);
+        String noText = Constants.CURRENT_CONTEXT.getString(R.string.No);
         ArrayList<String> vastaukset = new ArrayList<>();
         vastaukset.add(yesText);
+        vastaukset.add(noText);
+
         return new StoryBoard(this, exitText, vastaukset, 0);
     }
 
     @Override
     public void advanceStory() {
+        GamePlayScene.nextMap();
 
+    }
+
+    public void completeObjective(StoryItem storyItem) {
+        if(storyItem.equals(object)) {
+
+        }
     }
 }
