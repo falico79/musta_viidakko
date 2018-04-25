@@ -26,7 +26,7 @@
         android:layout_marginTop="8dp"
         android:background="@drawable/nappi3"
         android:onClick="skipIntro"
-        android:text="@string/skip"
+        android:text="@string/button_skip"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.984"
