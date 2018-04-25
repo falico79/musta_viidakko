@@ -13,5 +13,7 @@ public class Constants {
 
     public static Context CURRENT_CONTEXT;
 
+    public static GameObjectManager objectManager = null;
+
     public static Typeface PAPYRUS_FONT;
 }
