@@ -44,7 +44,7 @@ public class GameObjectManager {
 
     private ObstacleManager obstacleManager;
 
-    private StoryBoard board = null;
+    private StoryBoard storyBoard = null;
 
 
 
