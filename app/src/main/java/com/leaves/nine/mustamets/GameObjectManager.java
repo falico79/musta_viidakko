@@ -40,7 +40,6 @@ public class GameObjectManager {
     private Random random;
 
     private long damageMillis = 0;
-    private boolean killMonkey = false;
 
     private UserInterface userInterface;
 
@@ -224,7 +223,8 @@ public class GameObjectManager {
 
                     if (userInterface.menuButtonClick(touchPoint)) {
                         Intent intent = new Intent(Constants.CURRENT_CONTEXT, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        UserInterface.ring.stop();
                         Constants.CURRENT_CONTEXT.startActivity(intent);
                         // Go to Main Menu
                 }

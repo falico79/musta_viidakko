@@ -8,7 +8,6 @@ import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.MediaController;
 import android.widget.VideoView;
 
 public class MainActivity extends Activity {
@@ -44,6 +43,7 @@ public class MainActivity extends Activity {
     public void new_game (View view) {
         Constants.CURRENT_CONTEXT = this;
         menuMusic.stop();
+        UserInterface.resetValues();
 
         setContentView(R.layout.layout_intro_video);
         videoView = findViewById(R.id.videoViewIntro);
@@ -66,6 +66,8 @@ public class MainActivity extends Activity {
     public void continue_game (View view) {}
 
     public void exit_game (View view) {
+        menuMusic.stop();
         this.finishAndRemoveTask();
+
     }
 }
