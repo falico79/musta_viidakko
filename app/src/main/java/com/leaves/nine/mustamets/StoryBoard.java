@@ -53,6 +53,8 @@ public class StoryBoard implements GameObject {
 
         backgroundGraphics = BitmapFactory.decodeResource(Constants.CURRENT_CONTEXT.getResources(), R.drawable.paperikorkea);
         backgroundSource = new Rect(0,0,backgroundGraphics.getWidth(), backgroundGraphics.getHeight());
+
+        System.out.println("StoryBoard created");
     }
 
     private ArrayList<Button> getButtons(ArrayList<String> options){
@@ -114,7 +116,7 @@ public class StoryBoard implements GameObject {
 
     }
 
-    public void receiveTouch(MotionEvent event){
+    public boolean receiveTouch(MotionEvent event){
 
         int x = (int) event.getX();
         int y = (int) event.getY();
@@ -126,11 +128,13 @@ public class StoryBoard implements GameObject {
                 for (Button button: buttons){
                     if (button.getRectangle().intersect(touchPoint) &&
                             buttons.indexOf(button) == correctAnswer){
-                        System.out.println("OIKEIN");
-                    } else {
-                        System.out.println("VÄÄRIN");
+                            callback.advanceStory();
+                            return true;
+                    } else if(button.getRectangle().intersect(touchPoint)){
+                        return true;
                     }
                 }
         }
+        return false;
     }
 }

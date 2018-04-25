@@ -46,6 +46,8 @@ public class GameObjectManager {
 
     private ObstacleManager obstacleManager;
 
+    private StoryBoard board = null;
+
 
 
 
@@ -80,21 +82,24 @@ public class GameObjectManager {
     }
 
     private void addItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
-        if( parser.getAttributeCount() != 1) {
+        if( parser.getAttributeCount() < 1) {
             throw new XmlPullParserException("virheellinen xml");
         }
 
-        if( parser.getAttributeValue(0).equals("banaani")) {
+        for(int i = 0; i < parser.getAttributeCount(); i++) {
 
-            addCollectibles(Collectible.addBanaani(parser));
-            parser.next();
-        } else if(parser.getAttributeValue(0).equals("storyitem")) {
+            if (parser.getAttributeValue(i).equals("banaani")) {
 
-            addStoryItems(StoryItem.addStoryItem(parser));
-        } else if(parser.getAttributeValue(0).equals("npc")) {
-            addNPCs(NPC.addNPC(parser));
-        } else if(parser.getAttributeValue(0).equals("door")) {
-            addDoor(DoorObject.addDoorObject(parser));
+                addCollectibles(Collectible.addBanaani(parser));
+                parser.next();
+            } else if (parser.getAttributeValue(i).equals("storyitem")) {
+
+                addStoryItems(StoryItem.addStoryItem(parser));
+            } else if (parser.getAttributeValue(i).equals("npc")) {
+                addNPCs(NPC.addNPC(parser));
+            } else if (parser.getAttributeValue(i).equals("door")) {
+                addDoor(DoorObject.addDoorObject(parser));
+            }
         }
     }
 
@@ -129,7 +134,29 @@ public class GameObjectManager {
         playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
         player.setPos(playerPosition);
         player.updatePosition(damageMillis);
+
+        connectObjectivesToDoorObject();
         
+    }
+
+    private void connectObjectivesToDoorObject() {
+        goal.addObjective(getStoryItemById(goal.getRequirements()));
+
+        getStoryItemById(goal.getRequirements()).connectExit(goal);
+
+        System.out.println("connected");
+
+    }
+
+    private StoryItem getStoryItemById(String id) {
+        for (Collectible item : collectibles) {
+            if ((item instanceof StoryItem)){
+                if(((StoryItem)item).getId().equals(id)) {
+                    return ((StoryItem)item);
+                }
+            }
+        }
+        return null;
     }
 
     public void update() {
@@ -145,10 +172,16 @@ public class GameObjectManager {
             item.update();
         }
 
+        if(storyBoard != null) {
+            storyBoard.update();
+            System.out.println("update StoryBoard");
+        }
+
         updateStoryItems();
         Rect test = new Rect(player.getRectangle().centerX(), player.getRectangle().centerY(), player.getRectangle().centerX() + 1, player.getRectangle().centerY() + 1);
         if ((object = playerCollide(test)) != null) {
             if (object instanceof StoryItem)
+                if(((StoryItem) object).getId().equals("tera"))
                 ((StoryItem)object).advanceStory();
 
         }
@@ -188,6 +221,9 @@ public class GameObjectManager {
             item.draw(canvas);
         }
 
+        if(storyBoard != null) {
+            storyBoard.draw(canvas);
+        }
         for(NPC item : npcs) {
             item.draw(canvas);
         }
@@ -216,6 +252,13 @@ public class GameObjectManager {
                     playerPosition.set(x, y);
                 }
 
+                if(storyBoard!=null) {
+                    if(storyBoard.receiveTouch(event)) {
+                        storyBoard = null;
+                    }
+
+                }
+
                 Rect touchPoint = new Rect(x, y, x+1, y+1);
                 if (userInterface.playerCollide(touchPoint)) {
                     UserInterface.eatBanana();
@@ -231,7 +274,8 @@ public class GameObjectManager {
                         Constants.CURRENT_CONTEXT.startActivity(intent);
                         // Go to Main Menu
                 }
-                if (DoorObject.playerCollide(touchPoint)){
+                if (goal.playerCollide(touchPoint)){
+                     storyBoard = goal.openStoryBoard();
 
                     player.doDamage(10);
                     damageMillis = System.currentTimeMillis() + 250;
