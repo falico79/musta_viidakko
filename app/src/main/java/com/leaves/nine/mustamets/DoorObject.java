@@ -23,14 +23,16 @@ public class DoorObject implements GameObject, StoryObject {
 
     private static Rect rectPanel;
     private static Rect target;
+    private String requirements;
     private Rect source;
     private Bitmap itemBitmap;
     private String exitText;
     public static boolean drawPopup = false;
     private StoryObject object;
 
+    private boolean completed = false;
 
-    public DoorObject(int x, int y, int w, int h, int imageID, int exitText){
+    public DoorObject(int x, int y, int w, int h, int imageID, int exitText, String requirements){
         rectPanel = new Rect((int)(Constants.SCREEN_WIDTH * 0.8), (int)(Constants.SCREEN_HEIGHT * 0.6),
                 (int)(Constants.SCREEN_WIDTH * 0.2), (int)(Constants.SCREEN_HEIGHT * 0.4));
 
@@ -39,9 +41,11 @@ public class DoorObject implements GameObject, StoryObject {
         source = new Rect(0, 0, itemBitmap.getWidth(), itemBitmap.getHeight());
 
         this.exitText = Constants.CURRENT_CONTEXT.getString(exitText);
+
+        this.requirements = requirements;
     }
 
-    public static boolean playerCollide(Rect rect) {
+    public boolean playerCollide(Rect rect) {
         if (Rect.intersects(new Rect(target.left, (int)(target.top + target.top*0.3), target.right, (int)(target.bottom - target.bottom * 0.3)), rect)){
             drawPopup = true;
             return true;
@@ -68,6 +72,10 @@ public class DoorObject implements GameObject, StoryObject {
         int kuvaId = -1;
         int exitId = -1;
 
+
+
+        String requirements = "";
+
         while(parser.next() != XmlPullParser.END_TAG) {
 
             if(parser.getName().equals("position")) {
@@ -91,6 +99,10 @@ public class DoorObject implements GameObject, StoryObject {
                     exitId = parser.getAttributeResourceValue(0, -1);
                 }
                 parser.next();
+            } else if(parser.getName().equals("requirements")) {
+                if(parser.getAttributeCount() == 1) {
+                    requirements = parser.getAttributeValue(0);
+                }
             }
         }
 
@@ -99,7 +111,7 @@ public class DoorObject implements GameObject, StoryObject {
                 (int)(Constants.SCREEN_WIDTH * x - Constants.SCREEN_WIDTH * 0.05f*4),
                 (int)(Constants.SCREEN_HEIGHT * y - Constants.SCREEN_HEIGHT * 0.1f*4),
                 (int)(Constants.SCREEN_WIDTH * 0.05f*8),
-                (int)(Constants.SCREEN_HEIGHT * 0.1f*8), kuvaId, exitId);
+                (int)(Constants.SCREEN_HEIGHT * 0.1f*8), kuvaId, exitId, requirements);
 
     }
 
@@ -119,7 +131,7 @@ public class DoorObject implements GameObject, StoryObject {
     }
 
     private boolean hasQuestRequirements() {
-        return false;
+        return completed;
     }
 
     public void addObjective(StoryObject objective) {
@@ -144,8 +156,12 @@ public class DoorObject implements GameObject, StoryObject {
     }
 
     public void completeObjective(StoryItem storyItem) {
-        if(storyItem.equals(object)) {
-
+        if(storyItem.getId().equals(storyItem.getId())) {
+            completed = true;
         }
+    }
+
+    public String getRequirements() {
+        return requirements;
     }
 }

@@ -70,6 +70,13 @@ public class StoryItem extends Collectible implements StoryObject {
     public static StoryItem addStoryItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
         float x = 0.5f, y = 0.5f;
         ArrayList<Animation> animations = new ArrayList<>();
+        String id = "";
+
+        for(int i = 0; i < parser.getAttributeCount(); i++) {
+            if(parser.getAttributeType(i).equals("id")) {
+                id = parser.getAttributeValue(i);
+            }
+        }
 
         while(parser.next() != XmlPullParser.END_TAG) {
 
@@ -110,7 +117,7 @@ public class StoryItem extends Collectible implements StoryObject {
                 (int)(Constants.SCREEN_WIDTH * x),
                 (int)(Constants.SCREEN_HEIGHT * y),
                 (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)), "");
+                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)), id);
 
     }
 
@@ -132,5 +139,9 @@ public class StoryItem extends Collectible implements StoryObject {
     @Override
     public void advanceStory() {
         exit.completeObjective(this);
+    }
+
+    public String getId() {
+        return id;
     }
 }
