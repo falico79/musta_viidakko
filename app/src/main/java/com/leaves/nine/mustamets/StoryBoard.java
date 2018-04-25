@@ -31,7 +31,7 @@ public class StoryBoard implements GameObject {
     private Bitmap backgroundGraphics;
     private Boolean draw = false;
 
-    private StoryObject callback;
+    private StoryObject callback = null;
 
     public StoryBoard(String message, String option, int correctAnswer){
         this.message = message;
@@ -145,7 +145,9 @@ public class StoryBoard implements GameObject {
                     if (button.getRectangle().intersect(touchPoint) &&
                             buttons.indexOf(button) == correctAnswer){
 
+                        if (callback != null) {
                             callback.advanceStory();
+                        }
                             return true;
                     } else if(button.getRectangle().intersect(touchPoint)){
                         return true;

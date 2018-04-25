@@ -218,9 +218,7 @@ public class GameObjectManager {
             item.draw(canvas);
         }
 
-        if(storyBoard != null) {
-            storyBoard.draw(canvas);
-        }
+
         for(NPC item : npcs) {
             item.draw(canvas);
         }
@@ -233,6 +231,9 @@ public class GameObjectManager {
         obstacleManager.draw(canvas);
         userInterface.draw(canvas);
         //storyBoard.draw(canvas);
+        if(storyBoard != null) {
+            storyBoard.draw(canvas);
+        }
     }
 
     public void receiveTouch(MotionEvent event) {
