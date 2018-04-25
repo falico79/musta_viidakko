@@ -15,6 +15,8 @@ public class GamePlayScene implements Scene {
 
     private static int[] mapList;
     private static int currentMapIndex = -1;
+    private final StoryBoard storyBoard;
+
 
     public GamePlayScene() {
         Constants.objectManager = new GameObjectManager();
@@ -23,7 +25,7 @@ public class GamePlayScene implements Scene {
 
         Constants.objectManager.loadMap(mapList[0]);
 
-        storyBoard = new StoryBoard(
+                storyBoard = new StoryBoard(
                 Constants.CURRENT_CONTEXT.getString(R.string.help_text),
                 Constants.CURRENT_CONTEXT.getString(R.string.button_continue),0);
 
@@ -56,9 +58,6 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void receiveTouch(MotionEvent event) {
-
-        gameObjectManager.receiveTouch(event);
-        storyBoard.receiveTouch(event);
 
         Constants.objectManager.receiveTouch(event);
 

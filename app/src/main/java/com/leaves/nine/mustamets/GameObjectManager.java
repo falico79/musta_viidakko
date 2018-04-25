@@ -22,7 +22,6 @@ import java.util.Random;
 
 public class GameObjectManager {
 
-    private StoryBoard storyBoard;
 
     private Background background;
     private Background foreground;
@@ -44,8 +43,7 @@ public class GameObjectManager {
     private UserInterface userInterface;
 
     private ObstacleManager obstacleManager;
-
-
+    public StoryBoard storyBoard;
 
 
     public GameObjectManager() {
