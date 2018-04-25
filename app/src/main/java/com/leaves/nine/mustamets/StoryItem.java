@@ -27,9 +27,15 @@ public class StoryItem extends Collectible implements StoryObject {
     private static boolean completed = false;
     private Canvas myCanvas;
 
-    public StoryItem(AnimationManager animationManager, Rect target) {
+    private DoorObject exit;
+
+    private String id = "";
+
+    public StoryItem(AnimationManager animationManager, Rect target, String id) {
         super(target, animationManager);
         targetTime = System.currentTimeMillis() + 1000;
+
+        this.id = id;
     }
 
     public StoryItem(){
@@ -55,6 +61,10 @@ public class StoryItem extends Collectible implements StoryObject {
         animationManager.update();
 
 
+    }
+
+    public void connectExit(DoorObject exit) {
+        this.exit = exit;
     }
 
     public static StoryItem addStoryItem(XmlResourceParser parser) throws IOException, XmlPullParserException {
@@ -100,7 +110,7 @@ public class StoryItem extends Collectible implements StoryObject {
                 (int)(Constants.SCREEN_WIDTH * x),
                 (int)(Constants.SCREEN_HEIGHT * y),
                 (int)(Constants.SCREEN_WIDTH * x + Constants.SCREEN_WIDTH * 0.05f),
-                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)));
+                (int)(Constants.SCREEN_HEIGHT * y + Constants.SCREEN_HEIGHT * 0.1f)), "");
 
     }
 
@@ -121,6 +131,6 @@ public class StoryItem extends Collectible implements StoryObject {
 
     @Override
     public void advanceStory() {
-        completed = true;
+        exit.completeObjective(this);
     }
 }

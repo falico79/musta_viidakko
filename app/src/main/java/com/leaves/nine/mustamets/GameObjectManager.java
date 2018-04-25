@@ -37,7 +37,7 @@ public class GameObjectManager {
 
     private DoorObject goal;
 
-    private Random random;
+    //private Random random;
 
     private long damageMillis = 0;
     private boolean killMonkey = false;
@@ -50,7 +50,7 @@ public class GameObjectManager {
 
 
     public GameObjectManager() {
-        random = new Random();
+        //random = new Random();
         collectibles = new ArrayList<>();
         //storyItems = new ArrayList<>();
         npcs = new ArrayList<>();
@@ -60,6 +60,8 @@ public class GameObjectManager {
         userInterface = new UserInterface();
 
         obstacleManager = new ObstacleManager(1, Color.argb(0,0,0,0));
+
+
 
     }
 
@@ -81,6 +83,7 @@ public class GameObjectManager {
         if( parser.getAttributeCount() != 1) {
             throw new XmlPullParserException("virheellinen xml");
         }
+
         if( parser.getAttributeValue(0).equals("banaani")) {
 
             addCollectibles(Collectible.addBanaani(parser));

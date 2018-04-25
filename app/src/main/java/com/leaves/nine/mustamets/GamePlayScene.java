@@ -9,19 +9,17 @@ import android.view.MotionEvent;
 
 public class GamePlayScene implements Scene {
 
-    private GameObjectManager gameObjectManager;
-
     public static boolean gameOver = false;
 
     private static int[] mapList;
     private static int currentMapIndex = -1;
 
     public GamePlayScene() {
-        gameObjectManager = new GameObjectManager();
+        Constants.objectManager = new GameObjectManager();
 
         mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
 
-        gameObjectManager.loadMap(mapList[0]);
+        Constants.objectManager.loadMap(mapList[0]);
 
     }
 
@@ -33,13 +31,13 @@ public class GamePlayScene implements Scene {
     @Override
     public void update() {
         if(!gameOver) {
-            gameObjectManager.update();
+            Constants.objectManager.update();
         }
     }
 
     @Override
     public void draw(Canvas canvas) {
-        gameObjectManager.draw(canvas);
+        Constants.objectManager.draw(canvas);
     }
 
     @Override
@@ -49,7 +47,7 @@ public class GamePlayScene implements Scene {
 
     @Override
     public void receiveTouch(MotionEvent event) {
-        gameObjectManager.receiveTouch(event);
+        Constants.objectManager.receiveTouch(event);
 
     }
 }
