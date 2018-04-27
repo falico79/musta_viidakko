@@ -5,6 +5,7 @@ import android.content.res.XmlResourceParser;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Point;
+import android.graphics.PointF;
 import android.graphics.Rect;
 import android.view.MotionEvent;
 import android.view.View;
@@ -96,11 +97,24 @@ public class GameObjectManager {
                 addNPCs(NPC.addNPC(parser));
             } else if (parser.getAttributeValue(i).equals("door")) {
                 addDoor(DoorObject.addDoorObject(parser));
+            } else if(parser.getAttributeValue(i).equals("bush")) {
+                addStoryItems(StoryItem.addStoryItem(parser));
+            } else if(parser.getAttributeValue(i).equals("monster")) {
+                addNPCs(NPC.addNPC(parser));
             }
         }
     }
 
+    private void clearMap() {
+        collectibles.clear();
+        npcs.clear();
+        goal = null;
+        storyBoard = null;
+    }
+
     public void loadMap(int fileId) {
+        clearMap();
+
         XmlResourceParser parser = Constants.CURRENT_CONTEXT.getResources().getXml(fileId);
 
         try {
@@ -120,6 +134,12 @@ public class GameObjectManager {
                         foreground = new Background(parser.getAttributeResourceValue(0, -1));
                         parser.next();
                         break;
+                    case "start":
+                        playerPosition = player.readPosition(parser);
+                        player.setPos(playerPosition);
+                        player.updatePosition(damageMillis);
+                        parser.next();
+
                     default:
                         continue;
                 }
@@ -128,21 +148,22 @@ public class GameObjectManager {
             e.printStackTrace();
         }
 
-        playerPosition = new Point((int)(Constants.SCREEN_WIDTH * 0.5f), (int)(Constants.SCREEN_HEIGHT * 0.75f));
-        player.setPos(playerPosition);
-        player.updatePosition(damageMillis);
 
         connectObjectivesToDoorObject();
         
     }
 
     private void connectObjectivesToDoorObject() {
-        goal.addObjective(getStoryItemById(goal.getRequirements()));
+        if(goal != null) {
+            goal.addObjective(getStoryItemById(goal.getRequirements()));
 
-        getStoryItemById(goal.getRequirements()).connectExit(goal);
+            getStoryItemById(goal.getRequirements()).connectExit(goal);
 
-        System.out.println("connected");
+            System.out.println("connected");
+        }
+    }
 
+    private void unconnectObjectivesToDoor() {
     }
 
     private StoryItem getStoryItemById(String id) {
@@ -239,60 +260,60 @@ public class GameObjectManager {
     public void receiveTouch(MotionEvent event) {
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
-                int x = (int)event.getX();
-                int y = (int)event.getY();
-                int w = player.getRectangle().width();
-                int h = player.getRectangle().height();
-
-                Rect rect = new Rect(x-w/2, y-h/2, x+w/2, y+h/2);
-
-                if(!obstacleManager.playerCollide(rect)) {
-                    playerPosition.set(x, y);
-                }
-
                 if(storyBoard!=null) {
                     if(storyBoard.receiveTouch(event)) {
                         storyBoard = null;
                     }
 
-                }
+                } else {
+                    int x = (int) event.getX();
+                    int y = (int) event.getY();
+                    int w = player.getRectangle().width();
+                    int h = player.getRectangle().height();
 
-                Rect touchPoint = new Rect(x, y, x+1, y+1);
-                if (userInterface.playerCollide(touchPoint)) {
-                    UserInterface.eatBanana();
-                }
-                if (userInterface.musicButtonClick(touchPoint)) {
-                    UserInterface.stopMusic();
-                    // stop music
-                }
+                    Rect rect = new Rect(x - w / 2, y - h / 2, x + w / 2, y + h / 2);
+
+                    if (!obstacleManager.playerCollide(rect)) {
+                        playerPosition.set(x, y);
+                    }
+
+
+                    Rect touchPoint = new Rect(x, y, x + 1, y + 1);
+                    if (userInterface.playerCollide(touchPoint)) {
+                        UserInterface.eatBanana();
+                    }
+                    if (userInterface.musicButtonClick(touchPoint)) {
+                        UserInterface.stopMusic();
+                        // stop music
+                    }
 
                     if (userInterface.menuButtonClick(touchPoint)) {
                         Intent intent = new Intent(Constants.CURRENT_CONTEXT, MainActivity.class);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK|Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
                         UserInterface.ring.stop();
                         Constants.CURRENT_CONTEXT.startActivity(intent);
                         // Go to Main Menu
+                    }
+                    if (goal != null) {
+                        if (goal.playerCollide(touchPoint)) {
+                            storyBoard = goal.openStoryBoard();
+
+                            player.doDamage(10);
+                            damageMillis = System.currentTimeMillis() + 250;
+                            if (UserInterface.health == 0)
+                                player.killCharacter();
+                            // VÄLIAIKAINEN TESTI DAMAGE
+
+                        } else {
+                            damageMillis = 0;
+                        }
+
+                    }
+                    player.moveTo(playerPosition);
+
+
+                    break;
                 }
-                if (goal.playerCollide(touchPoint)){
-                     storyBoard = goal.openStoryBoard();
-
-                    player.doDamage(10);
-                    damageMillis = System.currentTimeMillis() + 250;
-                    if (UserInterface.health == 0)
-                        player.killCharacter();
-                    // VÄLIAIKAINEN TESTI DAMAGE
-
-                }
-                else {
-                    damageMillis = 0;
-                }
-
-
-
-                player.moveTo(playerPosition);
-
-
-                break;
         }
     }
 

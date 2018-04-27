@@ -1,5 +1,6 @@
 package com.leaves.nine.mustamets;
 
+import android.content.res.XmlResourceParser;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
@@ -9,6 +10,11 @@ import android.graphics.PointF;
 import android.graphics.Rect;
 import android.media.MediaPlayer;
 import android.util.Log;
+
+import org.xmlpull.v1.XmlPullParser;
+import org.xmlpull.v1.XmlPullParserException;
+
+import java.io.IOException;
 
 import static com.leaves.nine.mustamets.UserInterface.*;
 import static com.leaves.nine.mustamets.UserInterface.health;
@@ -200,5 +206,22 @@ public class Player implements GameObject {
         animManager.update();
 
         lastTime = System.currentTimeMillis();
+    }
+
+    public Point readPosition(XmlResourceParser parser) throws IOException, XmlPullParserException {
+        parser.next();
+        float x = 0, y = 0;
+        if(parser.getName().equals("position")) {
+            for (int i = 0; i < parser.getAttributeCount(); i++) {
+                if (parser.getAttributeName(i).equals("x")) {
+                    x = Float.parseFloat(parser.getAttributeValue(i)) / 100;
+                } else if (parser.getAttributeName(i).equals("y")) {
+                    y = Float.parseFloat(parser.getAttributeValue(i)) / 100;
+                }
+            }
+        }
+        parser.next();
+        Point position = new Point((int)(x*Constants.SCREEN_WIDTH),(int)(y*Constants.SCREEN_HEIGHT));
+        return position;
     }
 }

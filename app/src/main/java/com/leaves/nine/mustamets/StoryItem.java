@@ -27,7 +27,7 @@ public class StoryItem extends Collectible implements StoryObject {
     private static boolean completed = false;
     private Canvas myCanvas;
 
-    private DoorObject exit;
+    private DoorObject exit = null;
 
     private String id = "";
 
@@ -138,7 +138,9 @@ public class StoryItem extends Collectible implements StoryObject {
 
     @Override
     public void advanceStory() {
-        exit.completeObjective(this);
+        if(exit != null) {
+            exit.completeObjective(this);
+        }
     }
 
     public String getId() {
