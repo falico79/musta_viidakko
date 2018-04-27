@@ -28,7 +28,7 @@ public class DoorObject implements GameObject, StoryObject {
     private Bitmap itemBitmap;
     private String exitText;
     public static boolean drawPopup = false;
-    private StoryObject object;
+    private StoryItem object = null;
 
     private boolean completed = false;
 
@@ -134,7 +134,7 @@ public class DoorObject implements GameObject, StoryObject {
         return completed;
     }
 
-    public void addObjective(StoryObject objective) {
+    public void addObjective(StoryItem objective) {
         object = objective;
     }
 
@@ -155,8 +155,10 @@ public class DoorObject implements GameObject, StoryObject {
     }
 
     public void completeObjective(StoryItem storyItem) {
-        if(storyItem.getId().equals(storyItem.getId())) {
-            completed = true;
+        if(object != null) {
+            if (object.getId().equals(storyItem.getId())) {
+                completed = true;
+            }
         }
     }
 

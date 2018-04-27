@@ -22,7 +22,7 @@ public class GamePlayScene implements Scene {
     public GamePlayScene() {
         Constants.objectManager = new GameObjectManager();
 
-        mapList = new int[]{ R.xml.map001, R.xml.map002, R.xml.map003, R.xml.map004 };
+        mapList = new int[]{ R.xml.map001, R.xml.map003, R.xml.map004 };
 
         Constants.objectManager.loadMap(nextMap());
 
